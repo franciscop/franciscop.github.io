@@ -43,12 +43,12 @@
   <body>
     <main>
       <h1>Better Promises</h1>
-      <div class="meta">
-        <a href="https://francisco.io/"><img class="logo" src="/assets/img/logo.png"> Francisco Presencia</a>
-        <a href="https:///francisco.io/blog/better-promises/">🕑 <time datetime="2018-09-24T06:45+09:00">{loading...}</time></a>
-      </div>
+        <div class="meta">
+          <a href="https://francisco.io/"><img class="logo" src="/assets/img/logo.png"> Francisco Presencia</a>
+          <a href="https:///francisco.io/blog/better-promises/">🕑 <time datetime="2018-09-24T06:45+09:00">{loading...}</time></a>
+        </div>
 
-      <p>I love promises. It isn&#39;t a secret and I&#39;ve said it <a href="https://medium.com/server-for-node-js/async-await-are-awesome-c0834cc09ab">many</a>, <a href="https://medium.com/server-for-node-js/servers-middleware-promises-41d82a184452">many</a> times. They come in all asynchronous shapes and colors. But I think they could be better, so let&#39;s see some places where they fall short:</p>
+        <p>I love promises. It isn&#39;t a secret and I&#39;ve said it <a href="https://medium.com/server-for-node-js/async-await-are-awesome-c0834cc09ab">many</a>, <a href="https://medium.com/server-for-node-js/servers-middleware-promises-41d82a184452">many</a> times. They come in all asynchronous shapes and colors. But I think they could be better, so let&#39;s see some places where they fall short:</p>
 <h3 id="parallel-resolution">Parallel resolution</h3>
 <p>To run several promises at once you&#39;ll use <code>Promise.all()</code> quite too often:</p>
 <pre><code class="language-js">// Load several websites at once
@@ -106,19 +106,17 @@ const files = Promise.all(readmes.map(read));</code></pre>
 <h2 id="wrap-up">Wrap up</h2>
 <p>My initial experience by creating and using <code>magic-promises</code> has been great. There is still some things to do, like <code>.filter()</code> accepting promises that resolve to booleans, but that&#39;s for the next chapter.</p>
 
+        <footer class="love">
+          <a href="https://www.paypal.me/franciscopresencia/10">💙 💚 💛 💜</a>
+        </footer>
+        <comment-box title="" site="https://francisco.io/blog/better-promises"></comment-box>
 
-      <footer class="love">
-        <a href="https://www.paypal.me/franciscopresencia/10">💙 💚 💛 💜</a>
-      </footer>
-
-      <comment-box title="" site="https://francisco.io/blog/better-promises"></comment-box>
-
-      <script src="https://cdn.jsdelivr.net/npm/timeago.js/dist/timeago.min.js"></script>
-      <script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.15.0/prism.min.js"></script>
-      <script src="https://comments.network/comments.js"></script>
-      <script type="text/javascript">
-        timeago().render(document.querySelectorAll('time'));
-      </script>
+        <script src="https://cdn.jsdelivr.net/npm/timeago.js/dist/timeago.min.js"></script>
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.15.0/prism.min.js"></script>
+        <script src="https://comments.network/comments.js"></script>
+        <script type="text/javascript">
+          timeago().render(document.querySelectorAll('time'));
+        </script>
 
       <script>
         // Google Analytics

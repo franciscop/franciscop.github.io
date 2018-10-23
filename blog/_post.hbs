@@ -43,25 +43,27 @@
   <body>
     <main>
       <h1>{{title}}</h1>
-      <div class="meta">
-        <a href="https://francisco.io/"><img class="logo" src="/assets/img/logo.png"> Francisco Presencia</a>
-        <a href="https:///francisco.io/blog/{{id}}/">🕑 <time datetime="{{date}}">{loading...}</time></a>
-      </div>
+      {{#if date}}
+        <div class="meta">
+          <a href="https://francisco.io/"><img class="logo" src="/assets/img/logo.png"> Francisco Presencia</a>
+          <a href="https:///francisco.io/blog/{{id}}/">🕑 <time datetime="{{date}}">{loading...}</time></a>
+        </div>
 
-      {{{body}}}
+        {{{body}}}
+        <footer class="love">
+          <a href="https://www.paypal.me/franciscopresencia/10">💙 💚 💛 💜</a>
+        </footer>
+        <comment-box title="" site="https://francisco.io/blog/{{id}}"></comment-box>
 
-      <footer class="love">
-        <a href="https://www.paypal.me/franciscopresencia/10">💙 💚 💛 💜</a>
-      </footer>
-
-      <comment-box title="" site="https://francisco.io/blog/{{id}}"></comment-box>
-
-      <script src="https://cdn.jsdelivr.net/npm/timeago.js/dist/timeago.min.js"></script>
-      <script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.15.0/prism.min.js"></script>
-      <script src="https://comments.network/comments.js"></script>
-      <script type="text/javascript">
-        timeago().render(document.querySelectorAll('time'));
-      </script>
+        <script src="https://cdn.jsdelivr.net/npm/timeago.js/dist/timeago.min.js"></script>
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.15.0/prism.min.js"></script>
+        <script src="https://comments.network/comments.js"></script>
+        <script type="text/javascript">
+          timeago().render(document.querySelectorAll('time'));
+        </script>
+      {{else}}
+        <p>Glad you are here! This post is not avalaible yet here, but as you know you can <a href="https://github.com/franciscop/franciscop.github.io/tree/master/blog">read it in my Github</a>.</p>
+      {{/if}}
 
       <script>
         // Google Analytics

@@ -1,32 +1,77 @@
 <!DOCTYPE html>
 <html lang="en">
-<head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <meta http-equiv="X-UA-Compatible" content="ie=edge">
-  <title>No Blog!</title>
-  <link href="/assets/style.min.css" rel="stylesheet">
-</head>
-<body>
-  <main>
-    <h1>No Blog Yet 💔</h1>
-    <p>Nope! Not at all. Please visit
-      <a href="https://medium.com/@fpresencia" rel="noopener noreferrer">my Medium posts</a> or
-      <a href="https://stackoverflow.com/users/938236/francisco-presencia" rel="noopener noreferrer">my StackOverflow answers</a>
-      for the time being.
-    </p>
-  </main>
+  <head>
+    <meta charset="UTF-8">
+    <link rel="shortcut icon" type="image/png" href="/assets/img/logo.png"/>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
 
+    <!-- Standard -->
+    <title>No blog yet 💔 - Francisco Presencia</title>
+    <meta content="Blog, Francisco Presencia, Francisco, Presencia, Software, Programmer, Javascript, Node.js" name="keywords">
+    <meta content="" name="description">
 
-  <script>
-    // Google Analytics
-    (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
-    (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
-    m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
-    })(window,document,'script','//www.google-analytics.com/analytics.js','ga');
+    <!-- Thanks https://moz.com/blog/meta-data-templates-123 -->
+    <!-- Twitter Card data -->
+    <meta name="twitter:card" content="summary_large_image">
+    <meta name="twitter:site" content="@fpresencia">
+    <meta name="twitter:title" content="No blog yet 💔 - Francisco Presencia">
+    <meta name="twitter:description" content="">
+    <meta name="twitter:creator" content="@fpresencia">
+    <meta name="twitter:image" content="https://francisco.io/assets/img/card_cta.png">
 
-    ga('create', 'UA-63739359-1', 'auto');
-    ga('send', 'pageview');
-  </script>
-</body>
+    <!-- Open Graph data -->
+    <meta property="og:title" content="No blog yet 💔 - Francisco Presencia" />
+    <meta property="og:type" content="profile" />
+    <meta property="og:url" content="https:///francisco.io/blog/blog/" />
+    <meta property="og:image" content="https://francisco.io/assets/img/card_cta.png" />
+    <meta property="og:description" content="" />
+    <meta property="og:site_name" content="Blog of Francisco Presencia" />
+
+    <link href="/assets/style.min.css" rel="stylesheet">
+    <style media="screen">
+      h2, h3 {
+        margin: 1.2em 0 -.3em;
+        padding: 0;
+      }
+
+      h1 + p, h2 + p, p {
+        margin: .8em 0;
+      }
+    </style>
+  </head>
+  <body>
+    <main>
+      <h1>No blog yet 💔</h1>
+        <div class="meta">
+          <a href="https://francisco.io/"><img class="logo" src="/assets/img/logo.png"> Francisco Presencia</a>
+          <a href="https:///francisco.io/blog/blog/">🕑 <time datetime="now">{loading...}</time></a>
+        </div>
+
+        <p>Nope! Not at all. Please visit <a href="https://medium.com/@fpresencia">my Medium posts</a> or <a href="https://stackoverflow.com/users/938236/francisco-presencia">my StackOverflow answers</a> for the time being.</p>
+
+        <footer class="love">
+          <a href="https://www.paypal.me/franciscopresencia/10">💙 💚 💛 💜</a>
+        </footer>
+        <comment-box title="" site="https://francisco.io/blog/blog"></comment-box>
+
+        <script src="https://cdn.jsdelivr.net/npm/timeago.js/dist/timeago.min.js"></script>
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.15.0/prism.min.js"></script>
+        <script src="https://comments.network/comments.js"></script>
+        <script type="text/javascript">
+          timeago().render(document.querySelectorAll('time'));
+        </script>
+
+      <script>
+        // Google Analytics
+        (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+        (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+        m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+        })(window,document,'script','//www.google-analytics.com/analytics.js','ga');
+
+        ga('create', 'UA-63739359-1', 'auto');
+        ga('send', 'pageview');
+      </script>
+    </main>
+  </body>
 </html>

@@ -2,8 +2,9 @@
 layout: post.hbs
 title: A Javascript of two worlds
 description: an exploration on how Javascript world is dividing more and more
-date: 2018-09-27 23:00:00+09:00
 ---
+
+> DRAFT
 
 I was quietly going on my things when the thought invaded me. It is *so nice* to write and publish small Javascript libraries in 2018. Or to explore other developer's amazing tools like [Sindre Sorhus'](https://github.com/sindresorhus/).
 

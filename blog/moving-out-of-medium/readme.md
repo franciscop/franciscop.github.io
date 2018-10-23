@@ -2,8 +2,9 @@
 layout: post.hbs
 title: Moving out of Medium
 description: I've decided to move my blog to my personal website. Here I explain why
-date: 2018-09-28 22:20:00+09:00
 ---
+
+> DRAFT
 
 Medium was back in the day the best place to blog. I've never really blogged, just wrote a thing or two from time to time. So the cost of maintaining a full wordpress and paying $10/month didn't make any sense back then.
 
