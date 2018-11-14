@@ -1,0 +1,78 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <title>Mathematics</title>
+  <style media="screen">
+  html,
+  body {
+    margin: 0;
+    padding: 0;
+    height: 100%;
+  }
+  canvas {
+    display: block;
+  }
+  </style>
+</head>
+<body>
+
+  <canvas></canvas>
+
+  <script src="https://cdn.jsdelivr.net/npm/faster-faster" charset="utf-8"></script>
+  <script type="text/javascript">
+    const plot = (fn, { from = -1, to = 100, step = 0.1, max, min } = {}) => {
+      const line = (ctx, first, ...points) => {
+        ctx.beginPath();
+        ctx.moveTo(first.x, first.y);
+        points.forEach(({ x, y }) => ctx.lineTo(x, y));
+        ctx.stroke();
+      };
+
+      const drawGrid = ({ ctx, width, height, x, y, step }) => {
+        while (step < 10) step = step * 2;
+        while (step > 50) step = step / 2;
+
+        ctx.strokeStyle = "#AAAAAA";
+        for (let i = x; i <= width; i += step) {
+          line(ctx, { x: i, y: y + 3 }, { x: i, y: y - 3 });
+        }
+        for (let i = x; i > 0; i -= step) {
+          line(ctx, { x: i, y: y + 3 }, { x: i, y: y - 3 });
+        }
+        for (let i = y; i <= height; i += step) {
+          line(ctx, { x: x + 3, y: i }, { x: x - 3, y: i });
+        }
+        for (let i = y; i > 0; i -= step) {
+          line(ctx, { x: x + 3, y: i }, { x: x - 3, y: i });
+        }
+
+        ctx.strokeStyle = "#FF0000";
+        line(ctx, { x: 0, y }, { x: width, y });
+        line(ctx, { x, y: 0 }, { x, y: height });
+      };
+
+      faster(({ ctx, width, height }) => {
+        const points = [];
+        for (let x = from; x <= to; x += step) {
+          points.push({ x, y: fn(x) });
+        }
+        const high = max || Math.max(...points.map(({ y }) => y));
+        const low = min || Math.min(...points.map(({ y }) => y));
+        const xx = x => (x - from) * width / (to - from);
+        const yy = y => (height * 0.95) - (y - low) * (height * 0.9) / (high - low);
+
+        ctx.strokeStyle="#000000";
+        line(ctx, ...points.map(({ x, y }) => ({ x: xx(x), y: yy(y) })));
+
+        drawGrid({ ctx, width, height, x: xx(0), y: yy(0), step: step * width / (to - from) });
+      });
+    };
+
+    const res = prompt('Type your formula as a plain Javascript function:', 'x => Math.pow(x, 2) * Math.sin(x)');
+    plot(eval(res));
+  </script>
+</body>
+</html>
