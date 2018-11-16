@@ -5,7 +5,7 @@ description: After tweaking things around, I could get a basic PHP version runni
 date: 2018-11-16 22:00:00+09:00
 ---
 
-
+DRAFT
 
 *But why?* you are wondering. You must be given some context: this is an experiment [inside another experiment I'm doing](https://github.com/franciscop/create-static-web) to learn about Static Site Generators. PHP is the first language I knew well and I wanted to test whether it's a horrible or just a bad idea to use it for templates.
 
@@ -27,7 +27,7 @@ title: Running PHP in Javascript
 ---
 <head>
   <title>{{title}}</title>
-  <meta property="og:title" content="{{title}}" />
+  <meta content="{{title}}" property="og:title" />
 </head>
 ```
 

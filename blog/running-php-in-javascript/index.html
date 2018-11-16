@@ -71,7 +71,8 @@
           <a href="https:///francisco.io/blog/running-php-in-javascript/">🕑 <time datetime="Fri Nov 16 2018 22:00:00 GMT+0900 (JST)">{loading...}</time></a>
         </div>
 
-        <p><em>But why?</em> you are wondering. You must be given some context: this is an experiment <a href="https://github.com/franciscop/create-static-web">inside another experiment I&#39;m doing</a> to learn about Static Site Generators. PHP is the first language I knew well and I wanted to test whether it&#39;s a horrible or just a bad idea to use it for templates.</p>
+        <p>DRAFT</p>
+<p><em>But why?</em> you are wondering. You must be given some context: this is an experiment <a href="https://github.com/franciscop/create-static-web">inside another experiment I&#39;m doing</a> to learn about Static Site Generators. PHP is the first language I knew well and I wanted to test whether it&#39;s a horrible or just a bad idea to use it for templates.</p>
 <blockquote>
 <p>If you come from Google trying to find how to run PHP inside Javascript, you are very likely lost. Beware, this article is only for experts! <a title="the '/s' stands for 'sarcasm'" href="https://www.urbandictionary.com/define.php?term=%2Fs">/s</a></p>
 </blockquote>
@@ -84,7 +85,7 @@ title: Running PHP in Javascript
 ---
 &lt;head&gt;
   &lt;title&gt;{{title}}&lt;/title&gt;
-  &lt;meta property=&quot;og:title&quot; content=&quot;{{title}}&quot; /&gt;
+  &lt;meta content=&quot;{{title}}&quot; property=&quot;og:title&quot; /&gt;
 &lt;/head&gt;</code></pre>
 <p>It reminded me quite a bit to what can be achieved with raw PHP:</p>
 <pre><code class="language-html">&lt;? $title = &quot;Running PHP in Javascript&quot;; ?&gt;
