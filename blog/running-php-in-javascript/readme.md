@@ -118,7 +118,7 @@ The long-awaited demo! Turn your internet off, hide your kids and say your praye
 
 <script src="php.min.js"></script>
 <form id="horrible">
-<textarea>alert(php(&#x60;&#x3C;?= &#x22;for fun! &#x22;.$right ?&#x3E;&#x60;, { right: &#x27;&#x1F622;&#x27; }));</textarea>
+<textarea>alert(php(&#x60;&#x3C;?= &#x22;for fun! &#x22;.$icon ?&#x3E;&#x60;, { icon: &#x27;&#x1F389;&#x27; }));</textarea>
 <button data-tooltip="Are you sure? Like, 100%? There is no coming back">EVAL()</button>
 <script>
   const $ = sel => document.querySelector(sel);
