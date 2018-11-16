@@ -1,0 +1,186 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8">
+    <link rel="shortcut icon" type="image/png" href="/assets/img/logo.png"/>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+
+    <!-- Standard -->
+    <title>Running PHP in Javascript 🤯 - Francisco Presencia</title>
+    <meta content="Blog, Francisco Presencia, Francisco, Presencia, Software, Programmer, Javascript, Node.js" name="keywords">
+    <meta content="After tweaking things around, I could get a basic PHP version running in pure Javascript" name="description">
+
+    <!-- Thanks https://moz.com/blog/meta-data-templates-123 -->
+    <!-- Twitter Card data -->
+    <meta name="twitter:card" content="summary_large_image">
+    <meta name="twitter:site" content="@fpresencia">
+    <meta name="twitter:title" content="Running PHP in Javascript 🤯 - Francisco Presencia" />
+    <meta name="twitter:description" content="After tweaking things around, I could get a basic PHP version running in pure Javascript" />
+    <meta name="twitter:creator" content="@fpresencia" />
+    <meta name="twitter:image" content="https://francisco.io/blog/running-php-in-javascript/header.png" />
+
+    <!-- Open Graph data -->
+    <meta property="og:title" content="Running PHP in Javascript 🤯 - Francisco Presencia" />
+    <meta property="og:type" content="profile" />
+    <meta property="og:url" content="https:///francisco.io/blog/running-php-in-javascript/" />
+    <meta property="og:image" content="https://francisco.io/blog/running-php-in-javascript/header.png" />
+    <meta property="og:description" content="After tweaking things around, I could get a basic PHP version running in pure Javascript" />
+    <meta property="og:site_name" content="Blog of Francisco Presencia" />
+
+    <link href="/assets/style.min.css" rel="stylesheet">
+    <style media="screen">
+      h2, h3 {
+        padding: 1.2em 0 -.3em;
+        margin: 0;
+      }
+
+      h1 + p, h2 + p, p {
+        padding: .8em 0;
+      }
+
+      p img {
+        display: block;
+        max-width: 100%;
+      }
+
+      [data-tooltip] {
+        display: inline-block;
+      }
+      [data-tooltip]:after {
+        margin-top: 11px;
+      }
+      .tooltip-right[data-tooltip]:after {
+        margin-left: 5px;
+      }
+      .tooltip-left[data-tooltip]:before {
+        margin-right: 6px;
+      }
+      .tooltip-left[data-tooltip]:after {
+        right: 100%;
+        margin-top: 0;
+      }
+    </style>
+  </head>
+  <body>
+    <main>
+      <h1>Running PHP in Javascript 🤯</h1>
+        <div class="meta">
+          <a href="https://francisco.io/"><img class="logo" src="/assets/img/logo.png"> Francisco Presencia</a>
+          <a href="https://www.paypal.me/franciscopresencia/10"><img class="logo" src="/assets/img/icon_paypal.svg"> Donate</a>
+          <a href="https:///francisco.io/blog/running-php-in-javascript/">🕑 <time datetime="Fri Nov 16 2018 22:00:00 GMT+0900 (JST)">{loading...}</time></a>
+        </div>
+
+        <p><em>But why?</em> you are wondering. You must be given some context: this is an experiment <a href="https://github.com/franciscop/create-static-web">inside another experiment I&#39;m doing</a> to learn about Static Site Generators. PHP is the first language I knew well and I wanted to test whether it&#39;s a horrible or just a bad idea to use it for templates.</p>
+<blockquote>
+<p>If you come from Google trying to find how to run PHP inside Javascript, you are very likely lost. Beware, this article is only for experts! <a title="the '/s' stands for 'sarcasm'" href="https://www.urbandictionary.com/define.php?term=%2Fs">/s</a></p>
+</blockquote>
+<p>Since a large motivator for my site generator is to rely purely on Node.js and <em>not</em> to have to install Ruby, I also don&#39;t want to install PHP! But can you run PHP inside Javascript? I only need the most basic PHP features: variables, echo, loops.</p>
+<p>The language of this article might be deceiving, but there is really <strong><a href="#demo">a working demo</a></strong>.</p>
+<h2 id="initial-objective">Initial objective</h2>
+<p>The idea came when I was making FrontMatter work properly for the current file. It is also related to my general dissatisfaction with the Node.js template engines, but that a topic for another day:</p>
+<pre><code class="language-html">---
+title: Running PHP in Javascript
+---
+&lt;head&gt;
+  &lt;title&gt;{{title}}&lt;/title&gt;
+  &lt;meta property=&quot;og:title&quot; content=&quot;{{title}}&quot; /&gt;
+&lt;/head&gt;</code></pre>
+<p>It reminded me quite a bit to what can be achieved with raw PHP:</p>
+<pre><code class="language-html">&lt;? $title = &quot;Running PHP in Javascript&quot;; ?&gt;
+&lt;head&gt;
+  &lt;title&gt;&lt;?= $title ?&gt;&lt;/title&gt;
+  &lt;meta content=&quot;&lt;?= $title ?&gt;&quot; property=&quot;og:title&quot; /&gt;
+&lt;/head&gt;</code></pre>
+<h2 id="googling-around">Googling around</h2>
+<p>Google just led me to <a href="https://stackoverflow.com/search?q=run+php+inside+javascript">780 StackOverflow questions</a> with <code>-1</code> average score. After reading some, I believe the average score should be more like <code>-5</code>. I also learned that devs are trying to do:</p>
+<pre><code class="language-js">alert(&quot;&lt;?= &quot;Hello world&quot; ?&gt;&quot;);</code></pre>
+<p>As an astute reader might notice, that is supposed to run first through the PHP server, <em>then</em> sent to the browser and finally run the resulting <code>alert(&quot;Hello world&quot;)</code> on the client. But this level of sophistication is too high, I just want to run raw PHP on the browser! I want something like this:</p>
+<pre><code class="language-js">// No server needed, &quot;just&quot; Javascript parsing PHP
+alert(php(`&lt;?= &quot;Hello world&quot; ?&gt;`));</code></pre>
+<p>But not even <a href="https://www.reddit.com/r/atwoodslaw/search?q=php">Reddit&#39;s &quot;PHP&quot; search</a> in <a href="https://www.reddit.com/r/atwoodslaw/"> <code>r/atwoodslaw</code></a> could find what I seek.</p>
+<h2 id="promising-finds">Promising finds</h2>
+<p>After getting lucky with a <em>&quot;PHP parser Javascript&quot;</em> search, I end up finding the package <a href="https://github.com/glayzzle/php-parser"><code>php-parser</code> in Github/npm</a>. The problem is that the output is an <a href="https://en.wikipedia.org/wiki/Abstract_syntax_tree"><em>Abstract Syntax Tree</em></a>. I just wanted to run the code, not whatever an abstract tree seems to be:</p>
+<p><img src="abstract-tree.q50.jpg" alt="An abstract tree somehow"></p>
+<p>Since you are reading this it means that in the <a href="https://github.com/glayzzle/php-parser#related-projects"><em>Related Projects</em></a> category I found my next clue. I head to the website with the <span title="I know, it's a tanuki ;)">funny looking cat</span>: <a href="https://gitlab.com/kornelski/babel-preset-php"><code>babel-preset-php</code></a>. It transpiles PHP into Javascript 🎉</p>
+<p>Since babel is in total chaos with the whole <code>babel-loader</code> vs <code>@babel/loader</code> and no one knows which one is which (ironic, innit?), I give up and take a break. I do practice <a href="https://core.cards/">my Kanjis</a>, speak with my family in Spanish and think about the English title for this article.</p>
+<h2 id="building-up-the-library">Building up the library</h2>
+<p>Fresh again, I ravage the library <code>babel-preset-php</code> to build a different project. I am now using:</p>
+<ul>
+<li><code>php-parser</code> to transform the PHP into the Abstract Tree thing.</li>
+<li><code>babel-preset-php</code> ravaged files to do something that I have no idea what it is but it&#39;s the only way to keep it working.</li>
+<li><code>@babel/generator</code> to finally generate the Javascript from the previous step.</li>
+<li>A bit of Javascript. I use the fancier <code>new Function()</code> to pretend it&#39;s better than <code>eval()</code>.</li>
+</ul>
+<p>I wasn&#39;t going to show you, but since my code is so tiny thanks to those great libraries I can just paste it here for your satisfaction:</p>
+<pre><code class="language-js">import parser from &#39;php-parser&#39;;
+import translator from &#39;./translator&#39;;
+import generator from &#39;@babel/generator&#39;;
+
+const run = (code, opts) =&gt; {
+  // Make a closure so that `out` doesn&#39;t collide with the PHP variables:
+  let out = &#39;&#39;;
+  // Define `echo` since it&#39;s used in the transpiled JS code for some reason
+  opts.echo = opts.echo || (str =&gt; out += str);
+  // Pretend this is safe. Pro tip: IT IS NOT SAFE
+  new Function(...Object.keys(opts), code)(...Object.values(opts));
+  return out;
+}
+
+export default function (src, opts = {}) {
+  const ast = new parser().parseCode(src);
+  const file = translator.translateProgram(ast);
+  const code = generator(file).code;
+  return run(code, opts);
+};</code></pre>
+<p>Later on I will export some individual parts for better testing, but that is really all there is to it.</p>
+<h2 id="demo">Demo</h2>
+<p>The long-awaited demo! Turn your internet off, hide your kids and say your prayers. I already loaded <a href="./php.min.js">the <code>php()</code> function</a> for you, but are you <em>ready</em> to run it?</p>
+<script src="php.min.js"></script>
+<form id="horrible">
+<textarea>alert(php(&#x60;&#x3C;?= &#x22;for fun! &#x22;.$right ?&#x3E;&#x60;, { right: &#x27;&#x1F622;&#x27; }));</textarea>
+<button data-tooltip="Are you sure? Like, 100%? There is no coming back">EVAL()</button>
+<script>
+  const $ = sel => document.querySelector(sel);
+  $('#horrible').addEventListener('submit', e => {
+    e.preventDefault();
+    eval($('#horrible textarea').value);
+  });
+</script>
+
+<p>Tips to make the demo better for <a href="https://documentation.agency/">lack of documentation</a>:</p>
+<ul>
+<li>I am running <code>eval()</code> against your code. The php() function is basically running <code>eval()</code> internally. Do I get a &quot;Go to Jail card&quot; for basically doing <code>eval(eval(...))</code>?</li>
+<li>Use <a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Template_literals">backticks</a> as the first argument of <code>php()</code> to allow for any quote type and multi line.</li>
+<li>Provide a second argument as a plain object like <code>{ hello: &#39;world&#39; }</code> to define the variable <code>$hello</code> with the value <code>&quot;world&quot;</code> inside PHP.</li>
+</ul>
+<h2 id="closures">Closures</h2>
+<p>Yup, this sucks. Use it just as an example of things that should never happen. If you <em>really, really</em> need to use this, and want more features, feel free to throw me loads of money and I might consider talking you out of it or contact the relevant health authorities.</p>
+<p>Now that we have reached this point and seeing how many languages have AST generators, I ponder: can <em>any</em> language be transpiled to Javascript? <a href="https://www.youtube.com/watch?v=kY-pUxKQMUE">Should we do it?</a> Webassembly is gonna eat JS so we might just give it a try!</p>
+<p>If you hate PHP, or Javascript, and you <em>really</em> want to let me and others know<a title="You want to feel like you belong, but spreading hate on PHP won't change the fact that no one really likes you...">*</a> feel free to comment on Hacker News:</p>
+
+        <footer class="love">
+          <a href="https://www.paypal.me/franciscopresencia/10">💙 💚 💛 💜</a>
+        </footer>
+        <comment-box title="" site="https://francisco.io/blog/running-php-in-javascript"></comment-box>
+
+        <script src="https://cdn.jsdelivr.net/npm/timeago.js/dist/timeago.min.js"></script>
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.15.0/prism.min.js"></script>
+        <script src="https://comments.network/comments.js"></script>
+        <script type="text/javascript">
+          timeago().render(document.querySelectorAll('time'));
+        </script>
+
+      <script>
+        // Google Analytics
+        (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+        (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+        m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+        })(window,document,'script','//www.google-analytics.com/analytics.js','ga');
+
+        ga('create', 'UA-63739359-1', 'auto');
+        ga('send', 'pageview');
+      </script>
+    </main>
+  </body>
+</html>

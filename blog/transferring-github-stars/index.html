@@ -15,28 +15,50 @@
     <!-- Twitter Card data -->
     <meta name="twitter:card" content="summary_large_image">
     <meta name="twitter:site" content="@fpresencia">
-    <meta name="twitter:title" content="Transferring Github stars 🌠 - Francisco Presencia">
-    <meta name="twitter:description" content="an exploration on how Javascript world is dividing more and more">
-    <meta name="twitter:creator" content="@fpresencia">
-    <meta name="twitter:image" content="https://francisco.io/assets/img/card_cta.png">
+    <meta name="twitter:title" content="Transferring Github stars 🌠 - Francisco Presencia" />
+    <meta name="twitter:description" content="an exploration on how Javascript world is dividing more and more" />
+    <meta name="twitter:creator" content="@fpresencia" />
+    <meta name="twitter:image" content="https://francisco.io/blog/transferring-github-stars/header.png" />
 
     <!-- Open Graph data -->
     <meta property="og:title" content="Transferring Github stars 🌠 - Francisco Presencia" />
     <meta property="og:type" content="profile" />
     <meta property="og:url" content="https:///francisco.io/blog/transferring-github-stars/" />
-    <meta property="og:image" content="https://francisco.io/assets/img/card_cta.png" />
+    <meta property="og:image" content="https://francisco.io/blog/transferring-github-stars/header.png" />
     <meta property="og:description" content="an exploration on how Javascript world is dividing more and more" />
     <meta property="og:site_name" content="Blog of Francisco Presencia" />
 
     <link href="/assets/style.min.css" rel="stylesheet">
     <style media="screen">
       h2, h3 {
-        margin: 1.2em 0 -.3em;
-        padding: 0;
+        padding: 1.2em 0 -.3em;
+        margin: 0;
       }
 
       h1 + p, h2 + p, p {
-        margin: .8em 0;
+        padding: .8em 0;
+      }
+
+      p img {
+        display: block;
+        max-width: 100%;
+      }
+
+      [data-tooltip] {
+        display: inline-block;
+      }
+      [data-tooltip]:after {
+        margin-top: 11px;
+      }
+      .tooltip-right[data-tooltip]:after {
+        margin-left: 5px;
+      }
+      .tooltip-left[data-tooltip]:before {
+        margin-right: 6px;
+      }
+      .tooltip-left[data-tooltip]:after {
+        right: 100%;
+        margin-top: 0;
       }
     </style>
   </head>
@@ -45,6 +67,7 @@
       <h1>Transferring Github stars 🌠</h1>
         <div class="meta">
           <a href="https://francisco.io/"><img class="logo" src="/assets/img/logo.png"> Francisco Presencia</a>
+          <a href="https://www.paypal.me/franciscopresencia/10"><img class="logo" src="/assets/img/icon_paypal.svg"> Donate</a>
           <a href="https:///francisco.io/blog/transferring-github-stars/">🕑 <time datetime="Sat Oct 20 2018 17:00:00 GMT+0900 (JST)">{loading...}</time></a>
         </div>
 
