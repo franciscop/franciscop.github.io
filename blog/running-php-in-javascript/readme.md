@@ -76,7 +76,7 @@ Since babel is in total chaos with the whole `babel-loader` vs `@babel/loader` a
 
 ## Building up the library
 
-Fresh again, I ravage the library `babel-preset-php` to build a different project. I am now using:
+Fresh again, I scavenge the library `babel-preset-php` for my project. I am now using:
 
 - `php-parser` to transform the PHP into the Abstract Tree thing.
 - `babel-preset-php` ravaged files to do something that I have no idea what it is but it's the only way to keep it working.

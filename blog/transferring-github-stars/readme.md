@@ -1,7 +1,7 @@
 ---
 layout: post.hbs
 title: Transferring Github stars 🌠
-description: an exploration on how Javascript world is dividing more and more
+description: Aftermath of how I moved stars to a great project from an simple project with undeserved stars
 date: 2018-10-20 17:00:00+09:00
 ---
 
