@@ -9,14 +9,14 @@
     <!-- Standard -->
     <title>Running PHP in Javascript 🤯 - Francisco Presencia</title>
     <meta content="Blog, Francisco Presencia, Francisco, Presencia, Software, Programmer, Javascript, Node.js" name="keywords">
-    <meta content="After tweaking things around, I could get a basic PHP version running in pure Javascript" name="description">
+    <meta content="I could get a basic PHP version transpiling and running in pure Javascript. No server needed." name="description">
 
     <!-- Thanks https://moz.com/blog/meta-data-templates-123 -->
     <!-- Twitter Card data -->
     <meta name="twitter:card" content="summary_large_image">
     <meta name="twitter:site" content="@fpresencia">
     <meta name="twitter:title" content="Running PHP in Javascript 🤯 - Francisco Presencia" />
-    <meta name="twitter:description" content="After tweaking things around, I could get a basic PHP version running in pure Javascript" />
+    <meta name="twitter:description" content="I could get a basic PHP version transpiling and running in pure Javascript. No server needed." />
     <meta name="twitter:creator" content="@fpresencia" />
     <meta name="twitter:image" content="https://francisco.io/blog/running-php-in-javascript/header.png" />
 
@@ -25,7 +25,7 @@
     <meta property="og:type" content="article" />
     <meta property="og:url" content="https:///francisco.io/blog/running-php-in-javascript/" />
     <meta property="og:image" content="https://francisco.io/blog/running-php-in-javascript/header.png" />
-    <meta property="og:description" content="After tweaking things around, I could get a basic PHP version running in pure Javascript" />
+    <meta property="og:description" content="I could get a basic PHP version transpiling and running in pure Javascript. No server needed." />
     <meta property="og:site_name" content="Blog of Francisco Presencia" />
 
     <link href="/assets/style.min.css" rel="stylesheet">
@@ -68,16 +68,15 @@
         <div class="meta">
           <a href="https://francisco.io/"><img class="logo" src="/assets/img/logo.png"> Francisco Presencia</a>
           <a href="https://www.paypal.me/franciscopresencia/10"><img class="logo" src="/assets/img/icon_paypal.svg"> Donate</a>
-          <a href="https:///francisco.io/blog/running-php-in-javascript/">🕑 <time datetime="Fri Nov 16 2018 22:00:00 GMT+0900 (JST)">{loading...}</time></a>
+          <a href="https:///francisco.io/blog/running-php-in-javascript/">🕑 <time datetime="Sat Nov 17 2018 13:00:00 GMT+0900 (JST)">{loading...}</time></a>
         </div>
 
-        <p>DRAFT</p>
-<p><em>But why?</em> you are wondering. You must be given some context: this is an experiment <a href="https://github.com/franciscop/create-static-web">inside another experiment I&#39;m doing</a> to learn about Static Site Generators. PHP is the first language I knew well and I wanted to test whether it&#39;s a horrible or just a bad idea to use it for templates.</p>
+        <p><em>But why?</em> you are wondering. You must be given some context: this is an experiment <a href="https://github.com/franciscop/create-static-web">inside another experiment I&#39;m doing</a> to learn about Static Site Generators. PHP is the first language I knew well and I wanted to test whether it&#39;s a horrible or just a bad idea to use it for templates.</p>
 <blockquote>
 <p>If you come from Google trying to find how to run PHP inside Javascript, you are very likely lost. Beware, this article is only for experts! <a title="the '/s' stands for 'sarcasm'" href="https://www.urbandictionary.com/define.php?term=%2Fs">/s</a></p>
 </blockquote>
 <p>Since a large motivator for my site generator is to rely purely on Node.js and <em>not</em> to have to install Ruby, I also don&#39;t want to install PHP! But can you run PHP inside Javascript? I only need the most basic PHP features: variables, echo, loops.</p>
-<p>The language of this article might be deceiving, but there is really <strong><a href="#demo">a working demo</a></strong>.</p>
+<p>The sarcastic language of this article might be deceiving, but there is <strong><a href="#demo">a working demo below</a></strong>.</p>
 <h2 id="initial-objective">Initial objective</h2>
 <p>The idea came when I was making FrontMatter work properly for the current file. It is also related to my general dissatisfaction with the Node.js template engines, but that a topic for another day:</p>
 <pre><code class="language-html">---
@@ -102,7 +101,7 @@ alert(php(`&lt;?= &quot;Hello world&quot; ?&gt;`));</code></pre>
 <p>But not even <a href="https://www.reddit.com/r/atwoodslaw/search?q=php">Reddit&#39;s &quot;PHP&quot; search</a> in <a href="https://www.reddit.com/r/atwoodslaw/"> <code>r/atwoodslaw</code></a> could find what I seek.</p>
 <h2 id="promising-finds">Promising finds</h2>
 <p>After getting lucky with a <em>&quot;PHP parser Javascript&quot;</em> search, I end up finding the package <a href="https://github.com/glayzzle/php-parser"><code>php-parser</code> in Github/npm</a>. The problem is that the output is an <a href="https://en.wikipedia.org/wiki/Abstract_syntax_tree"><em>Abstract Syntax Tree</em></a>. I just wanted to run the code, not whatever an abstract tree seems to be:</p>
-<p><img src="abstract-tree.q50.jpg" alt="An abstract tree somehow"></p>
+<p><a href="https://www.pexels.com/photo/abstract-architecture-art-artistic-262577/"><img src="abstract-tree.q50.jpg" alt="An abstract tree somehow"></a></p>
 <p>Since you are reading this it means that in the <a href="https://github.com/glayzzle/php-parser#related-projects"><em>Related Projects</em></a> category I found my next clue. I head to the website with the <span title="I know, it's a tanuki ;)">funny looking cat</span>: <a href="https://gitlab.com/kornelski/babel-preset-php"><code>babel-preset-php</code></a>. It transpiles PHP into Javascript 🎉</p>
 <p>Since babel is in total chaos with the whole <code>babel-loader</code> vs <code>@babel/loader</code> and no one knows which one is which (ironic, innit?), I give up and take a break. I do practice <a href="https://core.cards/">my Kanjis</a>, speak with my family in Spanish and think about the English title for this article.</p>
 <h2 id="building-up-the-library">Building up the library</h2>
@@ -139,7 +138,7 @@ export default function (src, opts = {}) {
 <p>The long-awaited demo! Turn your internet off, hide your kids and say your prayers. I already loaded <a href="./php.min.js">the <code>php()</code> function</a> for you, but are you <em>ready</em> to run it?</p>
 <script src="php.min.js"></script>
 <form id="horrible">
-<textarea>alert(php(&#x60;&#x3C;?= &#x22;for fun! &#x22;.$icon ?&#x3E;&#x60;, { icon: &#x27;&#x1F389;&#x27; }));</textarea>
+<textarea style="min-height:150px">alert(php(&#x60;&#x3C;?= &#x22;for fun! &#x22;.$icon ?&#x3E;&#x60;, { icon: &#x27;&#x1F389;&#x27; }));</textarea>
 <button data-tooltip="Are you sure? Like, 100%? There is no coming back">EVAL()</button>
 <script>
   const $ = sel => document.querySelector(sel);
@@ -151,13 +150,14 @@ export default function (src, opts = {}) {
 
 <p>Tips to make the demo better for <a href="https://documentation.agency/">lack of documentation</a>:</p>
 <ul>
-<li>I am running <code>eval()</code> against your code. The php() function is basically running <code>eval()</code> internally. Do I get a &quot;Go to Jail card&quot; for basically doing <code>eval(eval(...))</code>?</li>
 <li>Use <a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Template_literals">backticks</a> as the first argument of <code>php()</code> to allow for any quote type and multi line.</li>
-<li>Provide a second argument as a plain object like <code>{ hello: &#39;world&#39; }</code> to define the variable <code>$hello</code> with the value <code>&quot;world&quot;</code> inside PHP.</li>
+<li>Provide a second argument as a plain object like <code>{ hello: &#39;world&#39; }</code> to define the variable <code>$hello</code> with the value <code>&quot;world&quot;</code> inside the PHP code.</li>
+<li>If you want to run it with express use <code>{ _GET: req.query, _POST: req.body }</code> as the second argument (do <em>not</em> do it, specially on a live server).</li>
+<li>I am running <code>eval()</code> against your code. The php() function is basically running <code>eval()</code> internally. Do I get a &quot;Go to Jail card&quot; for basically doing <code>eval(eval(...))</code>?</li>
 </ul>
 <h2 id="closures">Closures</h2>
-<p>Yup, this sucks. Use it just as an example of things that should never happen. If you <em>really, really</em> need to use this, and want more features, feel free to throw me loads of money and I might consider talking you out of it or contact the relevant health authorities.</p>
-<p>Now that we have reached this point and seeing how many languages have AST generators, I ponder: can <em>any</em> language be transpiled to Javascript? <a href="https://www.youtube.com/watch?v=kY-pUxKQMUE">Should we do it?</a> Webassembly is gonna eat JS so we might just give it a try!</p>
+<p>Yup, this sucks. Use it just as an example of things that should never happen. If you <em>really, really</em> need to use this, and want more features, feel free to throw me loads of money and I might consider talking you out of it or contacting the relevant health authorities.</p>
+<p>Now that we have reached this point and seeing how many languages have AST generators, I ponder: can <em>any</em> language be transpiled to Javascript? <a href="https://www.youtube.com/watch?v=kY-pUxKQMUE">Should we do it?</a> Webassembly is going to eat JS so we might just give it a try!</p>
 <p>If you hate PHP, or Javascript, and you <em>really</em> want to let me and others know<a title="You want to feel like you belong, but spreading hate on PHP won't change the fact that no one really likes you...">*</a> feel free to comment on Hacker News:</p>
 
         <footer class="love">

@@ -1,11 +1,11 @@
 ---
 layout: post.hbs
 title: Running PHP in Javascript 🤯
-description: After tweaking things around, I could get a basic PHP version running in pure Javascript
-date: 2018-11-16 22:00:00+09:00
+description: I could get a basic PHP version transpiling and running in pure Javascript. No server needed.
+date: 2018-11-17 13:00:00+09:00
 ---
 
-DRAFT
+
 
 *But why?* you are wondering. You must be given some context: this is an experiment [inside another experiment I'm doing](https://github.com/franciscop/create-static-web) to learn about Static Site Generators. PHP is the first language I knew well and I wanted to test whether it's a horrible or just a bad idea to use it for templates.
 
@@ -13,7 +13,7 @@ DRAFT
 
 Since a large motivator for my site generator is to rely purely on Node.js and *not* to have to install Ruby, I also don't want to install PHP! But can you run PHP inside Javascript? I only need the most basic PHP features: variables, echo, loops.
 
-The language of this article might be deceiving, but there is really **[a working demo](#demo)**.
+The sarcastic language of this article might be deceiving, but there is **[a working demo below](#demo)**.
 
 
 
@@ -66,7 +66,7 @@ But not even [Reddit's "PHP" search](https://www.reddit.com/r/atwoodslaw/search?
 
 After getting lucky with a *"PHP parser Javascript"* search, I end up finding the package [`php-parser` in Github/npm](https://github.com/glayzzle/php-parser). The problem is that the output is an [*Abstract Syntax Tree*](https://en.wikipedia.org/wiki/Abstract_syntax_tree). I just wanted to run the code, not whatever an abstract tree seems to be:
 
-![An abstract tree somehow](abstract-tree.q50.jpg)
+[![An abstract tree somehow](abstract-tree.q50.jpg)](https://www.pexels.com/photo/abstract-architecture-art-artistic-262577/)
 
 Since you are reading this it means that in the [*Related Projects*](https://github.com/glayzzle/php-parser#related-projects) category I found my next clue. I head to the website with the <span title="I know, it's a tanuki ;)">funny looking cat</span>: [`babel-preset-php`](https://gitlab.com/kornelski/babel-preset-php). It transpiles PHP into Javascript 🎉
 
@@ -118,7 +118,7 @@ The long-awaited demo! Turn your internet off, hide your kids and say your praye
 
 <script src="php.min.js"></script>
 <form id="horrible">
-<textarea>alert(php(&#x60;&#x3C;?= &#x22;for fun! &#x22;.$icon ?&#x3E;&#x60;, { icon: &#x27;&#x1F389;&#x27; }));</textarea>
+<textarea style="min-height:150px">alert(php(&#x60;&#x3C;?= &#x22;for fun! &#x22;.$icon ?&#x3E;&#x60;, { icon: &#x27;&#x1F389;&#x27; }));</textarea>
 <button data-tooltip="Are you sure? Like, 100%? There is no coming back">EVAL()</button>
 <script>
   const $ = sel => document.querySelector(sel);
@@ -130,16 +130,17 @@ The long-awaited demo! Turn your internet off, hide your kids and say your praye
 
 Tips to make the demo better for [lack of documentation](https://documentation.agency/):
 
-- I am running `eval()` against your code. The php() function is basically running `eval()` internally. Do I get a "Go to Jail card" for basically doing `eval(eval(...))`?
 - Use [backticks](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Template_literals) as the first argument of `php()` to allow for any quote type and multi line.
-- Provide a second argument as a plain object like `{ hello: 'world' }` to define the variable `$hello` with the value `"world"` inside PHP.
+- Provide a second argument as a plain object like `{ hello: 'world' }` to define the variable `$hello` with the value `"world"` inside the PHP code.
+- If you want to run it with express use `{ _GET: req.query, _POST: req.body }` as the second argument (do *not* do it, specially on a live server).
+- I am running `eval()` against your code. The php() function is basically running `eval()` internally. Do I get a "Go to Jail card" for basically doing `eval(eval(...))`?
 
 
 
 ## Closures
 
-Yup, this sucks. Use it just as an example of things that should never happen. If you *really, really* need to use this, and want more features, feel free to throw me loads of money and I might consider talking you out of it or contact the relevant health authorities.
+Yup, this sucks. Use it just as an example of things that should never happen. If you *really, really* need to use this, and want more features, feel free to throw me loads of money and I might consider talking you out of it or contacting the relevant health authorities.
 
-Now that we have reached this point and seeing how many languages have AST generators, I ponder: can *any* language be transpiled to Javascript? [Should we do it?](https://www.youtube.com/watch?v=kY-pUxKQMUE) Webassembly is gonna eat JS so we might just give it a try!
+Now that we have reached this point and seeing how many languages have AST generators, I ponder: can *any* language be transpiled to Javascript? [Should we do it?](https://www.youtube.com/watch?v=kY-pUxKQMUE) Webassembly is going to eat JS so we might just give it a try!
 
 If you hate PHP, or Javascript, and you *really* want to let me and others know<a title="You want to feel like you belong, but spreading hate on PHP won't change the fact that no one really likes you...">\*</a> feel free to comment on Hacker News:
