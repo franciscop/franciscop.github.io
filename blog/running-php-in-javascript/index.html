@@ -153,6 +153,7 @@ export default function (src, opts = {}) {
 <li>Use <a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Template_literals">backticks</a> as the first argument of <code>php()</code> to allow for any quote type and multi line.</li>
 <li>Provide a second argument as a plain object like <code>{ hello: &#39;world&#39; }</code> to define the variable <code>$hello</code> with the value <code>&quot;world&quot;</code> inside the PHP code.</li>
 <li>If you want to run it with express use <code>{ _GET: req.query, _POST: req.body }</code> as the second argument (do <em>not</em> do it, specially on a live server).</li>
+<li>You could pass <code>window</code> as the second argument as well if you prefer PHP instead of Javascript. Heck, you could make a tool that finds and runs all <code>&lt;script src=&quot;ohmy.php&quot;  type=&quot;application/php&quot;&gt;&lt;/script&gt;</code>.</li>
 <li>I am running <code>eval()</code> against your code. The php() function is basically running <code>eval()</code> internally. Do I get a &quot;Go to Jail card&quot; for basically doing <code>eval(eval(...))</code>?</li>
 </ul>
 <h2 id="closures">Closures</h2>

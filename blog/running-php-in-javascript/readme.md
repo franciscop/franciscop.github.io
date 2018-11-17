@@ -133,6 +133,7 @@ Tips to make the demo better for [lack of documentation](https://documentation.a
 - Use [backticks](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Template_literals) as the first argument of `php()` to allow for any quote type and multi line.
 - Provide a second argument as a plain object like `{ hello: 'world' }` to define the variable `$hello` with the value `"world"` inside the PHP code.
 - If you want to run it with express use `{ _GET: req.query, _POST: req.body }` as the second argument (do *not* do it, specially on a live server).
+- You could pass `window` as the second argument as well if you prefer PHP instead of Javascript. Heck, you could make a tool that finds and runs all `<script src="ohmy.php"  type="application/php"></script>`.
 - I am running `eval()` against your code. The php() function is basically running `eval()` internally. Do I get a "Go to Jail card" for basically doing `eval(eval(...))`?
 
 
