@@ -1,0 +1,133 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <title>Custom Components</title>
+  <link rel="stylesheet" href="https://unpkg.com/picnic@6.5.0/picnic.min.css">
+  <link rel="stylesheet" href="style.css">
+  <link rel="import" href="github-repo.html">
+</head>
+<body>
+  <template id="github-repo" base="https://github.com/franciscop/">
+    <style>
+      a {
+        display: block;
+        padding: 10px 10px 7px;
+        color: #333;
+        text-decoration: none;
+        transition: all .3s ease;
+        border-radius: .2em;
+        border: 2px solid #eee;
+      }
+      a:hover {
+        cursor: pointer;
+        border: 2px solid rgba(255, 0, 0, .5);
+        animation: rainbow 1s linear infinite;
+      }
+      h3 {
+        margin: 0;
+        line-height: 28px;
+      }
+      p {
+        margin: 10px 0 0;
+      }
+      .block {
+        display: block;
+      }
+      .stars {
+        float: right;
+        font-size: .8rem;
+        /* border: 1px solid #ccc; */
+        padding: 0 6px;
+        line-height: 28px;
+        margin: 0 0 0 5px;
+        border-radius: 3px;
+      }
+      .icon {
+        width: 28px;
+        display: inline-block;
+        text-align: center;
+      }
+      code {
+        display: inline-block;
+        padding: 0 8px;
+        background: #eee;
+      }
+    
+      @keyframes rainbow {
+        0% {
+          filter: hue-rotate(0deg);
+        }
+        100% {
+          filter: hue-rotate(360deg);
+        }
+      }
+    </style>
+    
+    
+    <div>
+      <a slot-href>
+        <h3>
+          <span class="stars">⭐</span>
+          <span class="icon"><slot name="icon"></slot></span>
+          <code><slot name="id"></slot></code>
+        </h3>
+        <p><slot></slot></p>
+      </a>
+    </div>
+    
+    
+    <script>
+      // custom.onprops(({ base, id }) => ({ href: base + id }));
+      // custom.onload(async ({ href, element, template }) => { ... })
+    
+      onload(async ({ href, element, template }) => {
+        // Round the number like "3.5k" https://stackoverflow.com/a/9461657
+        const k = num => num > 999 ? (num / 1000).toFixed(1) + 'k' : num
+    
+        const name = href.split('/').slice(-2).join('/');
+        const url = 'https://api.github.com/repos/' + name;
+        const { stargazers_count } = await fetch(url).then(res => res.json());
+        if (!stargazers_count) return;
+        template.querySelector('.stars').innerText = '⭐ ' + k(stargazers_count);
+      });
+    </script>
+  </template>
+
+  <main>
+    <h1>Web Components demo</h1>
+
+    <p>A small demo to show how Custom Components can work. Look at the source code to see how cool they are or visit <a href="https://github.com/franciscop/franciscop.github.io/tree/master/demo/custom">the github repo demo</a>. This is the result:</p>
+
+    <div class="flex one two-600 three-900">
+      <github-repo id="server" icon="💻" href="https://github.com/franciscop/server">
+        Powerful and secure server for Node.js with websockets
+      </github-repo>
+
+      <github-repo id="brownies" icon="🍫" href="https://github.com/franciscop/brownies">
+        Delicious cookies, local and session storage manipulation
+      </github-repo>
+
+      <github-repo id="umbrellajs" icon="☔" href="https://github.com/franciscop/umbrella">
+        Lightweight library for DOM manipulation and events
+      </github-repo>
+
+      <github-repo id="drive-db" icon="📊" href="https://github.com/franciscop/drive-db">
+        Google Drive Spreadsheets as your local database
+      </github-repo>
+
+      <github-repo id="legally" icon="📚" href="https://github.com/franciscop/legally">
+        Check the licenses of npm dependency tree
+      </github-repo>
+
+      <github-repo id="translate" icon="🈂️" href="https://github.com/franciscop/translate">
+        Translate text on node.js and the browser with promises
+      </github-repo>
+    </div>
+  </main>
+
+  <script src="./custom.js" charset="utf-8"></script>
+</body>
+</html>

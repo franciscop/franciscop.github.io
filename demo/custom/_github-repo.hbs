@@ -1,0 +1,83 @@
+<style>
+  a {
+    display: block;
+    padding: 10px 10px 7px;
+    color: #333;
+    text-decoration: none;
+    transition: all .3s ease;
+    border-radius: .2em;
+    border: 2px solid #eee;
+  }
+  a:hover {
+    cursor: pointer;
+    border: 2px solid rgba(255, 0, 0, .5);
+    animation: rainbow 1s linear infinite;
+  }
+  h3 {
+    margin: 0;
+    line-height: 28px;
+  }
+  p {
+    margin: 10px 0 0;
+  }
+  .block {
+    display: block;
+  }
+  .stars {
+    float: right;
+    font-size: .8rem;
+    /* border: 1px solid #ccc; */
+    padding: 0 6px;
+    line-height: 28px;
+    margin: 0 0 0 5px;
+    border-radius: 3px;
+  }
+  .icon {
+    width: 28px;
+    display: inline-block;
+    text-align: center;
+  }
+  code {
+    display: inline-block;
+    padding: 0 8px;
+    background: #eee;
+  }
+
+  @keyframes rainbow {
+    0% {
+      filter: hue-rotate(0deg);
+    }
+    100% {
+      filter: hue-rotate(360deg);
+    }
+  }
+</style>
+
+
+<div>
+  <a slot-href>
+    <h3>
+      <span class="stars">⭐</span>
+      <span class="icon"><slot name="icon"></slot></span>
+      <code><slot name="id"></slot></code>
+    </h3>
+    <p><slot></slot></p>
+  </a>
+</div>
+
+
+<script>
+  // custom.onprops(({ base, id }) => ({ href: base + id }));
+  // custom.onload(async ({ href, element, template }) => { ... })
+
+  onload(async ({ href, element, template }) => {
+    // Round the number like "3.5k" https://stackoverflow.com/a/9461657
+    const k = num => num > 999 ? (num / 1000).toFixed(1) + 'k' : num
+
+    const name = href.split('/').slice(-2).join('/');
+    const url = 'https://api.github.com/repos/' + name;
+    const { stargazers_count } = await fetch(url).then(res => res.json());
+    if (!stargazers_count) return;
+    template.querySelector('.stars').innerText = '⭐ ' + k(stargazers_count);
+  });
+</script>

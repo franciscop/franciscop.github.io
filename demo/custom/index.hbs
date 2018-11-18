@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <title>Custom Components</title>
+  <link rel="stylesheet" href="https://unpkg.com/picnic@6.5.0/picnic.min.css">
+  <link rel="stylesheet" href="style.css">
+  <link rel="import" href="github-repo.html">
+</head>
+<body>
+  <template id="github-repo" base="https://github.com/franciscop/">
+    {{> github-repo}}
+  </template>
+
+  <main>
+    <h1>Web Components demo</h1>
+
+    <p>A small demo to show how Custom Components can work. Look at the source code to see how cool they are or visit <a href="https://github.com/franciscop/franciscop.github.io/tree/master/demo/custom">the github repo demo</a>. This is the result:</p>
+
+    <div class="flex one two-600 three-900">
+      <github-repo id="server" icon="💻" href="https://github.com/franciscop/server">
+        Powerful and secure server for Node.js with websockets
+      </github-repo>
+
+      <github-repo id="brownies" icon="🍫" href="https://github.com/franciscop/brownies">
+        Delicious cookies, local and session storage manipulation
+      </github-repo>
+
+      <github-repo id="umbrellajs" icon="☔" href="https://github.com/franciscop/umbrella">
+        Lightweight library for DOM manipulation and events
+      </github-repo>
+
+      <github-repo id="drive-db" icon="📊" href="https://github.com/franciscop/drive-db">
+        Google Drive Spreadsheets as your local database
+      </github-repo>
+
+      <github-repo id="legally" icon="📚" href="https://github.com/franciscop/legally">
+        Check the licenses of npm dependency tree
+      </github-repo>
+
+      <github-repo id="translate" icon="🈂️" href="https://github.com/franciscop/translate">
+        Translate text on node.js and the browser with promises
+      </github-repo>
+    </div>
+  </main>
+
+  <script src="./custom.js" charset="utf-8"></script>
+</body>
+</html>

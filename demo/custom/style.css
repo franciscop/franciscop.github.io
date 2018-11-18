@@ -1,0 +1,19 @@
+body {
+  width: 100%;
+  background: #faf linear-gradient(160deg, #faf, #88f);
+  background-size: cover;
+  background-attachment: fixed;
+}
+
+main {
+  margin: 60px auto;
+  padding: 60px;
+  height: auto;
+  max-width: 900px;
+  background: #fff;
+}
+
+h1 {
+  padding: 0;
+  line-height: 1;
+}
