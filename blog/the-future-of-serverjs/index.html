@@ -91,14 +91,14 @@ const server = require(&#39;server&#39;);
 const { get, post } = server.router;
 server([
   get(&#39;/&#39;, () =&gt; &#39;Hello world&#39;),
-  post(&#39;/&#39;, ({ body }) =&gt; `Hi ${body.name}`)
+  post(&#39;/&#39;, ctx =&gt; `Hi ${ctx.body.name}`)
 ]);</code></pre>
 <p>Now I am in a point where I <em>really</em> want to make <code>server@2</code> and I have many ideas after hundreds (thousands?) of hours of experimentation and trying several frameworks in front-end and back-end:</p>
 <pre><code class="language-js">// Example with my idea for server@2:
 import server, { get, post } from &#39;server&#39;;
 server([
   get(&#39;/&#39;, () =&gt; &#39;Hello world&#39;),
-  post(&#39;/&#39;, ({ body }) =&gt; `Hi ${body.name}`)
+  post(&#39;/&#39;, ctx =&gt; `Hi ${ctx.body.name}`)
 ]);</code></pre>
 <p>These are the ideas I have so far to improve from <code>server@1</code> to <code>server@2</code>:</p>
 <ul>

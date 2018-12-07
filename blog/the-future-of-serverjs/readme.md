@@ -32,7 +32,7 @@ const server = require('server');
 const { get, post } = server.router;
 server([
   get('/', () => 'Hello world'),
-  post('/', ({ body }) => `Hi ${body.name}`)
+  post('/', ctx => `Hi ${ctx.body.name}`)
 ]);
 ```
 
@@ -43,7 +43,7 @@ Now I am in a point where I *really* want to make `server@2` and I have many ide
 import server, { get, post } from 'server';
 server([
   get('/', () => 'Hello world'),
-  post('/', ({ body }) => `Hi ${body.name}`)
+  post('/', ctx => `Hi ${ctx.body.name}`)
 ]);
 ```
 
