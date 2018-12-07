@@ -36,7 +36,7 @@ server([
 ]);
 ```
 
-Now I am in a point where I *really* want to make `server@2` and I have many ideas after hundreds (thousands?) of hours of experimentation and trying several frameworks in front-end and back-end:
+Now I am in a point where I *really* want to make `server@2` and I have many ideas after thousands of hours of experimentation and trying several frameworks in both the front-end and the back-end:
 
 ```js
 // Example with my idea for server@2:
@@ -71,7 +71,7 @@ Donations have not worked so far, I got **$5 in total** for the 2 years since th
 
 ## Possible solutions
 
-So from my point of view and current situation, I have 3 options to continue with server.js:
+So from my point of view and current situation, I have 3 potential options for server.js:
 
 1. **Do it for myself**. Keep it very closed (read-only Github, offer no help, etc). While the community involvement has been highly positive, it still requires a large amount of time that I do not have. I would very much **not like this** though, I love Open Source and the community!
 
@@ -79,8 +79,6 @@ So from my point of view and current situation, I have 3 options to continue wit
 
 3. **Find big sponsors**. With a big company paying me I can focus exclusively on server.js for ~1 year. Facebook, Google, Stripe, Airbnb, etc. have shown great contributions to open source. I can live with $3000-4000/month (gross) and even spare some for design and copywriting.
 
-There are some other alternatives like joining an agency and basing their back-end work on server.js, contracting and doing this on the side, etc. but I think those are very rare.
+I really think it is the ideal moment for a lightweight Node.js server that uses modern workflows and it's easy to get started with. While Javascript on the back-end is not as sexy as the front-end, I believe server.js can turn things around.
 
-I really think it is the ideal moment for a lightweight Node.js server that uses modern workflows and it's easy to get started with. While Javascript back-end is not as sexy as the front-end, I believe server.js can turn things around.
-
-My preferred method would be 3 doubtlessly. But I do not even know how to reach to those big companies and get them to contribute, or what to offer in exchange. If you can help or have any advice, please contact me or tell me on Hacker News:
+My preferred method would be 3 doubtlessly. But **I do not know how to reach to those companies** and get them to contribute, or what to offer in exchange. If you can help or have any advice, please contact me or tell me on Hacker News:
