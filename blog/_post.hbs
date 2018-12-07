@@ -83,6 +83,18 @@
         <script src="https://comments.network/comments.js"></script>
         <script type="text/javascript">
           timeago().render(document.querySelectorAll('time'));
+          Prism.hooks.add("after-highlight", function () {
+            document.querySelectorAll('.token').forEach((el, i, all) => {
+              if (el.textContent !== 'get') return;
+              // Fix the get() and const { get }
+              if (all[i + 1] && all[i + 1].textContent === '(') {
+                el.classList.remove('keyword');
+                el.classList.add('function');
+              } else {
+                el.outerHTML = 'get';
+              }
+            });
+          });
         </script>
       {{else}}
         <p>Glad you are here! This post is not avalaible yet here, but as you know you can <a href="https://github.com/franciscop/franciscop.github.io/tree/master/blog">read it in my Github</a>.</p>

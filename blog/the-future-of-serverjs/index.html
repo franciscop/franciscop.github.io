@@ -117,11 +117,11 @@ server([
 <h2 id="the-solution-s-">The solution(s)</h2>
 <p>So from my point of view and current situation, I have 3 options to continue with server.js:</p>
 <ol>
-<li><p>Do it <strong>for myself</strong>. Keep it closed source or the closest equivalent (read-only Github, etc). While all the community involvement has been highly positive, it requires a large amount of time that I do not have. I would very much <strong>not like this</strong> though, I love Open Source and the community.</p>
+<li><p><strong>Do it for myself</strong>. Keep it closed source or the closest equivalent (read-only Github, etc). While all the community involvement has been highly positive, it requires a large amount of time that I do not have. I would very much <strong>not like this</strong> though, I love Open Source and the community.</p>
 </li>
 <li><p><strong>Sell the project</strong>. With increased monetary support and a paying community, I can focus my effort on what matters while reducing the support needed. I really like the way Alvaro Trigo <a href="https://alvarotrigo.com/fullPage/pricing/">is doing it with Fullpage.js</a>. This has many pros and cons to be considered.</p>
 </li>
-<li><p>Find <strong>big sponsors</strong>. With a big company paying me I can focus exclusively on server.js for ~1 year. Facebook, Google, Stripe, Airbnb, etc. have shown great contributions to open source. I can live with $3000-4000/month (gross) and even spare some for design and copywriting.</p>
+<li><p><strong>Find big sponsors</strong>. With a big company paying me I can focus exclusively on server.js for ~1 year. Facebook, Google, Stripe, Airbnb, etc. have shown great contributions to open source. I can live with $3000-4000/month (gross) and even spare some for design and copywriting.</p>
 </li>
 </ol>
 <p>There are some other alternatives like joining an agency and basing their back-end work on server.js, contracting and doing this on the side, etc. but I think those are very rare.</p>
@@ -138,6 +138,18 @@ server([
         <script src="https://comments.network/comments.js"></script>
         <script type="text/javascript">
           timeago().render(document.querySelectorAll('time'));
+          Prism.hooks.add("after-highlight", function () {
+            document.querySelectorAll('.token').forEach((el, i, all) => {
+              if (el.textContent !== 'get') return;
+              // Fix the get() and const { get }
+              if (all[i + 1] && all[i + 1].textContent === '(') {
+                el.classList.remove('keyword');
+                el.classList.add('function');
+              } else {
+                el.outerHTML = 'get';
+              }
+            });
+          });
         </script>
 
       <script>
