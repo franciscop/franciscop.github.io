@@ -5,7 +5,7 @@ description: I propose different ways to continue developing server.js and ask t
 date: 2018-12-08 03:00:00+09:00
 ---
 
-First, let me give you a little context. It was 2016 and I was teaching some friends about getting started with Node.js. Then (and now, for that matter) the state of the art was Express, with the two main alternatives being Koa and Hapi.js.
+First, let me give you a little context. It was 2016 and I was teaching Node.js to some friends. Then (and now) the state of the art was [Express](https://expressjs.com/), with the two main alternatives being [Koa](https://koajs.com/) and [Hapi](https://hapijs.com/).
 
 However, I was very dissatisfied having to explain how you should include a bunch of middleware to do the most basic things. It's cumbersome, error-prone and insecure by default:
 
