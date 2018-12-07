@@ -1,0 +1,168 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8">
+    <link rel="shortcut icon" type="image/png" href="/assets/img/logo.png"/>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+
+    <!-- Standard -->
+    <title>Async/Await are awesome — Francisco Presencia</title>
+    <meta content="Blog, Francisco Presencia, Francisco, Presencia, Software, Programmer, Javascript, Node.js" name="keywords">
+    <meta content="How these ES7 features can improve and simplify asynchronous Javascript greatly." name="description">
+
+    <!-- Thanks https://moz.com/blog/meta-data-templates-123 -->
+    <!-- Twitter Card data -->
+    <meta name="twitter:card" content="summary_large_image">
+    <meta name="twitter:site" content="@fpresencia">
+    <meta name="twitter:title" content="Async/Await are awesome — Francisco Presencia" />
+    <meta name="twitter:description" content="How these ES7 features can improve and simplify asynchronous Javascript greatly." />
+    <meta name="twitter:creator" content="@fpresencia" />
+    <meta name="twitter:image" content="https://francisco.io/blog/async-await-are-awesome/header.png" />
+
+    <!-- Open Graph data -->
+    <meta property="og:title" content="Async/Await are awesome — Francisco Presencia" />
+    <meta property="og:type" content="article" />
+    <meta property="og:url" content="https:///francisco.io/blog/async-await-are-awesome/" />
+    <meta property="og:image" content="https://francisco.io/blog/async-await-are-awesome/header.png" />
+    <meta property="og:description" content="How these ES7 features can improve and simplify asynchronous Javascript greatly." />
+    <meta property="og:site_name" content="Blog of Francisco Presencia" />
+
+    <link href="/assets/style.min.css" rel="stylesheet">
+  </head>
+  <body>
+    <main>
+      <h1>Async/Await are awesome</h1>
+        <div class="meta">
+          <a href="https://francisco.io/"><img class="logo" src="/assets/img/logo.png"> Francisco Presencia</a>
+          <a href="https://www.paypal.me/franciscopresencia/10"><img class="logo" src="/assets/img/icon_paypal.svg"> Donate</a>
+          <a href="https:///francisco.io/blog/async-await-are-awesome/">🕑 <time datetime="2017-04-06T00:00+09:00">{loading...}</time></a>
+        </div>
+
+        <p>It <a href="https://twitter.com/FPresencia/status/844859374778535936">just became apparent to me</a> that an async function that is called returns a Promise and that is really great. The reason is that there are few libraries that work great with it, including <a href="https://serverjs.io/">server for Node.js</a> and Jest.</p>
+<blockquote>
+<p>Good news: from Node.js 7.6 you have native async/await support!</p>
+</blockquote>
+<h2 id="server-middleware">Server middleware</h2>
+<p>By building <a href="https://comments.network/">Comments Network</a> I learned a couple of tricks. If we were to do it naively we could implement it like this with server:</p>
+<pre><code class="language-js">// Promise-based requests
+server(get(&#39;/story/:id&#39;, ctx =&gt; {
+  request(`API CALL${ctx.req.params.id}`).then(api =&gt; {
+    request(`HN${api.url}${ctx.req.params.id}`).then(hn =&gt; {
+      // Do some work with `api` and `hn` here
+      ctx.res.send(workedout);
+    });
+  });
+}));</code></pre>
+<pre><code class="language-js">// Async/Await based requests
+server(get(&#39;/story/:id&#39;, async ctx =&gt; {
+  const api = await request(`API CALL${ctx.req.params.id}`);
+  const hn = await request(`HN${api.url}${ctx.req.params.id}`);
+  // Do some work with `api` and `hn` here
+  return workedout;
+}));</code></pre>
+<p>You can use it now and forget about messy Promises and Callback Hell. Of course you will have to use libraries that are based on Promises as well, since some of the popular Node.js libraries such as <code>fs</code> and <code>request</code> are callback-based (check out <code>fs-promise</code> and <code>request-promises</code>).</p>
+<h2 id="testing">Testing</h2>
+<p>Now let’s see about Jest. By default, Jest and other testing frameworks accept two ways of doing asynchronous tests. Through a function that accepts a <code>done</code> parameter or through a function that returns a Promise. But thanks to <code>async</code> the third option is a no-brainer (<a href="https://github.com/franciscop/drive-db">see it live</a>):</p>
+<pre><code class="language-js">// Callback based
+it(&#39;can be loaded&#39;, done =&gt; {
+  drive.load().then(db =&gt; {
+    expect(db.data).toEqual(jasmine.any(Array));
+    expect(db.data.length).toBeGreaterThan(0);
+    done();
+  }).catch(done);
+});
+
+// Promise based
+it(&#39;[promise] can be loaded&#39;, () =&gt; {
+  return drive.load().then(db =&gt; {
+    expect(db.data).toEqual(jasmine.any(Array));
+    expect(db.data.length).toBeGreaterThan(0);
+  });
+});
+
+// Async/Await based
+it(&#39;[async] can be loaded&#39;, async () =&gt; {
+  const db = await drive.load();
+  expect(db.data).toEqual(jasmine.any(Array));
+  expect(db.data.length).toBeGreaterThan(0);
+});</code></pre>
+<p>That’s it. You don’t even need a return as functions return when finished so they will resolve then as expected.</p>
+<p><strong>HOWEVER</strong> not everything is as great as it looks. Testing for a case where an error is thrown is quite more difficult with <code>async</code>:</p>
+<pre><code class="language-js">// Callback based
+it(&#39;can be loaded&#39;, done =&gt; {
+  drive.load().catch(err =&gt; done());
+});
+
+// Promise based
+it(&#39;[promise] can be loaded&#39;, () =&gt; {
+  let passed = false;
+  return drive.load().then(db =&gt; {
+    passed = true;
+  }).catch().then(() =&gt; {
+    if (passed) throw new Error(&#39;Did not throw an error&#39;);
+  });
+});
+
+// Async/Await based
+it(&#39;[async] can be loaded&#39;, async () =&gt; {
+  try {
+    const db = await drive.load();
+  } catch (err) {
+    return;
+  }
+  throw new Error(&#39;Did not throw an error&#39;);
+});</code></pre>
+<p>But the good news is that with a bit of code you can fix this:</p>
+<pre><code class="language-js">throws = cb =&gt; async () =&gt; {
+  try {
+    const res = await cb();
+  } catch(err) {
+    return;
+  }
+  throw new Error(&#39;No error was thrown&#39;);
+};</code></pre>
+<p>Then you can use it like this with async/await; back to the good bits:</p>
+<pre><code class="language-js">it(&#39;[async] can be loaded&#39;, async () =&gt; {
+  await throws(() =&gt; drive.load());
+});</code></pre>
+<p>The future for Javascript is looking quite good even though there’s a long, fragmented road to get there. I’m building <a href="https://serverjs.io/">server for Node.js</a> to get there faster, <a href="https://francisco.us9.list-manage.com/subscribe?u=8f634b4eeb27e1bb51438f11f&amp;id=7b067d6820"><strong>subscribe</strong></a> or <a href="https://twitter.com/fpresencia"><strong>follow me</strong></a> to get updates!</p>
+<p><a href="https://medium.com/server-for-node-js/async-await-are-awesome-c0834cc09ab"><em>Originally posted on Medium</em></a></p>
+
+        <footer class="love">
+          <a href="https://www.paypal.me/franciscopresencia/10">💙 💚 💛 💜</a>
+        </footer>
+        <comment-box title="" site="https://francisco.io/blog/async-await-are-awesome"></comment-box>
+
+        <script src="https://cdn.jsdelivr.net/npm/timeago.js/dist/timeago.min.js"></script>
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.15.0/prism.min.js"></script>
+        <script src="https://comments.network/comments.js"></script>
+        <script type="text/javascript">
+          timeago().render(document.querySelectorAll('time'));
+          Prism.hooks.add("after-highlight", function () {
+            document.querySelectorAll('.token').forEach((el, i, all) => {
+              if (el.textContent !== 'get') return;
+              // Fix the get() and const { get }
+              if (all[i + 1] && all[i + 1].textContent === '(') {
+                el.classList.remove('keyword');
+                el.classList.add('function');
+              } else {
+                el.outerHTML = 'get';
+              }
+            });
+          });
+        </script>
+
+      <script>
+        // Google Analytics
+        (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+        (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+        m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+        })(window,document,'script','//www.google-analytics.com/analytics.js','ga');
+
+        ga('create', 'UA-63739359-1', 'auto');
+        ga('send', 'pageview');
+      </script>
+    </main>
+  </body>
+</html>

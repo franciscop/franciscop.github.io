@@ -1,0 +1,118 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8">
+    <link rel="shortcut icon" type="image/png" href="/assets/img/logo.png"/>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+
+    <!-- Standard -->
+    <title>Getting a great npm name — Francisco Presencia</title>
+    <meta content="Blog, Francisco Presencia, Francisco, Presencia, Software, Programmer, Javascript, Node.js" name="keywords">
+    <meta content="Discovered a way to get taken npm names and shared it with the Javascript community" name="description">
+
+    <!-- Thanks https://moz.com/blog/meta-data-templates-123 -->
+    <!-- Twitter Card data -->
+    <meta name="twitter:card" content="summary_large_image">
+    <meta name="twitter:site" content="@fpresencia">
+    <meta name="twitter:title" content="Getting a great npm name — Francisco Presencia" />
+    <meta name="twitter:description" content="Discovered a way to get taken npm names and shared it with the Javascript community" />
+    <meta name="twitter:creator" content="@fpresencia" />
+    <meta name="twitter:image" content="https://francisco.io/blog/getting-a-great-npm-name/header.png" />
+
+    <!-- Open Graph data -->
+    <meta property="og:title" content="Getting a great npm name — Francisco Presencia" />
+    <meta property="og:type" content="article" />
+    <meta property="og:url" content="https:///francisco.io/blog/getting-a-great-npm-name/" />
+    <meta property="og:image" content="https://francisco.io/blog/getting-a-great-npm-name/header.png" />
+    <meta property="og:description" content="Discovered a way to get taken npm names and shared it with the Javascript community" />
+    <meta property="og:site_name" content="Blog of Francisco Presencia" />
+
+    <link href="/assets/style.min.css" rel="stylesheet">
+  </head>
+  <body>
+    <main>
+      <h1>Getting a great npm name</h1>
+        <div class="meta">
+          <a href="https://francisco.io/"><img class="logo" src="/assets/img/logo.png"> Francisco Presencia</a>
+          <a href="https://www.paypal.me/franciscopresencia/10"><img class="logo" src="/assets/img/icon_paypal.svg"> Donate</a>
+          <a href="https:///francisco.io/blog/getting-a-great-npm-name/">🕑 <time datetime="2017-06-20T00:00+09:00">{loading...}</time></a>
+        </div>
+
+        <p>You might be surprised to know that I am developing <a href="https://serverjs.io/">server.js</a> under the npm name “server”, so I can direct users to just do <code>npm install server</code>. Wait, wasn’t this package taken already?</p>
+<p>In fact it was; there was a <code>0.0.3</code> version published a few years back. But npm’s “<a href="https://www.npmjs.com/policies/disputes">Package Name Disputes</a>” is pretty clear about it:</p>
+<blockquote>
+<p>“Some things are not allowed, and will be removed without discussion if they are brought to the attention of the npm registry admins, including but not limited to: […] “Squatting” on a package name that you plan to use, but aren’t actually using. […] Putting empty packages in the registry.”</p>
+</blockquote>
+<p>From the lack of use from the author and devs, npm decided to hand it over when the original author didn’t answer my emails. Let’s see how to do it.</p>
+<h2 id="a-package-has-a-name">A package has a name</h2>
+<p>First of all we have to identify a package name that we might want to use. My rule of thumb is to try to find a package that follows most of these:</p>
+<ul>
+<li><p><strong>Unstable</strong>: latest version in the low <strong>0.x</strong> or even in the <strong>0.0.x</strong>. This means the package is still marked as “in development” as per <a href="https://semver.org/">semver guideliness</a> so the work should still not be used in production by anyone.</p>
+</li>
+<li><p><strong>Inactive</strong>: The package has not received any significant update in years, meaning that the authors are probably long gone or don’t care anymore.</p>
+</li>
+<li><p><strong>Unused</strong>: The weekly installations are in the low numbers; they will never be 0 though, since there are many caches and crawlers just installing them (under 10/week is a good number). You don’t want to break packages used by thousands of developers.</p>
+</li>
+<li><p><strong>Trivial</strong>: there hasn’t been a lot of work put into the package. This is more of a respect thing as someone put a lot of work into it.</p>
+</li>
+</ul>
+<p>I find this info with <a href="https://jerz.setonhill.edu/writing/e-text/url-hacking-do-it-yourself-navigation/">url hacking</a> writing <a href="https://npmjs.com/package/NAME">https://npmjs.com/package/NAME</a> for precise matching, but the <a href="https://www.npmjs.com/">search functionality</a> has been improved greatly in the recent years so you can use that as well.</p>
+<p>There was something weird going on in the early npm versions so the name is case-sensitive; you’ll have to check the <strong>lowercase</strong> name as that’s the only supported ones nowadays.</p>
+<h2 id="get-the-package">Get the package</h2>
+<p>Great! You found an amazing package name that follows most of the points mentioned above. The quoted dispute policy is to automatically remove a package, but we might also want to use a name that is not in direct violation of the conditions. It’s time to wear our peopleware hat.</p>
+<p>It’s simple and <a href="https://www.npmjs.com/policies/disputes">well explained</a>: email the person holding the current package. Most people are actually easy to reason with so just ask nicely and give a valid reason (the name is perfect a package you are finishing). CC npm staff so in any way it will be resolved within 1–2 months.</p>
+<p>The other person might not have access to that email or not care anymore, in which case npm will intervene and give their verdict about what will happen after few weeks.</p>
+<h2 id="next-steps">Next steps</h2>
+<p>You might be asked by npm to publish from the 1.x version to avoid any possible compatibility issue. However you can get around this to not yet launch an official build by using 1.0.0-alpha.1 versions first.</p>
+<p><a href="https://twitter.com/fpresencia">Let me know</a> if you get a great name or have any question! Also <a href="https://serverjs.io/">check out server.js</a> to make a full Node.js server easily with npm install server and:</p>
+<pre><code class="language-js">// index.js
+
+// Include it and extract some methods for convenience
+const server = require(&#39;server&#39;);
+const { get, post } = server.router;
+
+// Launch server with some options and a couple of routes
+server({ port: 8080 },
+  get(&#39;/&#39;, () =&gt; &#39;Hello world&#39;),
+  post(&#39;/&#39;, ctx =&gt; console.log(ctx.data))
+);</code></pre>
+<p><em><a href="https://medium.com/server-for-node-js/getting-a-great-npm-name-b0b2b27a0e1b">Originally posted on Medium</a>.</em></p>
+
+        <footer class="love">
+          <a href="https://www.paypal.me/franciscopresencia/10">💙 💚 💛 💜</a>
+        </footer>
+        <comment-box title="" site="https://francisco.io/blog/getting-a-great-npm-name"></comment-box>
+
+        <script src="https://cdn.jsdelivr.net/npm/timeago.js/dist/timeago.min.js"></script>
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.15.0/prism.min.js"></script>
+        <script src="https://comments.network/comments.js"></script>
+        <script type="text/javascript">
+          timeago().render(document.querySelectorAll('time'));
+          Prism.hooks.add("after-highlight", function () {
+            document.querySelectorAll('.token').forEach((el, i, all) => {
+              if (el.textContent !== 'get') return;
+              // Fix the get() and const { get }
+              if (all[i + 1] && all[i + 1].textContent === '(') {
+                el.classList.remove('keyword');
+                el.classList.add('function');
+              } else {
+                el.outerHTML = 'get';
+              }
+            });
+          });
+        </script>
+
+      <script>
+        // Google Analytics
+        (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+        (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+        m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+        })(window,document,'script','//www.google-analytics.com/analytics.js','ga');
+
+        ga('create', 'UA-63739359-1', 'auto');
+        ga('send', 'pageview');
+      </script>
+    </main>
+  </body>
+</html>

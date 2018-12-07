@@ -1,7 +1,7 @@
 ---
 layout: post.hbs
-title: The future of Server.js
-description: I propose different ways to continue developing server.js and ask the community for advice on those.
+title: The future of Server.js 💻
+description: My plans to get server.js to version 2.0, current challenges and possible solutions to those.
 date: 2018-12-08 03:00:00+09:00
 ---
 

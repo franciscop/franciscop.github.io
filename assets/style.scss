@@ -480,3 +480,37 @@ header {
   left: calc(50% - 3px);
   border-radius: 50%;
 }
+
+
+
+
+h2, h3 {
+  padding: 1.2em 0 -.3em;
+  margin: 0;
+}
+
+h1 + p, h2 + p, p {
+  margin: 1em 0;
+}
+
+p img {
+  display: block;
+  max-width: 100%;
+}
+
+[data-tooltip] {
+  display: inline-block;
+}
+[data-tooltip]:after {
+  margin-top: 11px;
+}
+.tooltip-right[data-tooltip]:after {
+  margin-left: 5px;
+}
+.tooltip-left[data-tooltip]:before {
+  margin-right: 6px;
+}
+.tooltip-left[data-tooltip]:after {
+  right: 100%;
+  margin-top: 0;
+}
