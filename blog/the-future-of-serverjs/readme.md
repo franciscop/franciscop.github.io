@@ -50,9 +50,9 @@ server([
 These are the ideas I have so far to improve from `server@1` to `server@2`:
 
 - **Import syntax** like you are used in `React` or any other modern front-end workflow. This is coming soon in native Node.js so you'll be able to work better.
-- **Simplified response** so you can work with it on your own a lot easier. Inspired by `fetch()` and that server-render is becoming less common in favor of APIs.
+- **Simplified response** because server templates are becoming more rare in favor of APIs.
 - **Improved error handling**. In v1 it's similar to Express, but we can do much better.
-- **Lightweight** with no dependencies (or bundled). Install it in ~10s and you are ready to go.
+- **Lightweight** with no dependencies (or bundled). Install it in ~2s and you are ready to go.
 - **Plugins** are something that I've been working on very hard but were never released.
 - **Tutorials** including how to make server.js from scratch and many others.
 - **Minimal breaking changes**. Let's keep all the good parts and improve the bad ones!
@@ -61,11 +61,11 @@ These are the ideas I have so far to improve from `server@1` to `server@2`:
 
 ## The problem
 
-As the project evolved I got a fulltime job and I could not spend so much time on it anymore. Tutorials were not written, Github issues went unanswered and the documentation is only the basics.
+As the project evolved I got a fulltime job and I could not spend so much time on it anymore. Tutorials were not written, Github issues went unanswered and the documentation is still quite basic.
 
-The main problem is that **I do not have time**. I need to work fulltime (for food AND to keep my immigration VISA in Japan) so getting $100 or $300 per month would not change much. I'm in a point where it's either make it or break it, either I continue working fulltime or I work on server.js with the community.
+The main problem is that **I do not have time**. I need to work fulltime (for food AND to keep my immigration VISA in Japan). I'm in a make it or break it situation, either I continue working fulltime or I work on server.js with the community.
 
-Donations have not worked so far, I got `$5` for all the length of the project (~2 years). Pull requests were minimal, but I think they can improved greatly in `v2` after cleaning up the code and the tutorial on how to create server.js from scratch.
+Donations have not worked so far, I got **$5 in total** for the 2 years since the project started. That is the equivalent of **$0.21/month**, which is totally not sustainable.
 
 
 
@@ -73,11 +73,11 @@ Donations have not worked so far, I got `$5` for all the length of the project (
 
 So from my point of view and current situation, I have 3 options to continue with server.js:
 
-1. Do it **for myself**. Keep it closed source or the closest equivalent (read-only Github, etc). While all the community involvement has been highly positive, it requires a large amount of time that I do not have. I would very much **not like this** though, I love Open Source.
+1. Do it **for myself**. Keep it closed source or the closest equivalent (read-only Github, etc). While all the community involvement has been highly positive, it requires a large amount of time that I do not have. I would very much **not like this** though, I love Open Source and the community.
 
-2. **Sell the project**. With increased monetary support and a paying community, I can focus my effort on what matters while reducing the support needed. I really like the way Alvaro Trigo [is doing it with Fullpage.js](https://alvarotrigo.com/fullPage/pricing/). This has many pros and cons though.
+2. **Sell the project**. With increased monetary support and a paying community, I can focus my effort on what matters while reducing the support needed. I really like the way Alvaro Trigo [is doing it with Fullpage.js](https://alvarotrigo.com/fullPage/pricing/). This has many pros and cons to be considered.
 
-3. Find a **big sponsor**. With a big company paying my expenses I can live with that and focus exclusively on server.js for ~1 year. Facebook, Google, Stripe, Airbnb, etc. have shown great contributions to open source projects. I can live with $3000-4000/month (gross) and even spend a bit of that on external help (graphic design, copywriting). This would be a huge pay cut, but some things are more important than money.
+3. Find **big sponsors**. With a big company paying me I can focus exclusively on server.js for ~1 year. Facebook, Google, Stripe, Airbnb, etc. have shown great contributions to open source. I can live with $3000-4000/month (gross) and even spare some for design and copywriting.
 
 There are some other alternatives like joining an agency and basing their back-end work on server.js, contracting and doing this on the side, etc. but I think those are very rare.
 
