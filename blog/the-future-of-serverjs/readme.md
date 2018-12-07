@@ -73,7 +73,7 @@ Donations have not worked so far, I got **$5 in total** for the 2 years since th
 
 So from my point of view and current situation, I have 3 options to continue with server.js:
 
-1. **Do it for myself**. Keep it closed source or the closest equivalent (read-only Github, etc). While all the community involvement has been highly positive, it requires a large amount of time that I do not have. I would very much **not like this** though, I love Open Source and the community.
+1. **Do it for myself**. Keep it very closed (read-only Github, offer no help, etc). While the community involvement has been highly positive, it still requires a large amount of time that I do not have. I would very much **not like this** though, I love Open Source and the community!
 
 2. **Sell the project**. With increased monetary support and a paying community, I can focus my effort on what matters while reducing the support needed. I really like the way Alvaro Trigo [is doing it with Fullpage.js](https://alvarotrigo.com/fullPage/pricing/). This has many pros and cons to be considered.
 
