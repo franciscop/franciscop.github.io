@@ -53,9 +53,9 @@ These are the ideas I have so far to improve from `server@1` to `server@2`:
 - **Simplified response** so you can work with it on your own a lot easier inspired by `fetch()`.
 - **Improved error handling**. In v1 it's similar to Express, but we can do a lot better.
 - **Tutorials** including how to make server.js from scratch and many others.
-- **lightweight** with no dependencies (or bundled ones). Installing it takes ~2 seconds and you are ready to go.
-- **plugins** are something that I've been working on very hard but were never released.
-- **minimal breaking changes** of course. Let's keep all the good parts and improve the bad ones!
+- **Lightweight** with no dependencies (or bundled ones). Installing it takes ~2 seconds and you are ready to go.
+- **Plugins** are something that I've been working on very hard but were never released.
+- **Minimal breaking changes** of course. Let's keep all the good parts and improve the bad ones!
 
 
 
