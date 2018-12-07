@@ -83,22 +83,22 @@ app.use(bodyParser.urlencoded({ extended: true }));
 app.use(compression());
 // ... many other middleware needed
 app.get(&#39;/&#39;, (req, res) =&gt; res.send(&#39;Hello World!&#39;));
-app.post(&#39;/&#39;, (req, res) =&gt; res.send(`Posted: ${JSON.stringify(req.body)}`));
+app.post(&#39;/&#39;, (req, res) =&gt; res.send(`Hi ${req.body.name}`));
 app.listen(3000);</code></pre>
-<p>I decided to put a bunch of middleware together, throw in a bit of ES6+ and call it <code>server</code>. I have yet to come close to any other solution that is as intuitive and flexible as this! The same in <code>server</code>:</p>
+<p>I decided to put a bunch of middleware together, throw in a bit of ES6+ and call it <a href="https://serverjs.io/">server.js</a>. I have yet to come close to any other solution that is as intuitive and flexible as this! The same in <code>server</code>:</p>
 <pre><code class="language-js">// Example with the current `server`:
 const server = require(&#39;server&#39;);
 const { get, post } = server.router;
 server([
   get(&#39;/&#39;, () =&gt; &#39;Hello world&#39;),
-  post(&#39;/&#39;, ({ body }) =&gt; `Posted: ${JSON.stringify(body)}`)
+  post(&#39;/&#39;, ({ body }) =&gt; `Hi ${body.name}`)
 ]);</code></pre>
 <p>Now I am in a point where I <em>really</em> want to make <code>server@2</code> and I have many ideas after hundreds (thousands?) of hours of experimentation and trying several frameworks in front-end and back-end:</p>
 <pre><code class="language-js">// Example with my idea for server@2:
 import server, { get, post } from &#39;server&#39;;
 server([
   get(&#39;/&#39;, () =&gt; &#39;Hello world&#39;),
-  post(&#39;/&#39;, ({ body }) =&gt; `Posted: ${JSON.stringify(body)}`)
+  post(&#39;/&#39;, ({ body }) =&gt; `Hi ${body.name}`)
 ]);</code></pre>
 <p>These are the ideas I have so far to improve from <code>server@1</code> to <code>server@2</code>:</p>
 <ul>

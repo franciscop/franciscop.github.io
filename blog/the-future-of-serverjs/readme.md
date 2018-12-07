@@ -20,11 +20,11 @@ app.use(bodyParser.urlencoded({ extended: true }));
 app.use(compression());
 // ... many other middleware needed
 app.get('/', (req, res) => res.send('Hello World!'));
-app.post('/', (req, res) => res.send(`Posted: ${JSON.stringify(req.body)}`));
+app.post('/', (req, res) => res.send(`Hi ${req.body.name}`));
 app.listen(3000);
 ```
 
-I decided to put a bunch of middleware together, throw in a bit of ES6+ and call it `server`. I have yet to come close to any other solution that is as intuitive and flexible as this! The same in `server`:
+I decided to put a bunch of middleware together, throw in a bit of ES6+ and call it [server.js](https://serverjs.io/). I have yet to come close to any other solution that is as intuitive and flexible as this! The same in `server`:
 
 ```js
 // Example with the current `server`:
@@ -32,7 +32,7 @@ const server = require('server');
 const { get, post } = server.router;
 server([
   get('/', () => 'Hello world'),
-  post('/', ({ body }) => `Posted: ${JSON.stringify(body)}`)
+  post('/', ({ body }) => `Hi ${body.name}`)
 ]);
 ```
 
@@ -43,7 +43,7 @@ Now I am in a point where I *really* want to make `server@2` and I have many ide
 import server, { get, post } from 'server';
 server([
   get('/', () => 'Hello world'),
-  post('/', ({ body }) => `Posted: ${JSON.stringify(body)}`)
+  post('/', ({ body }) => `Hi ${body.name}`)
 ]);
 ```
 
