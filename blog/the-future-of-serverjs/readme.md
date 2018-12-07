@@ -69,7 +69,7 @@ Donations have not worked so far, I got **$5 in total** for the 2 years since th
 
 
 
-## The solution(s)
+## Possible solutions
 
 So from my point of view and current situation, I have 3 options to continue with server.js:
 
