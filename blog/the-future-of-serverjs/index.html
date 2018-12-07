@@ -72,7 +72,7 @@
         </div>
 
         <p>First, let me give you a little context. It was 2016 and I was teaching some friends about getting started with Node.js. Then (and now, for that matter) the state of the art was Express, with the two main alternatives being Koa and Hapi.js.</p>
-<p>However, I was very dissatisfied having to explain how you should include a bunch of middleware to do the most basic things. It&#39;s just cumbersome and error-prone:</p>
+<p>However, I was very dissatisfied having to explain how you should include a bunch of middleware to do the most basic things. It&#39;s cumbersome, error-prone and insecure by default:</p>
 <pre><code class="language-js">// Example with `express`:
 const express = require(&#39;express&#39;);
 const bodyParser = require(&#39;body-parser&#39;);
@@ -85,7 +85,7 @@ app.use(compression());
 app.get(&#39;/&#39;, (req, res) =&gt; res.send(&#39;Hello World!&#39;));
 app.post(&#39;/&#39;, (req, res) =&gt; res.send(`Posted: ${JSON.stringify(req.body)}`));
 app.listen(3000);</code></pre>
-<p>I decided to put a bunch of middleware together, throw in a bit of ES6+ and call it <code>server</code>. I have yet to come close to any other solution that is as intuitive and flexible as this! The same code in <code>server</code> is:</p>
+<p>I decided to put a bunch of middleware together, throw in a bit of ES6+ and call it <code>server</code>. I have yet to come close to any other solution that is as intuitive and flexible as this! The same in <code>server</code>:</p>
 <pre><code class="language-js">// Example with the current `server`:
 const server = require(&#39;server&#39;);
 const { get, post } = server.router;
@@ -93,7 +93,7 @@ server([
   get(&#39;/&#39;, () =&gt; &#39;Hello world&#39;),
   post(&#39;/&#39;, ({ body }) =&gt; `Posted: ${JSON.stringify(body)}`)
 ]);</code></pre>
-<p>Now I am in a point where I <em>really</em> want to make <code>server@2</code> and I have some ideas after hundreds (thousands?) of hours of experimentation for 2 years and trying many different frameworks in both front-end and back-end. The next iteration is going to be glorious:</p>
+<p>Now I am in a point where I <em>really</em> want to make <code>server@2</code> and I have many ideas after hundreds (thousands?) of hours of experimentation and trying several frameworks in front-end and back-end:</p>
 <pre><code class="language-js">// Example with my idea for server@2:
 import server, { get, post } from &#39;server&#39;;
 server([
@@ -103,19 +103,19 @@ server([
 <p>These are the ideas I have so far to improve from <code>server@1</code> to <code>server@2</code>:</p>
 <ul>
 <li><strong>Import syntax</strong> like you are used in <code>React</code> or any other modern front-end workflow. This is coming soon in native Node.js so you&#39;ll be able to work better.</li>
-<li><strong>Simplified response</strong> so you can work with it on your own a lot easier inspired by <code>fetch()</code>.</li>
-<li><strong>Improved error handling</strong>. In v1 it&#39;s similar to Express, but we can do a lot better.</li>
-<li><strong>Tutorials</strong> including how to make server.js from scratch and many others.</li>
-<li><strong>Lightweight</strong> with no dependencies (or bundled ones). Installing it takes ~2 seconds and you are ready to go.</li>
+<li><strong>Simplified response</strong> so you can work with it on your own a lot easier. Inspired by <code>fetch()</code> and that server-render is becoming less common in favor of APIs.</li>
+<li><strong>Improved error handling</strong>. In v1 it&#39;s similar to Express, but we can do much better.</li>
+<li><strong>Lightweight</strong> with no dependencies (or bundled). Install it in ~10s and you are ready to go.</li>
 <li><strong>Plugins</strong> are something that I&#39;ve been working on very hard but were never released.</li>
-<li><strong>Minimal breaking changes</strong> of course. Let&#39;s keep all the good parts and improve the bad ones!</li>
+<li><strong>Tutorials</strong> including how to make server.js from scratch and many others.</li>
+<li><strong>Minimal breaking changes</strong>. Let&#39;s keep all the good parts and improve the bad ones!</li>
 </ul>
 <h2 id="the-problem">The problem</h2>
-<p>As the project evolved I got a fulltime job and I could not spend so much time on it anymore. Tutorials were not written, Github issues were unanswered and the documentation is only the basics.</p>
+<p>As the project evolved I got a fulltime job and I could not spend so much time on it anymore. Tutorials were not written, Github issues went unanswered and the documentation is only the basics.</p>
 <p>The main problem is that <strong>I do not have time</strong>. I need to work fulltime (for food AND to keep my immigration VISA in Japan) so getting $100 or $300 per month would not change much. I&#39;m in a point where it&#39;s either make it or break it, either I continue working fulltime or I work on server.js with the community.</p>
 <p>Donations have not worked so far, I got <code>$5</code> for all the length of the project (~2 years). Pull requests were minimal, but I think they can improved greatly in <code>v2</code> after cleaning up the code and the tutorial on how to create server.js from scratch.</p>
 <h2 id="the-solution-s-">The solution(s)</h2>
-<p>So from my point of view, I have 3 options to continue with server.js:</p>
+<p>So from my point of view and current situation, I have 3 options to continue with server.js:</p>
 <ol>
 <li><p>Do it <strong>for myself</strong>. Keep it closed source or the closest equivalent (read-only Github, etc). While all the community involvement has been highly positive, it requires a large amount of time that I do not have. I would very much <strong>not like this</strong> though, I love Open Source.</p>
 </li>
@@ -124,7 +124,8 @@ server([
 <li><p>Find a <strong>big sponsor</strong>. With a big company paying my expenses I can live with that and focus exclusively on server.js for ~1 year. Facebook, Google, Stripe, Airbnb, etc. have shown great contributions to open source projects. I can live with $3000-4000/month (gross) and even spend a bit of that on external help (graphic design, copywriting). This would be a huge pay cut, but some things are more important than money.</p>
 </li>
 </ol>
-<p>I really think it is the ideal moment for a project like this, a Node.js server that is lightweight, future-proof, uses modern workflows and it&#39;s easy to get started with. While Javascript back-end is not as sexy as the front-end, I believe server.js can turn things around.</p>
+<p>There are some other alternatives like joining an agency and basing their back-end work on server.js, contracting and doing this on the side, etc. but I think those are very rare.</p>
+<p>I really think it is the ideal moment for a project like this, a lightweight Node.js server that uses modern workflows and it&#39;s easy to get started with. While Javascript back-end is not as sexy as the front-end, I believe server.js can turn things around.</p>
 <p>My preferred method would be 3 doubtlessly. But I do not even know how to reach to those big companies and get them to contribute, or what to offer in exchange. If you can help or have any advice, please contact me or tell me on Hacker News:</p>
 
         <footer class="love">
