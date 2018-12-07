@@ -2,7 +2,7 @@
 layout: post.hbs
 title: The future of Server.js
 description: I propose different ways to continue developing server.js and ask the community for advice on those.
-date: 2018-12-08 01:00:00+09:00
+date: 2018-12-08 03:00:00+09:00
 ---
 
 First, let me give you a little context. It was 2016 and I was teaching some friends about getting started with Node.js. Then (and now, for that matter) the state of the art was Express, with the two main alternatives being Koa and Hapi.js.
@@ -81,6 +81,6 @@ So from my point of view and current situation, I have 3 options to continue wit
 
 There are some other alternatives like joining an agency and basing their back-end work on server.js, contracting and doing this on the side, etc. but I think those are very rare.
 
-I really think it is the ideal moment for a project like this, a lightweight Node.js server that uses modern workflows and it's easy to get started with. While Javascript back-end is not as sexy as the front-end, I believe server.js can turn things around.
+I really think it is the ideal moment for a lightweight Node.js server that uses modern workflows and it's easy to get started with. While Javascript back-end is not as sexy as the front-end, I believe server.js can turn things around.
 
 My preferred method would be 3 doubtlessly. But I do not even know how to reach to those big companies and get them to contribute, or what to offer in exchange. If you can help or have any advice, please contact me or tell me on Hacker News:
