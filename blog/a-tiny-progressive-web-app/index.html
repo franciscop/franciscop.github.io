@@ -8,44 +8,43 @@
     <link rel="alternate" type="application/rss+xml" href="/blog/rss.xml" title="RSS feed for My Page">
 
     <!-- Standard -->
-    <title>{{title}} — Francisco Presencia</title>
+    <title>A tiny Progressive Web App in React — Francisco Presencia</title>
     <meta content="Blog, Francisco Presencia, Francisco, Presencia, Software, Programmer, Javascript, Node.js" name="keywords">
-    <meta content="{{description}}" name="description">
+    <meta content="How I made a 30kb PWA from scratch. Some tips and tricks to reduce React size." name="description">
 
     <!-- Thanks https://moz.com/blog/meta-data-templates-123 -->
     <!-- Twitter Card data -->
     <meta name="twitter:card" content="summary_large_image">
     <meta name="twitter:site" content="@fpresencia">
-    <meta name="twitter:title" content="{{title}} — Francisco Presencia" />
-    <meta name="twitter:description" content="{{description}}" />
+    <meta name="twitter:title" content="A tiny Progressive Web App in React — Francisco Presencia" />
+    <meta name="twitter:description" content="How I made a 30kb PWA from scratch. Some tips and tricks to reduce React size." />
     <meta name="twitter:creator" content="@fpresencia" />
-    <meta name="twitter:image" content="https://francisco.io/blog/{{id}}/header.png" />
+    <meta name="twitter:image" content="https://francisco.io/blog/a-tiny-progressive-web-app/header.png" />
 
     <!-- Open Graph data -->
-    <meta property="og:title" content="{{title}} — Francisco Presencia" />
+    <meta property="og:title" content="A tiny Progressive Web App in React — Francisco Presencia" />
     <meta property="og:type" content="article" />
-    <meta property="og:url" content="https:///francisco.io/blog/{{id}}/" />
-    <meta property="og:image" content="https://francisco.io/blog/{{id}}/header.png" />
-    <meta property="og:description" content="{{description}}" />
+    <meta property="og:url" content="https:///francisco.io/blog/a-tiny-progressive-web-app/" />
+    <meta property="og:image" content="https://francisco.io/blog/a-tiny-progressive-web-app/header.png" />
+    <meta property="og:description" content="How I made a 30kb PWA from scratch. Some tips and tricks to reduce React size." />
     <meta property="og:site_name" content="Blog of Francisco Presencia" />
 
     <link href="/assets/style.min.css" rel="stylesheet">
   </head>
   <body>
     <main>
-      <h1>{{title}}</h1>
-      {{#if date}}
+      <h1>A tiny Progressive Web App in React</h1>
         <div class="meta">
           <a href="https://francisco.io/"><img class="logo" src="/assets/img/logo.png"> Francisco Presencia</a>
           <a href="https://www.paypal.me/franciscopresencia/10"><img class="logo" src="/assets/img/icon_paypal.svg"> Donate</a>
-          <a href="https:///francisco.io/blog/{{id}}/">🕑 <time datetime="{{date}}">{loading...}</time></a>
+          <a href="https:///francisco.io/blog/a-tiny-progressive-web-app/">🕑 <time datetime="2018-09-24T06:45+09:00">{loading...}</time></a>
         </div>
 
-        {{{body}}}
+        
         <footer class="love">
           <a href="https://www.paypal.me/franciscopresencia/10">💙 💚 💛 💜</a>
         </footer>
-        <comment-box title="" site="https://francisco.io/blog/{{id}}"></comment-box>
+        <comment-box title="" site="https://francisco.io/blog/a-tiny-progressive-web-app"></comment-box>
 
         <script src="https://cdn.jsdelivr.net/npm/timeago.js@3/dist/timeago.min.js"></script>
         <script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.15.0/prism.min.js"></script>
@@ -65,9 +64,6 @@
             });
           });
         </script>
-      {{else}}
-        <p>Glad you are here! This post is not avalaible yet here, but as you know you can <a href="https://github.com/franciscop/franciscop.github.io/tree/master/blog">read it in my Github</a>.</p>
-      {{/if}}
 
       <script>
         // Google Analytics

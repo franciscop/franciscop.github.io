@@ -1,6 +1,6 @@
 ---
 layout: post.hbs
-title: Better Promises
+title: Better Promises ✨
 description: Exploring the limitations of Javascript's Promises and what I did to overcome them
 date: 2018-09-24T06:45+09:00
 ---
