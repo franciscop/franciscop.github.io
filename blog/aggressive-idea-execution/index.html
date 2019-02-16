@@ -1,0 +1,143 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8">
+    <link rel="shortcut icon" type="image/png" href="/assets/img/logo.png"/>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <link rel="alternate" type="application/rss+xml" href="/blog/rss.xml" title="RSS feed for My Page">
+
+    <!-- Standard -->
+    <title>Aggressive idea execution 🚀 — Francisco Presencia</title>
+    <meta content="Blog, Francisco Presencia, Francisco, Presencia, Software, Programmer, Javascript, Node.js" name="keywords">
+    <meta content="Exploring the limitations of Javascript&#x27;s Promises and what I did to overcome them" name="description">
+
+    <!-- Thanks https://moz.com/blog/meta-data-templates-123 -->
+    <!-- Twitter Card data -->
+    <meta name="twitter:card" content="summary_large_image">
+    <meta name="twitter:site" content="@fpresencia">
+    <meta name="twitter:title" content="Aggressive idea execution 🚀 — Francisco Presencia" />
+    <meta name="twitter:description" content="Exploring the limitations of Javascript&#x27;s Promises and what I did to overcome them" />
+    <meta name="twitter:creator" content="@fpresencia" />
+    <meta name="twitter:image" content="https://francisco.io/blog/aggressive-idea-execution/header.png" />
+
+    <!-- Open Graph data -->
+    <meta property="og:title" content="Aggressive idea execution 🚀 — Francisco Presencia" />
+    <meta property="og:type" content="article" />
+    <meta property="og:url" content="https:///francisco.io/blog/aggressive-idea-execution/" />
+    <meta property="og:image" content="https://francisco.io/blog/aggressive-idea-execution/header.png" />
+    <meta property="og:description" content="Exploring the limitations of Javascript&#x27;s Promises and what I did to overcome them" />
+    <meta property="og:site_name" content="Blog of Francisco Presencia" />
+
+    <link href="/assets/style.min.css" rel="stylesheet">
+  </head>
+  <body>
+    <main>
+      <h1>Aggressive idea execution 🚀</h1>
+        <div class="meta">
+          <a href="https://francisco.io/"><img class="logo" src="/assets/img/logo.png"> Francisco</a>
+          <a href="https://www.paypal.me/franciscopresencia/10"><img class="logo" src="/assets/img/icon_paypal.svg"> Donate</a>
+          <a href="https:///francisco.io/blog/aggressive-idea-execution/">🕑 <time datetime="2019-02-16T20:00+09:00">{loading...}</time></a>
+        </div>
+
+        <p>Back in 2014 after winning a NASA hackathon everyone was amazed at how fast I was making things, but I wasn&#39;t happy so I spent the last 5 years consciously improving on this.</p>
+<p>The most important things I learned about <strong>executing ideas at high speed</strong> with an estimated of 5-10x speed boost each are: <a href="#the-right-abstraction"><em>the right abstraction</em></a>, a <a href="#fast-iterative-process"><em>fast iterative process</em></a> and a <a href="#winner-team"><em>winner team</em></a>.</p>
+<p>For this post to be useful you have to be <strong>brutally honest with yourself</strong> to the point it hurts. You need to have a very clear understanding of where your weaknesses are and leave your ego apart to focus on what matters. <em>If you don&#39;t know yourself you will succumb in every battle.</em></p>
+<p>You might develop <a href="https://en.wikipedia.org/wiki/Impostor_syndrome">impostor syndrome</a> by doing just that. Luckily, being brutally honest with yourself also helps here! I <em>feel</em> like I&#39;m a normal-to-mediocre programmer, but I know I&#39;m biased so I can look at my progress from a more objective point of view.</p>
+<h2 id="the-right-abstraction">The right abstraction</h2>
+<p>First you have to really know <strong>what you want</strong> to achieve. There are too many perverse incentives and self-deception tricks working against you! Sit down and really consider this.</p>
+<p>Then <strong>work only for your goal</strong> and review this as often as needed. You might have several goals and that is fine, but: be very conscious about your goals and remove any unconscious goal. Ask yourself how to best reach your goal and ask knowledgeable friends about this.</p>
+<p><strong>Choose the right tool and path for the job</strong>, which will depend greatly on your personal situation. If you are an engineer with a business partner you&#39;ll work towards your goal better as a CTO, even if that doesn&#39;t give you all the fame (hopefully assuming fame is not your real goal).</p>
+<p>I&#39;m very happy to see services that allow you to hook a simple Google Spreadsheet to a website/app and not worry about databases or code at all. These are bringing creative tools to the business people and makers and that is amazing.</p>
+<p>This also has personal implications for learning about technology (Node.js? React?), different fields (design? marketing?) and about life itself (friends? hobbies?).</p>
+<p>Let me give you some counter examples of how <strong>not</strong> to do things:</p>
+<blockquote>
+<p><em>We are writing custom software because we want to launch a successful online store</em>.</p>
+</blockquote>
+<p>Too often business people think they need it and devs want to make it, so new ecommerce software is written. I&#39;d suggest to instead trying these, in order of importance:</p>
+<ol>
+<li>Sell your products in <strong>online stores</strong> like Amazon, eBay, etc. This allows to start selling a product in few hours and see how the market reacts.</li>
+<li>Use one of the <strong>ecommerce solutions</strong> like Shoppify, Magento, etc. This allows for custom branding and better marketing techniques in few days.</li>
+<li>Customize <strong>wordpress</strong> with woocommerce or similar. This allows for lower fees and very custom functionality if your business really needs this and you can launch in few weeks.</li>
+<li>Integrate with <strong>3rd party</strong> solutions like Stripe or Paypal. You would do this when adding payments into existing software, but I would <em>not</em> recommend it for an ecommerce.</li>
+</ol>
+<blockquote>
+<p><em>We need to support 10 million concurrent users because everyone will love our idea.</em></p>
+</blockquote>
+<p>Let me tell you a very controversial opinion: <strong>it&#39;s great to have scalability issues!</strong> While you might not believe that, I&#39;ll rephrase it as a question for you: what is a better risk to have?</p>
+<ul>
+<li>Too many people are throwing their money at you and you have to work hard to accept it faster.</li>
+<li>You are running out of money and your website doesn&#39;t work at all after spending hundreds of thousands of dollars.</li>
+</ul>
+<p>Of course no one likes those late nights, but in the grand schema of things and with those two being at each end of the scale, I&#39;d choose the first one any day and you&#39;d be a fool not to do the same.</p>
+<blockquote>
+<p><em>We are discussing what pattern is better because we want to win a hackathon</em>.</p>
+</blockquote>
+<p>After half a day of debates, I can already tell you that your team is not going to win. Throw dirty code at it as fast as possible, change your ideas as you go and adapt. Absolutely no one will care about code quality when evaluating your competition project.</p>
+<h2 id="fast-iterative-process">Fast iterative process</h2>
+<p>Great, after much consideration you have decided you can use a pre-made solution! Close this post, go there and get it done! <strong>Really!</strong>.</p>
+<p>But if you decide to actually write software, you want to <strong>&quot;fail fast, fail cheap&quot;</strong>. You want to be able to make great progress at every stage as fast as possible. My general process is this, with times for personal ideas spent in each stage (multiply by 2-3x for work/3rd party ideas):</p>
+<ol>
+<li>An <strong>idea</strong> comes. It is there and I&#39;m thinking about it during my day to day down time.</li>
+<li>Many <strong>paper mockups (1-10 hours)</strong> with alternative designs help to materialize it. Once it&#39;s on paper I can attack it for weakness and change it fast.</li>
+<li>A <strong>quick prototype (1-10 days)</strong> is perfect to see if <em>the core idea</em> is useful and how people work with it. I make this quick and dirty with the idea of throwing the whole thing away.</li>
+<li>A <strong>Minimum Viable Product (10-100 days)</strong> that has the core functionality with the <em>needed</em> support systems like login, storage, interface, etc. It will reuse the core idea from the prototype, but not the rest. It helps to discover new business cases and features.</li>
+<li><strong>Production (100+ days)</strong> with a proper deploy pipeline, testing and documentation. It has been improved from the MVP but it&#39;s flexible enough to accept new features.</li>
+</ol>
+<p>The time will decrease with a team but not linearly because of combination effectiveness, so the points 1-3 are normally better done by a single person. Point 4 is debatable and point 5 should definitely be made by a team.</p>
+<p>Once again the main issue here is people and their egos trying to go straight to point 5. &quot;Why would my ideas be wrong? I&#39;m an expert! It&#39;s the world/market/etc that is wrong!&quot; Normally it gets funnier (or, sadder) the more &quot;expert&quot; someone believes they are.</p>
+<p>As a practical example of how these steps might work for my personal project <strong>Core Cards</strong>:</p>
+<ol>
+<li>Anki interface felt so 1999, how would Spaced Repetition look like if it was made today?</li>
+<li>Made paper prototypes with a swipping interface which look like something I&#39;d love using everyday.</li>
+<li>Made a prototype to test the spaced repetition algorithm since I&#39;m not 100% convinced. Used a <a href="">Node.js server</a> with <a href="https://github.com/franciscop/drive-db">Google Spreadsheets</a> for the data. Added Mongodb so that I can test it between server restarts.</li>
+<li>I rewrote it in React and localStorage so that I can use it anywhere. Changed it to Preact and IndexedDB from what I learned here.</li>
+</ol>
+<p>Never &quot;<em>released for production</em>&quot;, but I&#39;ve used it ~5.000 times and my Japanese has improved greatly because of it! <em>Mischief managed</em>. Some day my objectives might change and I might take it to production and try to sell it.</p>
+<h2 id="a-winner-team">A winner team</h2>
+<h2 id="final-notes">Final notes</h2>
+<p>I&#39;m totally wrong, please feel free to correct me and I&#39;ll read and consider every single one of your opinions. Special things I&#39;d love to learn:</p>
+<ul>
+<li>What big topics am I missing here? There <em>are</em> many more topics not covered here since I&#39;m trying to focus on the ones that have changed my productivity by <em>an order of magnitude</em>.</li>
+<li>I think each of these 3 points depends on the previous one respectively. A great team is nothing with a deeply flawed process, and a great process is nothing if it&#39;s not needed.</li>
+<li>People talk about taking months to get started in a new company, which seems crazy to me. I expect to be fully integrated within 1~2 weeks and so far it has been hold true.</li>
+</ul>
+
+
+        <footer class="love">
+          <a href="https://www.paypal.me/franciscopresencia/10">💙 💚 💛 💜</a>
+        </footer>
+        <comment-box title="" site="https://francisco.io/blog/aggressive-idea-execution"></comment-box>
+
+        <script src="https://cdn.jsdelivr.net/npm/timeago.js@3/dist/timeago.min.js"></script>
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.15.0/prism.min.js"></script>
+        <script src="https://comments.network/comments.js"></script>
+        <script type="text/javascript">
+          timeago().render(document.querySelectorAll('time'));
+          Prism.hooks.add("after-highlight", function () {
+            document.querySelectorAll('.token').forEach((el, i, all) => {
+              if (el.textContent !== 'get') return;
+              // Fix the get() and const { get }
+              if (all[i + 1] && all[i + 1].textContent === '(') {
+                el.classList.remove('keyword');
+                el.classList.add('function');
+              } else {
+                el.outerHTML = 'get';
+              }
+            });
+          });
+        </script>
+
+      <script>
+        // Google Analytics
+        (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+        (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+        m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+        })(window,document,'script','//www.google-analytics.com/analytics.js','ga');
+
+        ga('create', 'UA-63739359-1', 'auto');
+        ga('send', 'pageview');
+      </script>
+    </main>
+  </body>
+</html>
