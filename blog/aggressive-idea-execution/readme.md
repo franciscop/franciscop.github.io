@@ -2,7 +2,7 @@
 layout: post.hbs
 title: Aggressive idea execution 🚀
 description: What I learned after 5 years of consciously improving on making projects and products.
-date: 2019-02-16T20:00+09:00
+date: 2019-02-24T17:00+09:00
 ---
 
 Back in 2014 after winning a NASA hackathon everyone was amazed at how fast I was making things, but I wasn't happy so I spent the last 5 years consciously improving on this.
