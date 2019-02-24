@@ -5,29 +5,24 @@ description: Exploring the limitations of Javascript's Promises and what I did t
 date: 2019-02-16T20:00+09:00
 ---
 
-
-
-
 Back in 2014 after winning a NASA hackathon everyone was amazed at how fast I was making things, but I wasn't happy so I spent the last 5 years consciously improving on this.
 
 The most important things I learned about **executing ideas at high speed** with an estimated of 5-10x speed boost each are: [*the right abstraction*](#the-right-abstraction), a [*fast iterative process*](#fast-iterative-process) and a [*winner team*](#winner-team).
 
-For this post to be useful you have to be **brutally honest with yourself** to the point it hurts. You need to have a very clear understanding of where your weaknesses are and leave your ego apart to focus on what matters. *If you don't know yourself you will succumb in every battle.*
+Previous to all of this is learning to be **brutally honest with yourself**. You need to have a very clear understanding of where your weaknesses are and leave your ego apart to focus on what really matters to you. *"If you don't know yourself you will succumb in every battle."*
 
-You might develop [impostor syndrome](https://en.wikipedia.org/wiki/Impostor_syndrome) by doing just that. Luckily, being brutally honest with yourself also helps here! I *feel* like I'm a normal-to-mediocre programmer, but I know I'm biased so I can look at my progress from a more objective point of view.
+You might develop [impostor syndrome](https://en.wikipedia.org/wiki/Impostor_syndrome) by doing just that. Luckily, being honest with yourself also helps here! I *feel* like I'm a normal-to-mediocre programmer, but I know I'm biased so I can look at my progress from a more objective point of view.
 
 
 
 
 ## The right abstraction
 
-First you have to really know **what you want** to achieve. There are too many perverse incentives and self-deception tricks working against you! Sit down and really consider this.
+First you have to really know **what you want** to achieve. There are too many perverse incentives and distractions working against you! Sit down and really consider this.
 
-Then **work only for your goal** and review this as often as needed. You might have several goals and that is fine, but: be very conscious about your goals and remove any unconscious goal. Ask yourself how to best reach your goal and ask knowledgeable friends about this.
+Then **work only for your goal** and review this as often as needed. You might have several goals and that is fine, but be very conscious about your real goals and remove any unconscious goal. Ask yourself how to best reach your goal and ask knowledgeable friends about this.
 
 **Choose the right tool and path for the job**, which will depend greatly on your personal situation. If you are an engineer with a business partner you'll work towards your goal better as a CTO, even if that doesn't give you all the fame (hopefully assuming fame is not your real goal).
-
-I'm very happy to see services that allow you to hook a simple Google Spreadsheet to a website/app and not worry about databases or code at all. These are bringing creative tools to the business people and makers and that is amazing.
 
 This also has personal implications for learning about technology (Node.js? React?), different fields (design? marketing?) and about life itself (friends? hobbies?).
 
@@ -35,7 +30,7 @@ Let me give you some counter examples of how **not** to do things:
 
 > *We are writing custom software because we want to launch a successful online store*.
 
-Too often business people think they need it and devs want to make it, so new ecommerce software is written. I'd suggest to instead trying these, in order of importance:
+Too often business people think they need it and devs want to make it, so new ecommerce software is written. I'd suggest to instead trying these and only skip one if there's a strong real reason:
 
 1. Sell your products in **online stores** like Amazon, eBay, etc. This allows to start selling a product in few hours and see how the market reacts.
 2. Use one of the **ecommerce solutions** like Shoppify, Magento, etc. This allows for custom branding and better marketing techniques in few days.
@@ -49,7 +44,7 @@ Let me tell you a very controversial opinion: **it's great to have scalability i
 - Too many people are throwing their money at you and you have to work hard to accept it faster.
 - You are running out of money and your website doesn't work at all after spending hundreds of thousands of dollars.
 
-Of course no one likes those late nights, but in the grand schema of things and with those two being at each end of the scale, I'd choose the first one any day and you'd be a fool not to do the same.
+Of course no one likes those late nights, but in the grand schema of things and with those two being at each end of the scale, I'd choose the first one any day.
 
 > *We are discussing what pattern is better because we want to win a hackathon*.
 
@@ -81,15 +76,41 @@ As a practical example of how these steps might work for my personal project **C
 3. Made a prototype to test the spaced repetition algorithm since I'm not 100% convinced. Used a [Node.js server]() with [Google Spreadsheets](https://github.com/franciscop/drive-db) for the data. Added Mongodb so that I can test it between server restarts.
 4. I rewrote it in React and localStorage so that I can use it anywhere. Changed it to Preact and IndexedDB from what I learned here.
 
-Never "*released for production*", but I've used it ~5.000 times and my Japanese has improved greatly because of it! *Mischief managed*. Some day my objectives might change and I might take it to production and try to sell it.
+Never "*released for production*", but I've used it 5.000+ times and my Japanese has improved greatly because of it! *Mischief managed*. Some day my objectives might change and I might take it to production and try to sell it.
 
 
 
 
 ## A winner team
 
+Even if you are great, a team of talented people will reach much further. But while two people can do much more than a single person, it's still not double.
 
+There are communication and complexity flows to take into account! It's perfectly possible for some people not only to be very low on team throughput, but even be negative by bringing some of the productive members down!
 
+That's why 3-6 highly skilled individuals can do much more than 10-20 normal ones. How many people with an effective productivity of 0 do you need to get the same output?
+
+I've been lucky in life and made [great friends](https://makersupv.com/) in life. There was a moment where I wanted to make something amazing to go to another NASA hackathon.
+
+First I called my friend from the previous competition and we joined together on **Friday night**. We brainstormed for ~1 hour to decide what to do, building a working hardware prototype in ~36 hours for the **Sunday night**.
+
+It was going to be tough, but luckily we could get all of our first choices of each:
+
+- **Business/Presentation**: my friend with whom I had already won the previous competition. He has won numerous startup competitions/hackathons.
+- **Design/3D Printing**: one of the top designers of his faculty, he had recently started working in rapid prototyping. We had already gone to a couple of other competitions together.
+- **Electronics**: I had made a few robots previously, and one of my friends was amazingly knowledgeable about everything in electronics.
+- **App**: I think he is the fastest person I've seen creating an App. We ended up not making an App, but he is a very talented Engineer and helped both in the back-end and in the web.
+- **Back-end**: I didn't know anyone here, but someone was recommended. While he was the newbie to prototyping (relatively), after a couple of tips we were all amazed at how good he was.
+- **Web Front-end**: me 😉
+
+After convincing everyone we all met on that same friday night, they loved the idea and we changed a few details quickly. Time was tight so we made a rule: if you get **stuck over 1h, throw it away** and try something different.
+
+Now I know that this was a hackathon. With this hyper-talented team it took a weekend to design, build, deploy, 3d-print and present an amazing prototype:
+
+<iframe width="560" height="315" src="https://www.youtube-nocookie.com/embed/lFYi8Nhl-L0?controls=0" frameborder="0" allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+
+<a class="button" href="https://2017.spaceappschallenge.org/challenges/earth-and-us/you-are-my-sunshine/teams/amper-energies/project">See Project Details</a>
+
+We were lucky that we could literally pick the best of each field. I don't think we could have gotten anywhere with a team made of your average person, and I shudder when thinking that half of the people are below average!
 
 
 
