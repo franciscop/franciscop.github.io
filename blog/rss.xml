@@ -5,29 +5,34 @@
     <link>https://francisco.io/blog/</link>
     <description>I enjoy writing my thinking and some times I publish it.</description>
     <item>
+      <title>🚀 Aggressive idea execution</title>
+      <link>https://francisco.io/blog/aggressive-idea-execution/</link>
+      <description>What I learned after 5 years of consciously improving on making projects and products.</description>
+    </item>
+    <item>
       <title>🤯 Running PHP in Javascript</title>
       <link>https://francisco.io/blog/running-php-in-javascript/</link>
       <description>I could get a basic PHP version transpiling and running in pure Javascript. No server needed.</description>
-    </title>
+    </item>
     <item>
       <title>🌠 Transferring Github stars</title>
       <link>https://francisco.io/blog/transferring-github-stars/</link>
       <description>Explanation of how I moved stars to a new project from an old and undeserving library</description>
-    </title>
+    </item>
     <item>
       <title>✨ Better Promises</title>
       <link>https://francisco.io/blog/better-promises/</link>
       <description>Exploring the limitations of Javascript's Promises and what I did to overcome them</description>
-    </title>
+    </item>
     <item>
       <title>🙋 Getting a great npm name</title>
       <link>https://francisco.io/blog/getting-a-great-npm-name</link>
       <description>Discovered a way to get taken npm names and shared it with the Javascript community.</description>
-    </title>
+    </item>
     <item>
       <title>🏹 Async/Await are awesome</title>
       <link>https://francisco.io/blog/async-await-are-awesome</link>
       <description>How these ES7 features can improve and simplify asynchronous Javascript greatly.</description>
-    </title>
+    </item>
   </channel>
 </rss>
