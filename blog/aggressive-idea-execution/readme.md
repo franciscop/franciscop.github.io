@@ -1,7 +1,7 @@
 ---
 layout: post.hbs
 title: Aggressive idea execution 🚀
-description: Exploring the limitations of Javascript's Promises and what I did to overcome them
+description: What I learned after 5 years of consciously improving on making projects and products.
 date: 2019-02-16T20:00+09:00
 ---
 
