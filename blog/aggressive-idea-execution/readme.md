@@ -7,7 +7,7 @@ date: 2019-02-24T17:00+09:00
 
 Back in 2014 after winning a NASA hackathon everyone was amazed at how fast I was making things, but I wasn't happy so I spent the last 5 years consciously improving on this.
 
-The most important things I learned about **executing ideas at high speed** with an estimated of 5-10x speed boost each are: [*the right abstraction*](#the-right-abstraction), a [*fast iterative process*](#fast-iterative-process) and a [*winner team*](#winner-team).
+The most important things I learned about **executing ideas at high speed** with an estimated of 5-10x speed boost each are: [*the right abstraction*](#the-right-abstraction), a [*fast iterative process*](#fast-iterative-process) and a [*winner team*](#a-winner-team).
 
 Previous to all of this is learning to be **brutally honest with yourself**. You need to have a very clear understanding of where your weaknesses are and leave your ego apart to focus on what really matters to you. *"If you don't know yourself you will succumb in every battle."*
 
