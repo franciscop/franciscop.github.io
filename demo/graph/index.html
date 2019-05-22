@@ -59,7 +59,6 @@
         while (step < 10) step = step * 2;
         while (step > 50) step = step / 2;
 
-        ctx.strokeStyle = "#AAAAAA";
         for (let i = x; i <= width; i += step) {
           line(ctx, { x: i, y: y + 3 }, { x: i, y: y - 3 });
         }
