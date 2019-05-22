@@ -120,6 +120,7 @@ The long-awaited demo! Turn your internet off, hide your kids and say your praye
 <form id="horrible">
 <textarea style="min-height:150px">alert(php(&#x60;&#x3C;?= &#x22;for fun! &#x22;.$icon ?&#x3E;&#x60;, { icon: &#x27;&#x1F389;&#x27; }));</textarea>
 <button data-tooltip="Are you sure? Like, 100%? There is no coming back">EVAL()</button>
+</form>
 <script>
   const $ = sel => document.querySelector(sel);
   $('#horrible').addEventListener('submit', e => {
