@@ -125,7 +125,8 @@
       padding-left: 12px;
       width: 0;
       line-height: 12px;
-      font-size: 12px;
+      font-size: 14px;
+      font-family: monospace;
       color: #fff;
       white-space: pre;
     }
@@ -185,11 +186,11 @@ Wrote to /home/[CURRENT_PATH]/package.json:
 [terminal] atom index.js
 
 [code:index.js]
-const server = require('server');
+import server from 'server';
 
 // Launch it on localhost:3000
 server(ctx => `Hello world!`);
-[terminal] node .
+[terminal] node index.js --experimental-modules
 
 [browser:http://localhost:3000/]
 Hello world
