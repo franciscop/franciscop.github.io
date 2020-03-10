@@ -8,6 +8,21 @@ play-time {
   position: relative;
 }
 
+.play-credit {
+  position: absolute;
+  top: -21px;
+  right: 0;
+  color: wheat;
+  margin-right: 8px;
+  font-size: 12px;
+  text-decoration: none;
+  font-family: monospace;
+}
+
+.browser .play-credit {
+  color: inherit;
+}
+
 play-time.active {
   white-space: normal;
 }
@@ -30,11 +45,6 @@ play-control .play {
   display: flex;
   justify-content: center;
   align-items: center;
-}
-
-play-control .step:hover,
-play-control .play:hover {
-  background: #ddd;
 }
 
 play-control .play {
@@ -69,19 +79,35 @@ play-control .step {
 
 play-control .step::before {
   content: "";
-  width: 8px;
-  height: 8px;
+  width: 12px;
+  height: 12px;
   border-radius: 10px;
-  border: 1px solid black;
+  background: white;
+  transition: all 0.2s ease;
 }
 
-play-control .step.visited::before,
-play-control .step.acive::before {
-  background: black;
+play-control .visited {
+  background: #d3e1ff;
 }
 
-play-control .step.active {
-  box-shadow: inset 0 0 0 3px #709eff;
+play-control .active ~ .step {
+  background: #eee;
+}
+
+play-control .active {
+  box-shadow: inset -3px 0 #709eff;
+}
+
+play-control .active.step:last-child {
+  box-shadow: none;
+}
+
+play-control .step:hover {
+  background: #acc5fb;
+}
+
+play-control .step.visited::before {
+  background: #709eff;
 }
 
 play-control > *:nth-child(2) {

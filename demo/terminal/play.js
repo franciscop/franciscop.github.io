@@ -1,3 +1,4 @@
+// Copyright 2020 Francisco Presencia (francisco.io)
 const play = (() => {
   const clean = line =>
     line
@@ -23,7 +24,7 @@ const play = (() => {
       .split(":")
       .slice(1),
     command: clean(line.split("]")[1]).trim(),
-    content: ""
+    content: []
   });
 
   const parse = text => {
@@ -38,21 +39,20 @@ const play = (() => {
       .split("\n")
       .map(line => line.slice(baseSpace))
       .reduce((arr, line) => {
-        console.log(`"${line}"`);
         const last = arr[arr.length - 1];
         // When it starts by a `[` create a new command
         if (/^\s*\[/.test(line)) {
-          if (last && last.content) {
-            last.content = last.content.join("\n");
-          }
           return arr.concat(parseCommand(line));
         }
         if (last) {
-          last.content = last.content || [];
           last.content.push(line);
         }
         return arr;
-      }, []);
+      }, [])
+      .map(it => {
+        console.log(it);
+        return { ...it, content: it.content.join("\n") };
+      });
   };
 
   const show = (name, title = "") => {
@@ -88,37 +88,39 @@ const play = (() => {
     const base = u("play-time").addClass("play");
     const text = inst || base.text();
     base.text("");
-
     base.append(`<play-control><span class="play"></span></play-control>`);
     const control = base.find("play-control");
 
     const commands = parse(text).map(item => {
-      if (!base.find(`.${item.name}`).length) {
+      if (!base.find(`.${item.type}`).length) {
         control.before(
           `<play-window class="${
-            item.name
+            item.type
           }"><div class="content"></div></play-window>`
         );
       }
       control.append(`<span class="step"></span>`);
       return {
         ...item,
-        element: base.find(`play-window.${item.name} .content`)
+        element: base.find(`play-window.${item.type} .content`)
       };
     });
+    console.log(base.find(".content"));
+    u("play-window").append(
+      `<a class="play-credit" href="https://francisco.io/demo/terminal">francisco.io</a>`
+    );
     control.find(".play").on("click", e => {
       base.toggleClass("play");
     });
     control.find(".step").on("click", e => {
       reset = true;
-      const i =
-        u(e.currentTarget)
-          .parent()
-          .children()
-          .nodes.indexOf(e.currentTarget) - 1;
-      base.data("i", i + 1);
-      renderStep(i);
-      highlightStep(i);
+      const i = u(e.currentTarget)
+        .parent()
+        .children()
+        .nodes.indexOf(e.currentTarget);
+      base.data("i", i);
+      renderStep(i - 1);
+      highlightStep(i - 1);
       base.removeClass("play");
     });
 
@@ -176,7 +178,7 @@ const play = (() => {
         renderCode(step.title, step.content);
       }
       if (step.type === "browser") {
-        renderBrowser(step.title, step.content.join("\n"));
+        renderBrowser(step.title, step.content);
       }
     };
 
@@ -184,12 +186,16 @@ const play = (() => {
       const i = parseInt(base.data("i"), 10) || 0;
       await play.wait(100);
       if (!base.hasClass("play")) return loop();
-      if (i >= commands.length) return loop();
+      if (i >= commands.length) {
+        base.removeClass("play");
+        return loop();
+      }
       const item = commands[i];
       highlightStep(i);
 
       await play[item.type](item);
 
+      if (reset) return loop();
       await play.wait(100);
       base.data("i", (parseInt(base.data("i"), 10) || 0) + 1);
       loop();
@@ -198,7 +204,7 @@ const play = (() => {
   }
 
   play.terminal = async ({ element, command, content, title }) => {
-    await show("play-window.terminal", title);
+    await show("play-window.terminal", title + " [terminal]");
     element.text(element.text() + (element.text() ? "\n" : "") + "$ ");
     await type(element, command);
     if (reset) return;
@@ -209,13 +215,13 @@ const play = (() => {
 
   play.browser = async ({ element, content, title }) => {
     element.html(content);
-    await show("play-window.browser", title);
+    await show("play-window.browser", title + " [browser]");
   };
 
   play.code = async ({ element, content, command, title }) => {
     const ext = title.split(".").pop();
     element = element.html(`<pre><code class="language-${ext}"></code></pre>`);
-    await show("play-window.code", title);
+    await show("play-window.code", title + " [code editor]");
     await type(element, content, ({ element }) => {
       if (typeof Prism === "undefined") return;
       element.html(

@@ -8,7 +8,7 @@ play(`
   + server@1.0.18
 
   [code:index.js]
-  import server from 'server';
+  const server = require('server');
 
   // Launch it on localhost:3000
   server(ctx => \`Hello world!\`);
