@@ -12,7 +12,7 @@ play-time {
   position: absolute;
   top: -23px;
   right: 0;
-  color: wheat;
+  color: white;
   margin-right: 8px;
   font-size: 14px;
   text-decoration: none;
@@ -80,10 +80,10 @@ play-control .step {
 
 play-control .step::before {
   content: "";
-  width: 8px;
-  height: 8px;
+  width: 12px;
+  height: 12px;
   border-radius: 10px;
-  border: 2px solid #709eff;
+  background: white;
   transition: all 0.2s ease;
 }
 
