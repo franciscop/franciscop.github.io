@@ -133,12 +133,12 @@ const play = (() => {
 
     const renderTerminal = async (title, text) => {
       base.find(`play-window.terminal .content`).text(text);
-      await show("play-window.terminal", title);
+      await show("play-window.terminal", title + " — terminal");
     };
 
     const renderBrowser = async (title, text) => {
       base.find(`play-window.browser .content`).text(text);
-      await show("play-window.browser", title);
+      await show("play-window.browser", title + " — browser");
     };
 
     const renderCode = async (title, text) => {
@@ -150,7 +150,7 @@ const play = (() => {
           .find(`play-window.code .content`)
           .html(Prism.highlight(text, Prism.languages.javascript, ext));
       }
-      await show("play-window.code", title);
+      await show("play-window.code", title + " — code");
     };
 
     const renderStep = i => {
@@ -204,7 +204,7 @@ const play = (() => {
   }
 
   play.terminal = async ({ element, command, content, title }) => {
-    await show("play-window.terminal", title + " [terminal]");
+    await show("play-window.terminal", title + " — terminal");
     element.text(element.text() + (element.text() ? "\n" : "") + "$ ");
     await type(element, command);
     if (reset) return;
@@ -215,13 +215,13 @@ const play = (() => {
 
   play.browser = async ({ element, content, title }) => {
     element.html(content);
-    await show("play-window.browser", title + " [browser]");
+    await show("play-window.browser", title + " — browser");
   };
 
   play.code = async ({ element, content, command, title }) => {
     const ext = title.split(".").pop();
     element = element.html(`<pre><code class="language-${ext}"></code></pre>`);
-    await show("play-window.code", title + " [code editor]");
+    await show("play-window.code", title + " — code");
     await type(element, content, ({ element }) => {
       if (typeof Prism === "undefined") return;
       element.html(
