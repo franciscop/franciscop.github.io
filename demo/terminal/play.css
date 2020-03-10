@@ -10,11 +10,11 @@ play-time {
 
 .play-credit {
   position: absolute;
-  top: -21px;
+  top: -23px;
   right: 0;
   color: wheat;
   margin-right: 8px;
-  font-size: 12px;
+  font-size: 14px;
   text-decoration: none;
   font-family: monospace;
 }
@@ -75,19 +75,16 @@ play-control .play::before {
 
 play-control .step {
   flex-grow: 1;
+  background: #d3e1ff;
 }
 
 play-control .step::before {
   content: "";
-  width: 12px;
-  height: 12px;
+  width: 8px;
+  height: 8px;
   border-radius: 10px;
-  background: white;
+  border: 2px solid #709eff;
   transition: all 0.2s ease;
-}
-
-play-control .visited {
-  background: #d3e1ff;
 }
 
 play-control .active ~ .step {
