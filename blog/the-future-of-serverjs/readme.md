@@ -75,7 +75,7 @@ So from my point of view and current situation, I have 3 potential options for s
 
 1. **Do it for myself**. Keep it very closed (read-only Github, offer no help, etc). While the community involvement has been highly positive, it still requires a large amount of time that I do not have. I would very much **not like this** though, I love Open Source and the community!
 
-2. **Sell the project**. With increased monetary support and a paying community, I can focus my effort on what matters while reducing the support needed. I really like the way Alvaro Trigo [is doing it with Fullpage.js](https://alvarotrigo.com/fullPage/pricing/). This has many pros and cons to be considered.
+2. **Sell licenses**. With increased monetary support and a paying community, I can focus my effort on what matters while reducing the support needed. I really like the way Alvaro Trigo [is doing it with Fullpage.js](https://alvarotrigo.com/fullPage/pricing/). This has many pros and cons to be considered.
 
 3. **Find big sponsors**. With a big company paying me I can focus exclusively on server.js for ~1 year. Facebook, Google, Stripe, Airbnb, etc. have shown great contributions to open source. I can live with $3000-4000/month (gross) and even spare some for design and copywriting.
 
