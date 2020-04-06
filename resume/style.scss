@@ -1,7 +1,8 @@
-@import '../node_modules/picnic/src/picnic';
-@import './fontello';
+@import "../node_modules/picnic/src/picnic";
+@import "./fontello";
 
-html, body {
+html,
+body {
   height: auto;
 }
 
@@ -18,7 +19,7 @@ body {
   margin: 60px auto 200px;
   background: #fff;
   padding: 5em;
-  transition: all .3s ease;
+  transition: all 0.3s ease;
 }
 
 .tokyo p {
@@ -29,31 +30,32 @@ blockquote {
   margin-top: 1em;
   box-shadow: none;
   padding-left: 0;
-  color: rgba(17, 17, 17, .7);
+  color: rgba(17, 17, 17, 0.7);
 }
 
 blockquote:before {
-  content: '▸ ';
-  color: rgba(17, 17, 17, .5);
+  content: "▸ ";
+  color: rgba(17, 17, 17, 0.5);
 }
-
 
 .tag {
   color: inherit;
   font-weight: normal;
   display: inline-block;
   border: 1px solid #aaa;
-  padding: .1em .5em;
-  margin: 0 .06em .06em;
-  border-radius: .3em;
-  font-size: .75em;
+  padding: 0.1em 0.5em;
+  margin: 0;
+  border-radius: 0.3em;
+  font-size: 0.75em;
 }
 
-h1, h2, h3 {
+h1,
+h2,
+h3 {
   display: block;
-  padding: 0 0 .3em 0;
+  padding: 0 0 0.3em 0;
   line-height: 1.1;
-  margin-bottom: .1em;
+  margin-bottom: 0.1em;
   overflow: auto;
 }
 
@@ -62,14 +64,14 @@ h1 {
 }
 
 h2 {
-  padding-top: .7em;
+  padding-top: 0.7em;
   margin-bottom: 0;
   border-bottom: 2px dashed #333;
 }
 
 h3 {
   line-height: 1.3em;
-  padding: .3em 0 0;
+  padding: 0.3em 0 0;
   margin: 0;
 }
 
@@ -78,8 +80,8 @@ p {
 }
 
 ul {
-  margin-top: .3em;
-  margin-bottom: .5em;
+  margin-top: 0.3em;
+  margin-bottom: 0.5em;
   padding-left: 1em;
   list-style: circle;
 }
@@ -92,7 +94,7 @@ ul {
 .download {
   float: right;
   line-height: 1.5;
-  margin: .1em 0 0 0;
+  margin: 0.1em 0 0 0;
 }
 
 .links {
@@ -108,22 +110,13 @@ ul {
 
 .links a {
   text-align: left;
-  padding: .3em .9em .3em .7em;
+  padding: 0.3em 0.9em 0.3em 0.7em;
 }
 
 [class*=" icon-"]::before,
 [class^="icon-"]::before {
-  margin-right: .3em;
+  margin-right: 0.3em;
 }
-
-
-
-
-
-
-
-
-
 
 /*body.front [data-year] {
   position: relative;
@@ -150,7 +143,7 @@ body.front [data-year]:before {
 }*/
 
 .description {
-  margin: .6em 0 .3em;
+  margin: 0.6em 0 0.3em;
 }
 
 body.front .entry p {
@@ -162,14 +155,14 @@ body.front h3 {
 }
 
 body.front article {
-  margin-bottom: .7em;
+  margin-bottom: 0.7em;
   margin-top: 0;
-  padding-right: .2em;
+  padding-right: 0.2em;
 }
 
 .year {
   color: #aaaaaa;
-  font-size: .7em;
+  font-size: 0.7em;
   margin-right: 1em;
   line-height: 27px;
   display: inline-block;
@@ -178,14 +171,13 @@ body.front article {
   overflow: hidden;
 }
 
-
 @media print {
   @page {
     margin: 1.5cm;
   }
 
   .year {
-    margin-right: .5em;
+    margin-right: 0.5em;
   }
 
   section {
@@ -207,7 +199,7 @@ body.front article {
     color: #333;
   }
 
-  .links  a {
+  .links a {
     padding: 0;
   }
 }
