@@ -2,13 +2,12 @@
 layout: post.hbs
 title: A Javascript of two worlds
 description: an exploration on how Javascript world is dividing more and more
+date: 2020-08-09T11:34:13Z
 ---
 
-> DRAFT
+I was quietly going on my things when the thought invaded me. It is *so nice* to write and publish small Javascript libraries in 2020. Or to explore other developer's amazing tools like [Sindre Sorhus'](https://github.com/sindresorhus/).
 
-I was quietly going on my things when the thought invaded me. It is *so nice* to write and publish small Javascript libraries in 2018. Or to explore other developer's amazing tools like [Sindre Sorhus'](https://github.com/sindresorhus/).
-
-But it's also a very nice concept that I can pick up fully working environments to start a large application from scratch. With hundreds of tutorials about how to use them.
+It's also a very nice concept that I can pick up fully working environments to start a large application from scratch. With hundreds of tutorials about how to use them.
 
 However, and this is what this whole article is about, these are two fairly separated, well defined narratives. I believe they are growing further apart, making new developers very confused.
 
@@ -23,11 +22,11 @@ My take of how we got here is that there are **two forces** pushing and enrichin
 
 > SMB and startups normally (but not always!) are too busy trying to make money and survive to be able to dedicate large resources for OSS.
 
-The main problem is that these two forces have wildly divergent motivations and goals, so the things they want or even expect from Javascript ecosystem varies a lot. But don't forget:
+The main problem is that these two forces have wildly divergent motivations and goals, so the things they want or even expect from Javascript ecosystem varies a lot. There's another force acting, not in creating but in popularizing these:
 
 - **Hype train**: Hacker News, Reddit, Blog posts (like this one), etc. You could probably find a softer name, but for me this is a great equalizer since everyone can get exposure.
 
-This is important because it makes small and large projects appear at the same level. A hacky, 3-hour project might get side by side with a mature, 1000-hour project.
+This is important because it makes small and large projects appear at the same level. A hacky, 3-hour project might get side by side with a mature, 10k-hour project.
 
 
 
@@ -46,12 +45,12 @@ While there are many more goals, I think these are the ones that are vastly more
 
 ### Makers goals
 
-Individual makers are normally more concern about using the tool than the tool itself, so understandably these are common goals:
+Individual makers are normally more concerned about using the tool than the tool itself, so understandably these are common goals:
 
 - **Small:** being individuals, the scope and complexity is fairly limited. Those rare larger tools become either the main focus or unmaintained at some point.
-- **Low overhead:** a single developer does not have time for expensive maintenance, testing, building, etc. Specially when the tools are the means to an end.
+- **Low overhead:** a single developer does not have time for **expensive** maintenance, testing, building, etc. Specially when the tools are the means to an end.
 - **Experimental:** many tools will come for the sake of trying a technology or while learning a new concept but stay there. That's cool, next one will be better.
-- **Unsupported:** issues pile up and there's nothing you can do about it. The main target of the code is yourself. While you try to help others it's not your responsibility as explained with the MIT.
+- **Unsupported:** issues pile up and there's nothing you can do about it. The main target of the code is yourself. While you try to help others it starts to get on the way of actually writing code.
 
 
 
@@ -60,7 +59,7 @@ Individual makers are normally more concern about using the tool than the tool i
 
 **Github going down** or the whole **leftpad** ordeal is a catastrophe for a large corporation where hundreds of developer hours might get wasted. For a maker? Take a cup of tea, work on some long-needed docs, continue reading a book or have a stroll on the beach. It's not a big deal.
 
-Suddenly **the back button stops working**? Add a library that introduces more subtle bugs or reinvent the whole back button manually. There's no time for either from a maker perspective.
+Suddenly **the back button stops working** in an edge case? Add a library that introduces more subtle bugs or reinvent the whole back button manually. There's no time for either from a maker perspective.
 
 The **node_modules size** is ridiculous for compliance and it gets specially bad when installing several large tools. But well-picked crafted tools will save hundreds of hours for the makers.
 

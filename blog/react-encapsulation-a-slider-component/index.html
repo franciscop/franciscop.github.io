@@ -1,0 +1,135 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8">
+    <link rel="shortcut icon" type="image/png" href="/assets/img/logo.png"/>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <link rel="alternate" type="application/rss+xml" href="/blog/rss.xml" title="RSS feed for My Page">
+
+    <!-- Standard -->
+    <title>A React Slider component — Francisco Presencia</title>
+    <meta content="Blog, Francisco Presencia, Francisco, Presencia, Software, Programmer, Javascript, Node.js" name="keywords">
+    <meta content="react-encapsulation-a-slider-component" name="description">
+
+    <!-- Thanks https://moz.com/blog/meta-data-templates-123 -->
+    <!-- Twitter Card data -->
+    <meta name="twitter:card" content="summary_large_image">
+    <meta name="twitter:site" content="@fpresencia">
+    <meta name="twitter:title" content="A React Slider component — Francisco Presencia" />
+    <meta name="twitter:description" content="react-encapsulation-a-slider-component" />
+    <meta name="twitter:creator" content="@fpresencia" />
+    <meta name="twitter:image" content="https://francisco.io/blog/react-encapsulation-a-slider-component/header.png" />
+
+    <!-- Open Graph data -->
+    <meta property="og:title" content="A React Slider component — Francisco Presencia" />
+    <meta property="og:type" content="article" />
+    <meta property="og:url" content="https:///francisco.io/blog/react-encapsulation-a-slider-component/" />
+    <meta property="og:image" content="https://francisco.io/blog/react-encapsulation-a-slider-component/header.png" />
+    <meta property="og:description" content="react-encapsulation-a-slider-component" />
+    <meta property="og:site_name" content="Blog of Francisco Presencia" />
+
+    <link href="/assets/style.min.css" rel="stylesheet">
+  </head>
+  <body>
+    <main>
+      <h1>A React Slider component</h1>
+        <div class="meta">
+          <a href="https://francisco.io/"><img class="logo" src="/assets/img/logo.png"> Francisco</a>
+          <a href="https://www.paypal.me/franciscopresencia/10"><img class="logo" src="/assets/img/icon_paypal.svg"> Donate</a>
+          <a href="https://github.com/franciscop/franciscop.github.io/edit/master/blog/react-encapsulation-a-slider-component/readme.md/">📝 Edit</a>
+          <a href="https:///francisco.io/blog/react-encapsulation-a-slider-component/">🕑 <time datetime="2020-08-09T14:30:0Z">{loading...}</time></a>
+        </div>
+
+        <p>One of the things I like most from React is how you can define tight components that don&#39;t bleed their logic all over the place. This is an article to show how I&#39;d build a slider that has an exponential range in React. I will be using <code>styled-components</code> for styles.</p>
+<p>First, how would you normally create a plain slider in React? There&#39;s an HTML input type called <code>range</code> that fits the bill perfectly, so let&#39;s name that as the React component:</p>
+<iframe src="https://codesandbox.io/embed/react-slider-post-1-t8y8d?fontsize=14&hidenavigation=1&theme=dark&module=%2Fsrc%2FRange.js"
+  class="codesandbox"
+  style="height:300px;"
+  title="React Slider post 1"
+></iframe>
+
+<p>Great, it works nicely. We want to maintain the normal <code>&lt;input /&gt;</code> value to follow standard web forms, which will give greater flexibility to those using this module. They will be able to use it as a controlled or uncontrolled input.</p>
+<p>While our component very basics work, the user doesn&#39;t know what they are doing when they move the slider, so we&#39;ll show the value besides it. We will also add some style to the whole slider:</p>
+<iframe src="https://codesandbox.io/embed/pensive-fermi-drxi0?fontsize=14&hidenavigation=1&theme=dark&module=%2Fsrc%2FRange.js"
+  class="codesandbox"
+  title="pensive-fermi-drxi0"
+></iframe>
+
+<p>Now we want to fulfill this blogpost requirements and make it exponential. There are few ways I can think of doing this in the code, so normally I would try a couple of them if I am not confident.</p>
+<p>First I tried using some math functions in JS, but that turned out to yield some ugly numbers and not nice round ones. It&#39;d jump from &quot;87&quot; to &quot;103&quot; and not let me choose a nice round &quot;100&quot;.</p>
+<p>Since this is for a tool for estimates, and not for real-world numbers, I decided to instead make a list of numbers that are allowed and use that in the slider:</p>
+<iframe src="https://codesandbox.io/embed/react-slider-post-3-nwzj2?fontsize=14&hidenavigation=1&theme=dark&module=%2Fsrc%2FRange.js"
+  class="codesandbox"
+  title="React Slider post 3"
+></iframe>
+
+<p>This certainly has a different feeling from the free-flowing cursor from before. You can smooth it out by adding many more numbers, which we will do with a small helper function.</p>
+<p>We can also add a bit of internationalization so the numbers are easier to read:</p>
+<iframe src="https://codesandbox.io/embed/react-slider-post-4-nnpuf?fontsize=14&hidenavigation=1&theme=dark&module=%2Fsrc%2FRange.js"
+  class="codesandbox"
+  title="React Slider post 4"
+></iframe>
+
+<p>Finally we are going to deal with proper HTML and React things. I personally prefer uncontrolled components, but React input elements should normally be able to do either. Try both the controlled and uncontrolled componentts by opening <code>App.js</code> and modifying the code in this codesandbox:</p>
+<iframe src="https://codesandbox.io/embed/react-slider-post-5-7v9qy?fontsize=14&hidenavigation=1&theme=dark&module=%2Fsrc%2FSlider.js"
+  class="codesandbox"
+  title="React Slider post 5"
+  ></iframe>
+
+
+
+
+
+
+        <footer>
+          <div class="love">💜 💙 💛 💚</div>
+          <div class="flex one two-600">
+            <form class="subscribe" action="https://francisco.us9.list-manage.com/subscribe/post?u=8f634b4eeb27e1bb51438f11f&amp;id=d740a251b6" method="post" name="mc-embedded-subscribe-form" target="_blank">
+              <h3>Subscribe</h3>
+          	  <input type="email" value="" name="EMAIL" class="email" id="mce-EMAIL" placeholder="Email" required>
+              <input type="submit" value="Subscribe" name="subscribe" id="mc-embedded-subscribe" class="button">
+              <input type="text" name="b_8f634b4eeb27e1bb51438f11f_d740a251b6" tabindex="-1" value="">
+            </form>
+            <div>
+              <h3>Donate</h3>
+              <a class="donate pseudo button" href="https://www.paypal.me/franciscopresencia/10">
+                <img class="logo" src="/assets/img/icon_paypal.svg"> Paypal
+              </a>
+          <div>
+        </footer>
+
+        <comment-box title="" site="https://francisco.io/blog/react-encapsulation-a-slider-component"></comment-box>
+
+        <script src="https://cdn.jsdelivr.net/npm/timeago.js@3/dist/timeago.min.js"></script>
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.15.0/prism.min.js"></script>
+        <script src="https://comments.network/comments.js"></script>
+        <script type="text/javascript">
+          timeago().render(document.querySelectorAll('time'));
+          Prism.hooks.add("after-highlight", function () {
+            document.querySelectorAll('.token').forEach((el, i, all) => {
+              if (el.textContent !== 'get') return;
+              // Fix the get() and const { get }
+              if (all[i + 1] && all[i + 1].textContent === '(') {
+                el.classList.remove('keyword');
+                el.classList.add('function');
+              } else {
+                el.outerHTML = 'get';
+              }
+            });
+          });
+        </script>
+
+      <script>
+        // Google Analytics
+        (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+        (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+        m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+        })(window,document,'script','//www.google-analytics.com/analytics.js','ga');
+
+        ga('create', 'UA-63739359-1', 'auto');
+        ga('send', 'pageview');
+      </script>
+    </main>
+  </body>
+</html>

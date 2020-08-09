@@ -45,8 +45,11 @@
 <blockquote>
 <p>Good news: from Node.js 7.6 you have native async/await support!</p>
 </blockquote>
-<h2 id="server-middleware">Server middleware</h2>
-<p>By building <a href="https://comments.network/">Comments Network</a> I learned a couple of tricks. If we were to do it naively we could implement it like this with server:</p>
+
+    <h2 id="server-middleware">
+      Server middleware
+    </h2>
+  <p>By building <a href="https://comments.network/">Comments Network</a> I learned a couple of tricks. If we were to do it naively we could implement it like this with server:</p>
 <pre><code class="language-js">// Promise-based requests
 server(get(&#39;/story/:id&#39;, ctx =&gt; {
   request(`API CALL${ctx.req.params.id}`).then(api =&gt; {
@@ -64,8 +67,11 @@ server(get(&#39;/story/:id&#39;, async ctx =&gt; {
   return workedout;
 }));</code></pre>
 <p>You can use it now and forget about messy Promises and Callback Hell. Of course you will have to use libraries that are based on Promises as well, since some of the popular Node.js libraries such as <code>fs</code> and <code>request</code> are callback-based (check out <code>fs-promise</code> and <code>request-promises</code>).</p>
-<h2 id="testing">Testing</h2>
-<p>Now let’s see about Jest. By default, Jest and other testing frameworks accept two ways of doing asynchronous tests. Through a function that accepts a <code>done</code> parameter or through a function that returns a Promise. But thanks to <code>async</code> the third option is a no-brainer (<a href="https://github.com/franciscop/drive-db">see it live</a>):</p>
+
+    <h2 id="testing">
+      Testing
+    </h2>
+  <p>Now let’s see about Jest. By default, Jest and other testing frameworks accept two ways of doing asynchronous tests. Through a function that accepts a <code>done</code> parameter or through a function that returns a Promise. But thanks to <code>async</code> the third option is a no-brainer (<a href="https://github.com/franciscop/drive-db">see it live</a>):</p>
 <pre><code class="language-js">// Callback based
 it(&#39;can be loaded&#39;, done =&gt; {
   drive.load().then(db =&gt; {

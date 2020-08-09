@@ -47,8 +47,11 @@
 <p>“Some things are not allowed, and will be removed without discussion if they are brought to the attention of the npm registry admins, including but not limited to: […] “Squatting” on a package name that you plan to use, but aren’t actually using. […] Putting empty packages in the registry.”</p>
 </blockquote>
 <p>From the lack of use from the author and devs, npm decided to hand it over when the original author didn’t answer my emails. Let’s see how to do it.</p>
-<h2 id="a-package-has-a-name">A package has a name</h2>
-<p>First of all we have to identify a package name that we might want to use. My rule of thumb is to try to find a package that follows most of these:</p>
+
+    <h2 id="a-package-has-a-name">
+      A package has a name
+    </h2>
+  <p>First of all we have to identify a package name that we might want to use. My rule of thumb is to try to find a package that follows most of these:</p>
 <ul>
 <li><p><strong>Unstable</strong>: latest version in the low <strong>0.x</strong> or even in the <strong>0.0.x</strong>. This means the package is still marked as “in development” as per <a href="https://semver.org/">semver guideliness</a> so the work should still not be used in production by anyone.</p>
 </li>
@@ -61,12 +64,18 @@
 </ul>
 <p>I find this info with <a href="https://jerz.setonhill.edu/writing/e-text/url-hacking-do-it-yourself-navigation/">url hacking</a> writing <a href="https://npmjs.com/package/NAME">https://npmjs.com/package/NAME</a> for precise matching, but the <a href="https://www.npmjs.com/">search functionality</a> has been improved greatly in the recent years so you can use that as well.</p>
 <p>There was something weird going on in the early npm versions so the name is case-sensitive; you’ll have to check the <strong>lowercase</strong> name as that’s the only supported ones nowadays.</p>
-<h2 id="get-the-package">Get the package</h2>
-<p>Great! You found an amazing package name that follows most of the points mentioned above. The quoted dispute policy is to automatically remove a package, but we might also want to use a name that is not in direct violation of the conditions. It’s time to wear our peopleware hat.</p>
+
+    <h2 id="get-the-package">
+      Get the package
+    </h2>
+  <p>Great! You found an amazing package name that follows most of the points mentioned above. The quoted dispute policy is to automatically remove a package, but we might also want to use a name that is not in direct violation of the conditions. It’s time to wear our peopleware hat.</p>
 <p>It’s simple and <a href="https://www.npmjs.com/policies/disputes">well explained</a>: email the person holding the current package. Most people are actually easy to reason with so just ask nicely and give a valid reason (the name is perfect a package you are finishing). CC npm staff so in any way it will be resolved within 1–2 months.</p>
 <p>The other person might not have access to that email or not care anymore, in which case npm will intervene and give their verdict about what will happen after few weeks.</p>
-<h2 id="next-steps">Next steps</h2>
-<p>You might be asked by npm to publish from the 1.x version to avoid any possible compatibility issue. However you can get around this to not yet launch an official build by using 1.0.0-alpha.1 versions first.</p>
+
+    <h2 id="next-steps">
+      Next steps
+    </h2>
+  <p>You might be asked by npm to publish from the 1.x version to avoid any possible compatibility issue. However you can get around this to not yet launch an official build by using 1.0.0-alpha.1 versions first.</p>
 <p><a href="https://twitter.com/fpresencia">Let me know</a> if you get a great name or have any question! Also <a href="https://serverjs.io/">check out server.js</a> to make a full Node.js server easily with npm install server and:</p>
 <pre><code class="language-js">// index.js
 
