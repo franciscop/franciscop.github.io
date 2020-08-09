@@ -1,7 +1,7 @@
 ---
 layout: post.hbs
 title: A React Slider component
-description: react-encapsulation-a-slider-component
+description: It is easier than ever to make high quality React components. In this article I explain how to make a nice slider.
 date: 2020-08-09T14:30:00Z
 ---
 
