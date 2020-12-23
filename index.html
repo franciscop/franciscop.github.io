@@ -124,6 +124,17 @@
         </p>
         <div class="flex one two-500 three-800">
           <div class="product">
+            <a class="block" href="https://documentation.page/">
+              <div class="browser">
+                <img src="/assets/img/product_docs_desktop.jpg" alt="" />
+              </div>
+              <div class="mobile">
+                <img src="/assets/img/product_docs_mobile.png" alt="" />
+              </div>
+              <h3>Documentation Page</h3>
+            </a>
+          </div>
+          <div class="product">
             <a class="block" href="https://serverjs.io/">
               <div class="browser">
                 <img src="/assets/img/product_server_desktop.png" alt="" />
@@ -180,6 +191,7 @@
               </a>
             </div>
           -->
+          <!--
           <div class="product">
             <a class="block" href="https://umbrellajs.com/">
               <div class="browser">
@@ -191,6 +203,7 @@
               <h3>Umbrella JS</h3>
             </a>
           </div>
+          -->
           <div class="product">
             <a class="block" href="https://makersupv.com/">
               <div class="browser">
@@ -215,14 +228,14 @@
         <div class="repos flex one two-500 three-800">
           <div>
             <a class="block" href="https://github.com/franciscop/server">
-              <h3><span class="stars">⭐ 3.2k</span> 💻 <code>server</code></h3>
+              <h3><span class="stars">⭐ 3.5k</span> 💻 <code>server</code></h3>
             </a>
             <p>Powerful and secure server for Node.js with websockets</p>
           </div>
           <div>
             <a class="block" href="https://github.com/franciscop/brownies">
               <h3>
-                <span class="stars">⭐ 2.3k</span> 🍫 <code>brownies</code>
+                <span class="stars">⭐ 2.4k</span> 🍫 <code>brownies</code>
               </h3>
             </a>
             <p>Delicious cookies, local and session storage manipulation</p>
@@ -230,7 +243,7 @@
           <div>
             <a class="block" href="https://github.com/franciscop/umbrella">
               <h3>
-                <span class="stars">⭐ 1.6k</span> ☔ <code>umbrellajs</code>
+                <span class="stars">⭐ 1.8k</span> ☔ <code>umbrellajs</code>
               </h3>
             </a>
             <p>Lightweight library for DOM manipulation and events</p>
@@ -238,21 +251,21 @@
           <div>
             <a class="block" href="https://github.com/franciscop/drive-db">
               <h3>
-                <span class="stars">⭐ 529</span> 📊 <code>drive-db</code>
+                <span class="stars">⭐ 763</span> 📊 <code>drive-db</code>
               </h3>
             </a>
             <p>Google Drive Spreadsheets as your local database</p>
           </div>
           <div>
             <a class="block" href="https://github.com/franciscop/legally">
-              <h3><span class="stars">⭐ 206</span> 📚 <code>legally</code></h3>
+              <h3><span class="stars">⭐ 321</span> 📚 <code>legally</code></h3>
             </a>
             <p>Check the licenses of npm dependency tree</p>
           </div>
           <div>
             <a class="block" href="https://github.com/franciscop/translate">
               <h3>
-                <span class="stars">⭐ 29</span> 🈂️ <code>translate</code>
+                <span class="stars">⭐ 89</span> 🈂️ <code>translate</code>
               </h3>
             </a>
             <p>Translate text on node.js and the browser with promises</p>
@@ -395,17 +408,13 @@
       }, 2000 * parseInt(Math.random()) + 1000);
 
       // Round the number like "3.5k" https://stackoverflow.com/a/9461657
-      const k = num => (num > 999 ? (num / 1000).toFixed(1) + "k" : num);
+      const k = (num) => (num > 999 ? (num / 1000).toFixed(1) + "k" : num);
 
       // Add the most current star count to the repositories
-      document.querySelectorAll(".repos a").forEach(async link => {
-        const name = link
-          .getAttribute("href")
-          .split("/")
-          .slice(-2)
-          .join("/");
+      document.querySelectorAll(".repos a").forEach(async (link) => {
+        const name = link.getAttribute("href").split("/").slice(-2).join("/");
         const url = "https://api.github.com/repos/" + name;
-        const { stargazers_count } = await fetch(url).then(res => res.json());
+        const { stargazers_count } = await fetch(url).then((res) => res.json());
         if (!stargazers_count) return;
         link.querySelector(".stars").innerText = "⭐ " + k(stargazers_count);
       });
@@ -413,11 +422,11 @@
 
     <script>
       // Google Analytics
-      (function(i, s, o, g, r, a, m) {
+      (function (i, s, o, g, r, a, m) {
         i["GoogleAnalyticsObject"] = r;
         (i[r] =
           i[r] ||
-          function() {
+          function () {
             (i[r].q = i[r].q || []).push(arguments);
           }),
           (i[r].l = 1 * new Date());
