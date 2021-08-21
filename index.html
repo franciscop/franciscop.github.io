@@ -233,6 +233,20 @@
             <p>Powerful and secure server for Node.js with websockets</p>
           </div>
           <div>
+            <a class="block" href="https://statux.dev/">
+              <h3><span class="stars">⭐ 65</span> ⚛️ <code>statux</code></h3>
+            </a>
+            <p>
+              State management library for React with immutable state
+            </p>
+          </div>
+          <div>
+            <a class="block" href="https://crossroad.page/">
+              <h3><span class="stars">⭐ 6</span> 🛣 <code>crossroad</code></h3>
+            </a>
+            <p>A routing library for React with a familiar interface</p>
+          </div>
+          <div>
             <a class="block" href="https://github.com/franciscop/brownies">
               <h3>
                 <span class="stars">⭐ 2.4k</span> 🍫 <code>brownies</code>
@@ -269,6 +283,14 @@
               </h3>
             </a>
             <p>Translate text on node.js and the browser with promises</p>
+          </div>
+          <div>
+            <a class="block" href="https://react-test.dev/">
+              <h3>
+                <span class="stars">⭐ 19</span> 📜 <code>react-test</code>
+              </h3>
+            </a>
+            <p>Testing library for React to verify your components work</p>
           </div>
         </div>
       </section>
@@ -386,10 +408,7 @@
         Logo designed
         <a href="https://jp.linkedin.com/in/carlaalmazora">by Carla</a>. Website
         made <a href="https://francisco.io/">by me</a> with
-        <a href="https://picnicss.com/">Picnic CSS</a> and
-        <a href="https://github.com/franciscop/create-static-web"
-          >Create-Static-Web</a
-        >.
+        <a href="https://picnicss.com/">Picnic CSS</a>.
       </footer>
     </main>
 
@@ -408,13 +427,17 @@
       }, 2000 * parseInt(Math.random()) + 1000);
 
       // Round the number like "3.5k" https://stackoverflow.com/a/9461657
-      const k = (num) => (num > 999 ? (num / 1000).toFixed(1) + "k" : num);
+      const k = num => (num > 999 ? (num / 1000).toFixed(1) + "k" : num);
 
       // Add the most current star count to the repositories
-      document.querySelectorAll(".repos a").forEach(async (link) => {
-        const name = link.getAttribute("href").split("/").slice(-2).join("/");
+      document.querySelectorAll(".repos a").forEach(async link => {
+        const name = link
+          .getAttribute("href")
+          .split("/")
+          .slice(-2)
+          .join("/");
         const url = "https://api.github.com/repos/" + name;
-        const { stargazers_count } = await fetch(url).then((res) => res.json());
+        const { stargazers_count } = await fetch(url).then(res => res.json());
         if (!stargazers_count) return;
         link.querySelector(".stars").innerText = "⭐ " + k(stargazers_count);
       });
@@ -422,11 +445,11 @@
 
     <script>
       // Google Analytics
-      (function (i, s, o, g, r, a, m) {
+      (function(i, s, o, g, r, a, m) {
         i["GoogleAnalyticsObject"] = r;
         (i[r] =
           i[r] ||
-          function () {
+          function() {
             (i[r].q = i[r].q || []).push(arguments);
           }),
           (i[r].l = 1 * new Date());
