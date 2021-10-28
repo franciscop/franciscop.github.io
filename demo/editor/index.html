@@ -13,7 +13,7 @@
       }
       aside {
         display: block;
-        position: absolute;
+        position: fixed;
         width: 30%;
         height: 100%;
         border-right: 2px solid black;
@@ -56,14 +56,16 @@
       }
       li {
         margin: 20px 0;
+        border: 2px solid black;
+        padding: 20px;
       }
       .label {
         display: inline-block;
         font-size: 20px;
         border: 2px solid black;
-        width: 24px;
-        height: 24px;
-        line-height: 26px;
+        width: 30px;
+        height: 30px;
+        line-height: 30px;
         text-align: center;
         vertical-align: middle;
       }
@@ -84,7 +86,9 @@
       <pre></pre>
     </main>
     <script>
-      document.querySelector("pre").textContent = document.body.outerHTML;
+      document.querySelector("pre").textContent = document.querySelector(
+        "html"
+      ).outerHTML;
       document.querySelector(".hide").addEventListener("click", function(e) {
         document.body.classList.add("noaside");
       });
