@@ -91,8 +91,16 @@
     <script src="./promises.js"></script>
     <script src="./fetch.js"></script>
     <script>
-      alert("Promise: " + typeof Promise);
-      alert("Fetch: " + typeof fetch);
+      function reqListener() {
+        console.log(this.responseText);
+      }
+
+      var oReq = new XMLHttpRequest();
+      oReq.addEventListener("load", function() {
+        alert(this.responseText);
+      });
+      oReq.open("GET", "./reset.css");
+      oReq.send();
 
       function render(content) {
         document.querySelector("pre").textContent = content;
