@@ -118,11 +118,13 @@
       });
 
       u("aside li").on("click", function(e) {
+        alert("Clicked");
         u("aside li").removeClass("active");
         u(e.currentTarget).addClass("active");
         var text = e.currentTarget.textContent;
-        var file = text.split(" ").pop();
-        getUrl("./" + file).then(render);
+        var file = "./" + text.split(" ").pop();
+        alert("File: " + file);
+        getUrl(file).then(render);
       });
 
       // u("aside li").on("click", function(e) {
