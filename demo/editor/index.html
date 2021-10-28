@@ -115,8 +115,7 @@
           });
         });
 
-      var supportsWebSockets =
-        "WebSocket" in window || "MozWebSocket" in window;
+      var supportsWebSockets = "WebSocket" in window;
       if (supportsWebSockets) {
         alert("support");
       } else {
