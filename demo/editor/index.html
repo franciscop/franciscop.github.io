@@ -120,7 +120,7 @@
       u("aside li").on("click", function(e) {
         u("aside li").removeClass("active");
         u(e.currentTarget).addClass("active");
-        const text = e.currentTarget.textContent;
+        var text = e.currentTarget.textContent;
         var file = text.split(" ").pop();
         getUrl("./" + file).then(render);
       });
