@@ -100,7 +100,7 @@
         .apply(document.querySelectorAll("aside li"))
         .forEach(function(el) {
           el.addEventListener("click", function(e) {
-            var file = e.target.textContent.split(" ").pop();
+            var file = e.currentTarget.textContent.split(" ").pop();
             alert("Clicked " + file);
             fetch(file)
               .then(function(res) {
