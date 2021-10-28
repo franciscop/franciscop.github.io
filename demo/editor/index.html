@@ -19,6 +19,9 @@
         padding: 20px;
         border-right: 2px solid black;
       }
+      .noaside aside {
+        display: none;
+      }
       main {
         display: block;
         margin-left: 20%;
@@ -27,15 +30,25 @@
         height: 100%;
         overflow: scroll;
       }
+      .noaside main {
+        margin-left: 0;
+        width: 100%;
+      }
     </style>
   </head>
   <body>
-    <aside>Hello 3</aside>
+    <aside>
+      Hello 3
+      <button class="hide">Hide Aside</button>
+    </aside>
     <main>
       <pre></pre>
     </main>
     <script>
       document.querySelector("pre").textContent = document.body.outerHTML;
+      document.querySelector(".hide").addEventListener("click", function(e) {
+        document.body.classList.add("noaside");
+      });
     </script>
   </body>
 </html>
