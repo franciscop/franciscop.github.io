@@ -88,9 +88,11 @@
       <pre></pre>
     </main>
 
+    <script src="./promises.js"></script>
     <script src="./fetch.js"></script>
     <script>
-      alert('Promise: ' + typeof Promise);
+      alert("Promise: " + typeof Promise);
+      alert("Fetch: " + typeof fetch);
 
       function render(content) {
         document.querySelector("pre").textContent = content;
