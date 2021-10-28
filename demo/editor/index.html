@@ -29,8 +29,8 @@
         width: 100px;
         height: 100px;
         position: absolute;
-        bottom: 10px;
-        left: 10px;
+        bottom: 30px;
+        left: 30px;
         border-radius: 0;
         border: 2px solid black;
       }
@@ -39,23 +39,25 @@
       }
       .noaside .show {
         display: block;
+        z-index: 10;
       }
       main {
         display: block;
-        margin-left: 30%;
+        position: absolute;
+        left: 30%;
         width: 70%;
         height: 100%;
         overflow: scroll;
       }
       .noaside main {
-        margin-left: 0;
+        left: 0;
         width: 100%;
       }
       pre {
         margin: 20px;
       }
       li {
-        margin: 20px 0;
+        margin: 20px;
         border: 2px solid black;
         padding: 20px;
       }
@@ -73,12 +75,10 @@
   </head>
   <body>
     <aside>
-      <div class="wrap">
-        <ul>
-          <li><span class="label">1</span> index.html</li>
-          <li><span class="label">2</span> reset.css</li>
-        </ul>
-      </div>
+      <ul>
+        <li><span class="label">1</span> index.html</li>
+        <li><span class="label">2</span> reset.css</li>
+      </ul>
       <button class="hide">-</button>
     </aside>
     <button class="show">+</button>
@@ -95,6 +95,18 @@
       document.querySelector(".show").addEventListener("click", function(e) {
         document.body.classList.remove("noaside");
       });
+      Array.prototype.slice
+        .apply(document.querySelectorAll("aside li"))
+        .forEach(function(el) {
+          el.addEventListener("click", function(e) {
+            var file = e.target.textContent.split(" ").pop();
+            fetch(file)
+              .then(res => res.text())
+              .then(text => {
+                document.querySelector("pre").textContent = text;
+              });
+          });
+        });
     </script>
   </body>
 </html>
