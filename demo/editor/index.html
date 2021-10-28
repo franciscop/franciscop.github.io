@@ -89,18 +89,21 @@
     </main>
 
     <script src="./promises.js"></script>
-    <script src="./fetch.js"></script>
     <script>
       function reqListener() {
         console.log(this.responseText);
       }
 
-      var oReq = new XMLHttpRequest();
-      oReq.addEventListener("load", function() {
-        alert(this.responseText);
-      });
-      oReq.open("GET", "./reset.css");
-      oReq.send();
+      function getUrl(url) {
+        return new Promise(function(resolve, reject) {
+          var oReq = new XMLHttpRequest();
+          oReq.addEventListener("load", function() {
+            resolve(this.responseText);
+          });
+          oReq.open("GET", url);
+          oReq.send();
+        });
+      }
 
       function render(content) {
         document.querySelector("pre").textContent = content;
@@ -117,11 +120,7 @@
         .forEach(function(el) {
           el.addEventListener("click", function(e) {
             var file = "./" + e.currentTarget.textContent.split(" ").pop();
-            fetch(file)
-              .then(function(res) {
-                return res.text();
-              })
-              .then(render);
+            getUrl(file).then(render);
           });
         });
     </script>
