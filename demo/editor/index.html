@@ -105,8 +105,9 @@
         .forEach(function(el) {
           el.addEventListener("click", function(e) {
             var file = "./" + e.currentTarget.textContent.split(" ").pop();
-            alert("Clicked " + file + (window.fetch ? "fetch" : "no fetch"));
-            fetch(file)
+            alert("Clicked " + file + typeof window.fetch);
+            window
+              .fetch(file)
               .then(function(res) {
                 return res.text();
               })
@@ -116,7 +117,11 @@
 
       var supportsWebSockets =
         "WebSocket" in window || "MozWebSocket" in window;
-      alert(supportsWebSockets ? "support" : "no support");
+      if (supportsWebSockets) {
+        alert("support");
+      } else {
+        alert("no support");
+      }
     </script>
   </body>
 </html>
