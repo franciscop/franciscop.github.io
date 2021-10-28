@@ -41,6 +41,10 @@ ol, ul {
 blockquote, q {
 	quotes: none;
 }
+button {
+	font-size: inherit;
+	font-family: inherit;
+}
 blockquote:before, blockquote:after,
 q:before, q:after {
 	content: '';

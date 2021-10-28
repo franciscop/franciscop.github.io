@@ -22,6 +22,19 @@
       .noaside aside {
         display: none;
       }
+      .show {
+        display: none;
+        width: 100px;
+        height: 100px;
+        position: absolute;
+        bottom: 10px;
+        left: 10px;
+        border-radius: 0;
+        border: 2px solid black;
+      }
+      .noaside .show {
+        display: block;
+      }
       main {
         display: block;
         margin-left: 20%;
@@ -41,6 +54,7 @@
       Hello 3
       <button class="hide">Hide Aside</button>
     </aside>
+    <button class="show">/</button>
     <main>
       <pre></pre>
     </main>
@@ -48,6 +62,9 @@
       document.querySelector("pre").textContent = document.body.outerHTML;
       document.querySelector(".hide").addEventListener("click", function(e) {
         document.body.classList.add("noaside");
+      });
+      document.querySelector(".show").addEventListener("click", function(e) {
+        document.body.classList.remove("noaside");
       });
     </script>
   </body>
