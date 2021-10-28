@@ -27,6 +27,11 @@
   </head>
   <body>
     <aside>Hello</aside>
-    <main>World</main>
+    <main>
+      <pre></pre>
+    </main>
+    <script>
+      document.querySelector("pre").textContent = document.body.outerHTML;
+    </script>
   </body>
 </html>
