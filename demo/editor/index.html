@@ -86,9 +86,10 @@
       <pre></pre>
     </main>
     <script>
-      document.querySelector("pre").textContent = document.querySelector(
-        "html"
-      ).outerHTML;
+      function render(content) {
+        document.querySelector("pre").textContent = content;
+      }
+      render(document.querySelector("html").outerHTML);
       document.querySelector(".hide").addEventListener("click", function(e) {
         document.body.classList.add("noaside");
       });
@@ -104,9 +105,7 @@
               .then(function(res) {
                 return res.text();
               })
-              .then(function(text) {
-                document.querySelector("pre").textContent = text;
-              });
+              .then(render);
           });
         });
     </script>
