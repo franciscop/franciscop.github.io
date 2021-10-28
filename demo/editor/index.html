@@ -90,6 +90,8 @@
 
     <script src="./fetch.js"></script>
     <script>
+      alert('Promise: ' + typeof Promise);
+
       function render(content) {
         document.querySelector("pre").textContent = content;
       }
@@ -100,7 +102,6 @@
       document.querySelector(".show").addEventListener("click", function(e) {
         document.body.classList.remove("noaside");
       });
-      alert(typeof fetch);
       Array.prototype.slice
         .apply(document.querySelectorAll("aside li"))
         .forEach(function(el) {
