@@ -8,7 +8,7 @@
     <link rel="stylesheet" href="./reset.css" />
     <style>
       body {
-        font-size: 40px;
+        font-size: 32px;
         font-family: sans-serif;
       }
       aside {
@@ -22,8 +22,8 @@
       .noaside aside {
         display: none;
       }
-      .show {
-        display: none;
+      .show,
+      .hide {
         width: 100px;
         height: 100px;
         position: absolute;
@@ -31,6 +31,9 @@
         left: 10px;
         border-radius: 0;
         border: 2px solid black;
+      }
+      .show {
+        display: none;
       }
       .noaside .show {
         display: block;
@@ -52,9 +55,9 @@
   <body>
     <aside>
       Hello 3
-      <button class="hide">Hide Aside</button>
+      <button class="hide">-</button>
     </aside>
-    <button class="show">/</button>
+    <button class="show">+</button>
     <main>
       <pre></pre>
     </main>
