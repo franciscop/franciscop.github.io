@@ -101,8 +101,10 @@
           el.addEventListener("click", function(e) {
             var file = e.target.textContent.split(" ").pop();
             fetch(file)
-              .then(res => res.text())
-              .then(text => {
+              .then(function(res) {
+                return res.text();
+              })
+              .then(function(text) {
                 document.querySelector("pre").textContent = text;
               });
           });
