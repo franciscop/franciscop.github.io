@@ -101,6 +101,7 @@
         .forEach(function(el) {
           el.addEventListener("click", function(e) {
             var file = e.target.textContent.split(" ").pop();
+            alert("Clicked " + file);
             fetch(file)
               .then(function(res) {
                 return res.text();
