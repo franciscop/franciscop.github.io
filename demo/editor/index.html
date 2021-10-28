@@ -62,6 +62,10 @@
         margin: 20px;
         border: 2px solid black;
         padding: 20px;
+        cursor: pointer;
+      }
+      li.active {
+        border-right-width: 10px;
       }
       .label {
         display: inline-block;
@@ -78,7 +82,7 @@
   <body>
     <aside>
       <ul>
-        <li><span class="label">1</span> index.html</li>
+        <li class="active"><span class="label">1</span> index.html</li>
         <li><span class="label">2</span> reset.css</li>
       </ul>
       <button class="hide">-</button>
@@ -89,11 +93,8 @@
     </main>
 
     <script src="./promises.js"></script>
+    <script src="./umbrella.js"></script>
     <script>
-      function reqListener() {
-        console.log(this.responseText);
-      }
-
       function getUrl(url) {
         return new Promise(function(resolve, reject) {
           var oReq = new XMLHttpRequest();
@@ -115,14 +116,30 @@
       document.querySelector(".show").addEventListener("click", function(e) {
         document.body.classList.remove("noaside");
       });
-      Array.prototype.slice
-        .apply(document.querySelectorAll("aside li"))
-        .forEach(function(el) {
-          el.addEventListener("click", function(e) {
-            var file = "./" + e.currentTarget.textContent.split(" ").pop();
-            getUrl(file).then(render);
-          });
-        });
+
+      u("aside li").on("click", function(e) {
+        u("aside li").removeClass("active");
+        u(e.currentTarget).addClass("active");
+        const text = e.currentTarget.textContent;
+        var file = text.split(" ").pop();
+        getUrl("./" + file).then(render);
+      });
+
+      // u("aside li").on("click", function(e) {
+      //   const text = e.currentTarget.textContent;
+      //   var file = text.split(" ").pop();
+      //   getUrl("./" + file).then(render);
+      // });
+      //
+      // Array.prototype.slice
+      //   .apply(document.querySelectorAll("aside li"))
+      //   .forEach(function(el) {
+      //     el.addEventListener("click", function(e) {
+      //       const text = e.currentTarget.textContent;
+      //       var file = text.split(" ").pop();
+      //       getUrl("./" + file).then(render);
+      //     });
+      //   });
     </script>
   </body>
 </html>
