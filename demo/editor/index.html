@@ -118,15 +118,15 @@
         document.body.classList.remove("noaside");
       });
 
-      alert(u("aside li").length);
-      u("aside li").on("click", function(e) {
-        alert("Clicked");
-        u("aside li").removeClass("active");
-        u(e.currentTarget).addClass("active");
-        var text = e.currentTarget.textContent;
-        var file = "./" + text.split(" ").pop();
-        alert("File: " + file);
-        getUrl(file).then(render);
+      u("aside li").forEach(function(el) {
+        el.addEventListener("click", function(e) {
+          u("aside li").removeClass("active");
+          u(e.currentTarget).addClass("active");
+          var text = e.currentTarget.textContent;
+          var file = "./" + text.split(" ").pop();
+          alert("File: " + file);
+          getUrl(file).then(render);
+        });
       });
 
       // u("aside li").on("click", function(e) {
