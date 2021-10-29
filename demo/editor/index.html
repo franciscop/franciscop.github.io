@@ -118,7 +118,7 @@
         document.body.classList.remove("noaside");
       });
 
-      u("aside li").forEach(function(el) {
+      u("aside li").each(function(el) {
         alert("One!");
         el.addEventListener("click", function(e) {
           u("aside li").removeClass("active");
