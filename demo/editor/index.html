@@ -120,6 +120,7 @@
       });
 
       u("aside li").forEach(function(el) {
+        alert("One!");
         el.addEventListener("click", function(e) {
           u("aside li").removeClass("active");
           u(e.currentTarget).addClass("active");
