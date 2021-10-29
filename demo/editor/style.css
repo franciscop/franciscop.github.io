@@ -1,0 +1,71 @@
+body {
+  font-size: 26px;
+  font-family: sans-serif;
+}
+aside {
+  font-size: 30px;
+  display: block;
+  position: fixed;
+  top: 0;
+  width: 30%;
+  height: 100%;
+  border-right: 2px solid black;
+}
+.noaside aside {
+  display: none;
+}
+.wrap {
+  margin: 20px;
+}
+.show,
+.hide {
+  width: 100px;
+  height: 100px;
+  position: absolute;
+  bottom: 30px;
+  left: 30px;
+  border-radius: 0;
+  border: 2px solid black;
+}
+.show {
+  display: none;
+  z-index: 10;
+}
+.noaside .show {
+  display: block;
+}
+main {
+  display: block;
+  margin-left: 30%;
+  width: 70%;
+}
+.noaside main {
+  margin-left: 0;
+  width: 100%;
+}
+pre {
+  font-family: monospace;
+  margin: 20px;
+  width: 100%;
+  white-space: pre-wrap; /* Since CSS 2.1 */
+  word-wrap: break-word; /* Internet Explorer 5.5+ */
+}
+li {
+  margin: 20px;
+  border: 2px solid black;
+  padding: 20px;
+  cursor: pointer;
+}
+li.active {
+  border-right-width: 10px;
+}
+.label {
+  display: inline-block;
+  font-size: 20px;
+  border: 2px solid black;
+  width: 30px;
+  height: 30px;
+  line-height: 30px;
+  text-align: center;
+  vertical-align: middle;
+}
