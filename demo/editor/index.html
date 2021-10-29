@@ -96,6 +96,17 @@
     <script src="./promises.js"></script>
     <script src="./umbrella.js"></script>
     <script>
+      function $(sel) {
+        return document.querySelector(sel);
+      }
+      function $$(sel) {
+        return Array.prototype.slice.apply(document.querySelectorAll(sel));
+      }
+
+      function render(content) {
+        $("pre").textContent = content;
+      }
+
       function getUrl(url) {
         return new Promise(function(resolve, reject) {
           var oReq = new XMLHttpRequest();
@@ -107,42 +118,17 @@
         });
       }
 
-      function render(content) {
-        document.querySelector("pre").textContent = content;
-      }
       render(document.querySelector("html").outerHTML);
-      document.querySelector(".hide").addEventListener("click", function(e) {
+      $(".hide").addEventListener("click", function(e) {
         document.body.classList.add("noaside");
       });
-      document.querySelector(".show").addEventListener("click", function(e) {
+      $(".show").addEventListener("click", function(e) {
         document.body.classList.remove("noaside");
       });
 
-      // u("aside li").each(function(el) {
-      //   alert("One!");
-      //   el.addEventListener("click", function(e) {
-      //     u("aside li").removeClass("active");
-      //     u(e.currentTarget).addClass("active");
-      //     var text = e.currentTarget.textContent;
-      //     var file = "./" + text.split(" ").pop();
-      //     alert("File: " + file);
-      //     getUrl(file).then(render);
-      //   });
-      // });
-
-      // u("aside li").on("click", function(e) {
-      //   var text = e.currentTarget.textContent;
-      //   var file = text.split(" ").pop();
-      //   getUrl("./" + file).then(render);
-      // });
-
-      function $(sel) {
-        return Array.prototype.slice.apply(document.querySelectorAll(sel));
-      }
-
-      $("aside li").forEach(function(el) {
+      $$("aside li").forEach(function(el) {
         el.addEventListener("click", function(e) {
-          $("aside li").forEach(function(el) {
+          $$("aside li").forEach(function(el) {
             el.classList.remove("active");
           });
           el.classList.add("active");
