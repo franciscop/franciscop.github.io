@@ -1,7 +1,7 @@
 ---
 layout: post.hbs
 title: Stuck in spacetime 🚀
-description:
+description: As a teenager I thought I'd get stuck in spacetime due to a flaw in calculating infinity. Here I explore my thought process and how I fixed it
 date: 2022-02-23T06:45+09:00
 ---
 
