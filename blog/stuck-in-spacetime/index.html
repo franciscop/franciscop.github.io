@@ -1,0 +1,170 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8">
+    <link rel="shortcut icon" type="image/png" href="/assets/img/logo.png"/>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <link rel="alternate" type="application/rss+xml" href="/blog/rss.xml" title="RSS feed for My Page">
+
+    <!-- Standard -->
+    <title>Stuck in spacetime 🚀 — Francisco Presencia</title>
+    <meta content="Blog, Francisco Presencia, Francisco, Presencia, Software, Programmer, Javascript, Node.js" name="keywords">
+    <meta content="" name="description">
+
+    <!-- Thanks https://moz.com/blog/meta-data-templates-123 -->
+    <!-- Twitter Card data -->
+    <meta name="twitter:card" content="summary_large_image">
+    <meta name="twitter:site" content="@fpresencia">
+    <meta name="twitter:title" content="Stuck in spacetime 🚀 — Francisco Presencia" />
+    <meta name="twitter:description" content="" />
+    <meta name="twitter:creator" content="@fpresencia" />
+    <meta name="twitter:image" content="https://francisco.io/blog/stuck-in-spacetime/header.png" />
+
+    <!-- Open Graph data -->
+    <meta property="og:title" content="Stuck in spacetime 🚀 — Francisco Presencia" />
+    <meta property="og:type" content="article" />
+    <meta property="og:url" content="https:///francisco.io/blog/stuck-in-spacetime/" />
+    <meta property="og:image" content="https://francisco.io/blog/stuck-in-spacetime/header.png" />
+    <meta property="og:description" content="" />
+    <meta property="og:site_name" content="Blog of Francisco Presencia" />
+
+    <link href="/assets/style.min.css" rel="stylesheet">
+  </head>
+  <body>
+    <main>
+      <h1>Stuck in spacetime 🚀</h1>
+        <div class="meta">
+          <a href="https://francisco.io/"><img class="logo" src="/assets/img/logo.png"> Francisco</a>
+          <a href="https://www.paypal.me/franciscopresencia/10"><img class="logo" src="/assets/img/icon_paypal.svg"> Donate</a>
+          <a href="https://github.com/franciscop/franciscop.github.io/edit/master/blog/stuck-in-spacetime/readme.md/">📝 Edit</a>
+          <a href="https:///francisco.io/blog/stuck-in-spacetime/">🕑 <time datetime="2022-02-23T06:45+09:00">{loading...}</time></a>
+        </div>
+
+        <style>
+vector-graph {
+  margin: 0 auto;
+  display: block;
+  width: 400px;
+}
+</style>
+
+<p>I just remembered an interesting question that plagued my mind when I was in high school, possibly even middle school, when my thoughts were in another language.</p>
+<p>At that point I was just discovering the basics of mathematics, possibly I learned that the atom was the smallest divisible unit -oh sweet summer child- and was exploring infinity.</p>
+<p>To understand my question, let me fully express it as I remember I understood it back then. If you want to move any distance, first you move half of it and then the other half as you move through space. Sure, sounds simple enough.</p>
+<p>So for 1 meter, first you walk half a meter. Then as you move further you have to walk the next half of the distance left, 1/4th of a meter. And each segment would take an amount of time to be transversed, so it would look something like this:</p>
+<vector-graph width="400" height="400" x="0,1" y="0,1" grid="0.1" axis="m,t">
+  <point x="0.5" y="0.5"></point>
+  <vector from="0.5,0.5" to="0.8,0.5" label="v"></vector>
+  <line color="#90f" from="0,0" to="0.5,0"></line>
+  <line color="#a0e" from="0.5,0.1" to="0.75,0.1"></line>
+  <line color="#b0d" from="0.75,0.2" to="0.875,0.2"></line>
+  <line color="#c0c" from="0.875,0.3" to="0.937,0.3"></line>
+  <line color="#d0b" from="0.937,0.4" to="0.968,0.4"></line>
+  <line color="#e0a" from="0.968,0.5" to="0.984,0.5"></line>
+  <line color="#f09" from="0.984,0.6" to="0.992,0.6"></line>
+  <line color="#f08" from="0.992,0.7" to="0.996,0.7"></line>
+  <line color="#f07" from="0.996,0.8" to="1,0.8"></line>
+</vector-graph>
+
+<p>Since there are of course infinite number of steps, and each takes some time to be traversed, then the vertical axis (time) goes to infinity as you try to reach that 1 meter. So for my teen brain, how can you move an infinite number of steps in a finite time? It just made no sense for as much as I tried to make sense of it. If we smooth it out, it looks like this:</p>
+<vector-graph width="400" height="400" x="0,1" y="0,1" grid="0.1" units axis="m,t">
+  <point x="0.5" y="0.5"></point>
+  <vector from="0.5,0.5" to="0.8,0.5" label="v"></vector>
+  <line color="#90f" from="0,0" to="0.5,0.1"></line>
+  <line color="#a0e" from="0.5,0.1" to="0.75,0.2"></line>
+  <line color="#b0d" from="0.75,0.2" to="0.875,0.3"></line>
+  <line color="#c0c" from="0.875,0.3" to="0.937,0.4"></line>
+  <line color="#d0b" from="0.937,0.4" to="0.968,0.5"></line>
+  <line color="#e0a" from="0.968,0.5" to="0.984,0.6"></line>
+  <line color="#f09" from="0.984,0.6" to="0.992,0.7"></line>
+  <line color="#f08" from="0.992,0.7" to="0.996,0.8"></line>
+  <line color="#f07" from="0.996,0.8" to="1,0.9"></line>
+</vector-graph>
+
+<p>Of course with that graph, you could never reach 1 meter! You&#39;d be stuck taking infinite steps trying to reach there, and if that&#39;s true for the arbitrary 1 meter it should be for any other distance! We are stuck in space-time!!</p>
+<p>I went home terrified that day, but somehow I knew I was wrong because we can in fact walk and move through space. A good reminder that mathematics follows reality, and not the other way around. Then that memory faded, locked away as a bad nightmare and somehow never resurfaced even though I studied calculus, derivatives, etc.</p>
+<p>Now in retrospective, the easy solution and what I didn&#39;t realize back then is that the time it&#39;d take for each step would <em>also</em> be half of the previous one. While I imagined the vertical temporal steps in the graph to be constant, in fact they&#39;d be decreasing in size at the same rate the x axis was increasing in distance:</p>
+<vector-graph width="400" height="400" x="0,1" y="0,1" grid="0.1" axis="m,t">
+  <line color="#90f" from="0,0" to="0.5,0"></line>
+  <line color="#a0e" from="0.5,0.5" to="0.75,0.5"></line>
+  <line color="#b0d" from="0.75,0.75" to="0.875,0.75"></line>
+  <line color="#c0c" from="0.875,0.875" to="0.937,0.875"></line>
+  <line color="#d0b" from="0.937,0.937" to="0.968,0.937"></line>
+  <line color="#e0a" from="0.968,0.968" to="0.984,0.968"></line>
+  <line color="#f09" from="0.984,0.984" to="0.992,0.984"></line>
+  <line color="#f08" from="0.992,0.992" to="0.996,0.992"></line>
+  <line color="#f07" from="0.996,0.996" to="1,0.996"></line>
+</vector-graph>
+
+<p>If we smooth it out, we in fact see that it&#39;s just a straight line to reach 1 meter. Something that, now that I know of derivatives, it&#39;s quite logical since I was considering constant velocity:</p>
+<vector-graph width="400" height="400" x="0,1" y="0,1" grid="0.1" axis="m,t">
+  <line color="#70f" from="0,0" to="0.5,0.5"></line>
+  <line color="#80e" from="0.5,0.5" to="0.75,0.75"></line>
+  <line color="#90d" from="0.75,0.75" to="0.875,0.875"></line>
+  <line color="#a0c" from="0.875,0.875" to="0.937,0.937"></line>
+  <line color="#b0b" from="0.937,0.937" to="0.968,0.968"></line>
+  <line color="#c0a" from="0.968,0.968" to="0.984,0.984"></line>
+  <line color="#d09" from="0.984,0.984" to="0.992,0.992"></line>
+  <line color="#e08" from="0.992,0.992" to="0.996,0.996"></line>
+  <line color="#f07" from="0.996,0.996" to="1,1"></line>
+</vector-graph>
+
+<script src="/blog/stuck-in-spacetime/vector-graph.js"></script>
+
+
+
+
+
+
+        <footer>
+          <div class="love">💜 💙 💛 💚</div>
+          <div class="flex one two-600">
+            <form class="subscribe" action="https://francisco.us9.list-manage.com/subscribe/post?u=8f634b4eeb27e1bb51438f11f&amp;id=d740a251b6" method="post" name="mc-embedded-subscribe-form" target="_blank">
+              <h3>Subscribe</h3>
+          	  <input type="email" value="" name="EMAIL" class="email" id="mce-EMAIL" placeholder="Email" required>
+              <input type="submit" value="Subscribe" name="subscribe" id="mc-embedded-subscribe" class="button">
+              <input type="text" name="b_8f634b4eeb27e1bb51438f11f_d740a251b6" tabindex="-1" value="">
+            </form>
+            <div>
+              <h3>Donate</h3>
+              <a class="donate pseudo button" href="https://www.paypal.me/franciscopresencia/10">
+                <img class="logo" src="/assets/img/icon_paypal.svg"> Paypal
+              </a>
+          <div>
+        </footer>
+
+        <comment-box title="" site="https://francisco.io/blog/stuck-in-spacetime"></comment-box>
+
+        <script src="https://cdn.jsdelivr.net/npm/timeago.js@3/dist/timeago.min.js"></script>
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.15.0/prism.min.js"></script>
+        <script src="https://comments.network/comments.js"></script>
+        <script type="text/javascript">
+          timeago().render(document.querySelectorAll('time'));
+          Prism.hooks.add("after-highlight", function () {
+            document.querySelectorAll('.token').forEach((el, i, all) => {
+              if (el.textContent !== 'get') return;
+              // Fix the get() and const { get }
+              if (all[i + 1] && all[i + 1].textContent === '(') {
+                el.classList.remove('keyword');
+                el.classList.add('function');
+              } else {
+                el.outerHTML = 'get';
+              }
+            });
+          });
+        </script>
+
+      <script>
+        // Google Analytics
+        (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+        (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+        m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+        })(window,document,'script','//www.google-analytics.com/analytics.js','ga');
+
+        ga('create', 'UA-63739359-1', 'auto');
+        ga('send', 'pageview');
+      </script>
+    </main>
+  </body>
+</html>

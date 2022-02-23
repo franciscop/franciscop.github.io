@@ -38,7 +38,7 @@
           <a href="https://francisco.io/"><img class="logo" src="/assets/img/logo.png"> Francisco</a>
           <a href="https://www.paypal.me/franciscopresencia/10"><img class="logo" src="/assets/img/icon_paypal.svg"> Donate</a>
           <a href="https://github.com/franciscop/franciscop.github.io/edit/master/blog/the-future-of-serverjs/readme.md/">📝 Edit</a>
-          <a href="https:///francisco.io/blog/the-future-of-serverjs/">🕑 <time datetime="Fri Dec 07 2018 19:00:00 GMT+0100 (Central European Standard Time)">{loading...}</time></a>
+          <a href="https:///francisco.io/blog/the-future-of-serverjs/">🕑 <time datetime="Sat Dec 08 2018 03:00:00 GMT+0900 (Japan Standard Time)">{loading...}</time></a>
         </div>
 
         <p>First, let me give you a little context. It was 2016 and I was teaching Node.js to some friends. Then (and now) the state of the art was <a href="https://expressjs.com/">Express</a>, with the two main alternatives being <a href="https://koajs.com/">Koa</a> and <a href="https://hapijs.com/">Hapi</a>.</p>
@@ -54,7 +54,8 @@ app.use(compression());
 // ... many other middleware needed
 app.get(&#39;/&#39;, (req, res) =&gt; res.send(&#39;Hello World!&#39;));
 app.post(&#39;/&#39;, (req, res) =&gt; res.send(`Hi ${req.body.name}`));
-app.listen(3000);</code></pre>
+app.listen(3000);
+</code></pre>
 <p>I decided to put a bunch of middleware together, throw in a bit of ES6+ and call it <a href="https://serverjs.io/">server.js</a>. I have yet to come close to any other solution that is as intuitive and flexible as this! The same in <code>server</code>:</p>
 <pre><code class="language-js">// Example with the current `server`:
 const server = require(&#39;server&#39;);
@@ -62,14 +63,16 @@ const { get, post } = server.router;
 server([
   get(&#39;/&#39;, () =&gt; &#39;Hello world&#39;),
   post(&#39;/&#39;, ctx =&gt; `Hi ${ctx.body.name}`)
-]);</code></pre>
+]);
+</code></pre>
 <p>Now I am in a point where I <em>really</em> want to make <code>server@2</code> and I have many ideas after thousands of hours of experimentation and trying several frameworks in both the front-end and the back-end:</p>
 <pre><code class="language-js">// Example with my idea for server@2:
 import server, { get, post } from &#39;server&#39;;
 server([
   get(&#39;/&#39;, () =&gt; &#39;Hello world&#39;),
   post(&#39;/&#39;, ctx =&gt; `Hi ${ctx.body.name}`)
-]);</code></pre>
+]);
+</code></pre>
 <p>These are the ideas I have so far to improve from <code>server@1</code> to <code>server@2</code>:</p>
 <ul>
 <li><strong>Import syntax</strong> like you are used in <code>React</code> or any other modern front-end workflow. This is coming soon in native Node.js so you&#39;ll be able to work better.</li>

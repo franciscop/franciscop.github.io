@@ -58,14 +58,16 @@ server(get(&#39;/story/:id&#39;, ctx =&gt; {
       ctx.res.send(workedout);
     });
   });
-}));</code></pre>
+}));
+</code></pre>
 <pre><code class="language-js">// Async/Await based requests
 server(get(&#39;/story/:id&#39;, async ctx =&gt; {
   const api = await request(`API CALL${ctx.req.params.id}`);
   const hn = await request(`HN${api.url}${ctx.req.params.id}`);
   // Do some work with `api` and `hn` here
   return workedout;
-}));</code></pre>
+}));
+</code></pre>
 <p>You can use it now and forget about messy Promises and Callback Hell. Of course you will have to use libraries that are based on Promises as well, since some of the popular Node.js libraries such as <code>fs</code> and <code>request</code> are callback-based (check out <code>fs-promise</code> and <code>request-promises</code>).</p>
 
     <h2 id="testing">
@@ -94,7 +96,8 @@ it(&#39;[async] can be loaded&#39;, async () =&gt; {
   const db = await drive.load();
   expect(db.data).toEqual(jasmine.any(Array));
   expect(db.data.length).toBeGreaterThan(0);
-});</code></pre>
+});
+</code></pre>
 <p>That’s it. You don’t even need a return as functions return when finished so they will resolve then as expected.</p>
 <p><strong>HOWEVER</strong> not everything is as great as it looks. Testing for a case where an error is thrown is quite more difficult with <code>async</code>:</p>
 <pre><code class="language-js">// Callback based
@@ -120,7 +123,8 @@ it(&#39;[async] can be loaded&#39;, async () =&gt; {
     return;
   }
   throw new Error(&#39;Did not throw an error&#39;);
-});</code></pre>
+});
+</code></pre>
 <p>But the good news is that with a bit of code you can fix this:</p>
 <pre><code class="language-js">throws = cb =&gt; async () =&gt; {
   try {
@@ -129,11 +133,13 @@ it(&#39;[async] can be loaded&#39;, async () =&gt; {
     return;
   }
   throw new Error(&#39;No error was thrown&#39;);
-};</code></pre>
+};
+</code></pre>
 <p>Then you can use it like this with async/await; back to the good bits:</p>
 <pre><code class="language-js">it(&#39;[async] can be loaded&#39;, async () =&gt; {
   await throws(() =&gt; drive.load());
-});</code></pre>
+});
+</code></pre>
 <p>The future for Javascript is looking quite good even though there’s a long, fragmented road to get there. I’m building <a href="https://serverjs.io/">server for Node.js</a> to get there faster, <a href="https://francisco.us9.list-manage.com/subscribe?u=8f634b4eeb27e1bb51438f11f&amp;id=7b067d6820"><strong>subscribe</strong></a> or <a href="https://twitter.com/fpresencia"><strong>follow me</strong></a> to get updates!</p>
 <p><a href="https://medium.com/server-for-node-js/async-await-are-awesome-c0834cc09ab"><em>Originally posted on Medium</em></a></p>
 

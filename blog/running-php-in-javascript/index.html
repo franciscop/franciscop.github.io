@@ -38,7 +38,7 @@
           <a href="https://francisco.io/"><img class="logo" src="/assets/img/logo.png"> Francisco</a>
           <a href="https://www.paypal.me/franciscopresencia/10"><img class="logo" src="/assets/img/icon_paypal.svg"> Donate</a>
           <a href="https://github.com/franciscop/franciscop.github.io/edit/master/blog/running-php-in-javascript/readme.md/">📝 Edit</a>
-          <a href="https:///francisco.io/blog/running-php-in-javascript/">🕑 <time datetime="Sat Nov 17 2018 05:00:00 GMT+0100 (Central European Standard Time)">{loading...}</time></a>
+          <a href="https:///francisco.io/blog/running-php-in-javascript/">🕑 <time datetime="Sat Nov 17 2018 13:00:00 GMT+0900 (Japan Standard Time)">{loading...}</time></a>
         </div>
 
         <p><em>But why?</em> you are wondering. You must be given some context: this is an experiment <a href="https://github.com/franciscop/create-static-web">inside another experiment I&#39;m doing</a> to learn about Static Site Generators. PHP is the first language I knew well and I wanted to test whether it&#39;s a horrible or just a bad idea to use it for templates.</p>
@@ -58,28 +58,32 @@ title: Running PHP in Javascript
 &lt;head&gt;
   &lt;title&gt;{{title}}&lt;/title&gt;
   &lt;meta content=&quot;{{title}}&quot; property=&quot;og:title&quot; /&gt;
-&lt;/head&gt;</code></pre>
+&lt;/head&gt;
+</code></pre>
 <p>It reminded me quite a bit to what can be achieved with raw PHP:</p>
 <pre><code class="language-html">&lt;? $title = &quot;Running PHP in Javascript&quot;; ?&gt;
 &lt;head&gt;
   &lt;title&gt;&lt;?= $title ?&gt;&lt;/title&gt;
   &lt;meta content=&quot;&lt;?= $title ?&gt;&quot; property=&quot;og:title&quot; /&gt;
-&lt;/head&gt;</code></pre>
+&lt;/head&gt;
+</code></pre>
 
     <h2 id="googling-around">
       Googling around
     </h2>
   <p>Google just led me to <a href="https://stackoverflow.com/search?q=run+php+inside+javascript">780 StackOverflow questions</a> with <code>-1</code> average score. After reading some, I believe the average score should be more like <code>-5</code>. I also learned that devs are trying to do:</p>
-<pre><code class="language-js">alert(&quot;&lt;?= &quot;Hello world&quot; ?&gt;&quot;);</code></pre>
+<pre><code class="language-js">alert(&quot;&lt;?= &quot;Hello world&quot; ?&gt;&quot;);
+</code></pre>
 <p>As an astute reader might notice, that is supposed to run first through the PHP server, <em>then</em> sent to the browser and finally run the resulting <code>alert(&quot;Hello world&quot;)</code> on the client. But this level of sophistication is too high, I just want to run raw PHP on the browser! I want something like this:</p>
 <pre><code class="language-js">// No server needed, &quot;just&quot; Javascript parsing PHP
-alert(php(`&lt;?= &quot;Hello world&quot; ?&gt;`));</code></pre>
+alert(php(`&lt;?= &quot;Hello world&quot; ?&gt;`));
+</code></pre>
 <p>But not even <a href="https://www.reddit.com/r/atwoodslaw/search?q=php">Reddit&#39;s &quot;PHP&quot; search</a> in <a href="https://www.reddit.com/r/atwoodslaw/"> <code>r/atwoodslaw</code></a> could find what I seek.</p>
 
     <h2 id="promising-finds">
       Promising finds
     </h2>
-  <p>After getting lucky with a *&quot;PHP parser Javascript&quot;* search, I end up finding the package <a href="https://github.com/glayzzle/php-parser"><code>php-parser</code> in Github/npm</a>. The problem is that the output is an <a href="https://en.wikipedia.org/wiki/Abstract_syntax_tree"><em>Abstract Syntax Tree</em></a>. I just wanted to run the code, not whatever an abstract tree seems to be:</p>
+  <p>After getting lucky with a <em>&quot;PHP parser Javascript&quot;</em> search, I end up finding the package <a href="https://github.com/glayzzle/php-parser"><code>php-parser</code> in Github/npm</a>. The problem is that the output is an <a href="https://en.wikipedia.org/wiki/Abstract_syntax_tree"><em>Abstract Syntax Tree</em></a>. I just wanted to run the code, not whatever an abstract tree seems to be:</p>
 <p><a href="https://www.pexels.com/photo/abstract-architecture-art-artistic-262577/"><img src="abstract-tree.q50.jpg" alt="An abstract tree somehow"></a></p>
 <p>Since you are reading this it means that in the <a href="https://github.com/glayzzle/php-parser#related-projects"><em>Related Projects</em></a> category I found my next clue. I head to the website with the <span title="I know, it's a tanuki ;)">funny looking cat</span>: <a href="https://gitlab.com/kornelski/babel-preset-php"><code>babel-preset-php</code></a>. It transpiles PHP into Javascript 🎉</p>
 <p>Since babel is in total chaos with the whole <code>babel-loader</code> vs <code>@babel/loader</code> and no one knows which one is which (ironic, innit?), I give up and take a break. I do practice <a href="https://core.cards/">my Kanjis</a>, speak with my family in Spanish and think about the English title for this article.</p>
@@ -114,7 +118,8 @@ export default function (src, opts = {}) {
   const file = translator.translateProgram(ast);
   const code = generator(file).code;
   return run(code, opts);
-};</code></pre>
+};
+</code></pre>
 <p>Later on I will export some individual parts for better testing, but that is really all there is to it.</p>
 
     <h2 id="demo">

@@ -38,7 +38,7 @@
           <a href="https://francisco.io/"><img class="logo" src="/assets/img/logo.png"> Francisco</a>
           <a href="https://www.paypal.me/franciscopresencia/10"><img class="logo" src="/assets/img/icon_paypal.svg"> Donate</a>
           <a href="https://github.com/franciscop/franciscop.github.io/edit/master/blog/transferring-github-stars/readme.md/">📝 Edit</a>
-          <a href="https:///francisco.io/blog/transferring-github-stars/">🕑 <time datetime="Sat Oct 20 2018 10:00:00 GMT+0200 (Central European Summer Time)">{loading...}</time></a>
+          <a href="https:///francisco.io/blog/transferring-github-stars/">🕑 <time datetime="Sat Oct 20 2018 17:00:00 GMT+0900 (Japan Standard Time)">{loading...}</time></a>
         </div>
 
         <p>I recently changed the name of one of my projects and it dawned on me: <strong>it&#39;s probably possible to transfer Github stars!</strong> I tested this theory and found it to be true.</p>
@@ -91,7 +91,8 @@ hint: Updates were rejected because the remote contains work that you do
 hint: not have locally. This is usually caused by another repository pushing
 hint: to the same ref. You may want to first integrate the remote changes
 hint: (e.g., &#39;git pull ...&#39;) before pushing again.
-hint: See the &#39;Note about fast-forwards&#39; in &#39;git push --help&#39; for details.</code></pre>
+hint: See the &#39;Note about fast-forwards&#39; in &#39;git push --help&#39; for details.
+</code></pre>
 <p>As I guessed, it doesn&#39;t work since the histories are not compatible. Since I backed up everything and I use Git mainly as a tool to deploy, let&#39;s just force it:</p>
 <pre><code>$ git push origin master --force
 Counting objects: 252, done.
@@ -101,7 +102,8 @@ Writing objects: 100% (252/252), 60.41 KiB | 12.08 MiB/s, done.
 Total 252 (delta 159), reused 201 (delta 127)
 remote: Resolving deltas: 100% (159/159), done.
 To github.com:franciscop/brownies.git
- + 440007a...a7d3bd6 master -&gt; master (forced update)</code></pre>
+ + 440007a...a7d3bd6 master -&gt; master (forced update)
+</code></pre>
 <p>It works! However, the other package for <em>cookies</em> was pointing to <code>cookies.js</code> so let&#39;s fix that and push that as well:</p>
 <pre><code>$ cd ~/projects/cookies
 $ git remote remove origin
@@ -114,7 +116,8 @@ Writing objects: 100% (212/212), 256.35 KiB | 495.00 KiB/s, done.
 Total 212 (delta 132), reused 117 (delta 75)
 remote: Resolving deltas: 100% (132/132), done.
 To github.com:franciscop/cookies.git
- + a7d3bd6...440007a master -&gt; master (forced update)</code></pre>
+ + a7d3bd6...440007a master -&gt; master (forced update)
+</code></pre>
 <p>Now we just have to change the headline in each repo, some info like the package.json github repo and we are ready to go. This is the final result, notice the star count:</p>
 <table>
 <thead>

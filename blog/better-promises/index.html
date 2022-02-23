@@ -51,21 +51,25 @@
 const webs = await Promise.all(urls.map(url =&gt; got(url)));
 
 // Load several files at once with `mz/fs`
-const files = await Promise.all(files.map(file =&gt; readFile(file, &#39;utf-8&#39;)));</code></pre>
+const files = await Promise.all(files.map(file =&gt; readFile(file, &#39;utf-8&#39;)));
+</code></pre>
 <p>If we have an array of promises we should be able to just wait at the whole thing instead of having to wrap it once more. This syntax would be much better, wouldn&#39;t it?</p>
 <pre><code class="language-js">// Does NOT work :(
 const webs = await urls.map(url =&gt; got(url));
-const files = await files.map(file =&gt; readFile(file, &#39;utf-8&#39;));</code></pre>
+const files = await files.map(file =&gt; readFile(file, &#39;utf-8&#39;));
+</code></pre>
 
     <h3 id="chaining-operations">
       Chaining operations
     </h3>
   <p>The next issue is when you want to perform any operation on the promise value. You have to await for the whole thing to finish with <code>.then()</code> to perform the next operation:</p>
 <pre><code class="language-js">// Get each line from a remote URL
-const lines = await fetch(...).then(res =&gt; res.text()).then(res =&gt; res.split(&#39;\n&#39;));</code></pre>
+const lines = await fetch(...).then(res =&gt; res.text()).then(res =&gt; res.split(&#39;\n&#39;));
+</code></pre>
 <p>What if we could call the method straight out of the Promise? The promise would know it has to wait until it&#39;s finished and then execute the method itself:</p>
 <pre><code class="language-js">// Does NOT work :(
-const lines = await fetch(...).text().split(&#39;\n&#39;);</code></pre>
+const lines = await fetch(...).text().split(&#39;\n&#39;);
+</code></pre>
 
     <h3 id="combination">
       Combination
@@ -74,17 +78,21 @@ const lines = await fetch(...).text().split(&#39;\n&#39;);</code></pre>
 <pre><code class="language-js">// Perform two async operations on a list of items
 let value = await Promise.all(data.map(op1));
 value = value.filter(op2);
-value = await Promise.all(value.map(op3));</code></pre>
+value = await Promise.all(value.map(op3));
+</code></pre>
 <p>It would be better if let the promise chain figure out those and worked as expected:</p>
 <pre><code class="language-js">// Does NOT work
-const value = await data.map(op1).filter(op2).map(op3);</code></pre>
+const value = await data.map(op1).filter(op2).map(op3);
+</code></pre>
 
     <h2 id="magic-promises">
       Magic Promises
     </h2>
   <p>Well now you <em>can</em> with a bit of <code>magic()</code>! I just wrote <a href="https://github.com/franciscop/magic-promises">the library <code>magic-promises</code></a> to allow this:</p>
-<pre><code class="language-bash">npm install magic-promises</code></pre>
-<pre><code class="language-js">const value = await magic(data).map(op1).filter(op2).map(op3);</code></pre>
+<pre><code class="language-bash">npm install magic-promises
+</code></pre>
+<pre><code class="language-js">const value = await magic(data).map(op1).filter(op2).map(op3);
+</code></pre>
 <p>It <em>extends</em> the promise definition so you can use them transparently. But it also adds the perfect syntax sugar for whenever it matters:</p>
 <pre><code class="language-js">// With a bit of `magic()`
 const newMap = await magic(arr1).map(op1);
@@ -92,14 +100,16 @@ const newLines = await magic(fetch(...)).text().split(&#39;\n&#39;);
 
 // Traditional style
 const oldMap = await Promise.all(arr1.map(op1));
-const oldLines = await fetch(...).then(res =&gt; res.text()).then(txt =&gt; txt.split(&#39;\n&#39;));</code></pre>
+const oldLines = await fetch(...).then(res =&gt; res.text()).then(txt =&gt; txt.split(&#39;\n&#39;));
+</code></pre>
 <p>It will effectively build the internal queue of methods and arguments, and resolve them as each of the steps get resolved. Then you can treat Promises even more transparently.</p>
 
     <h2 id="file-system">
       File System
     </h2>
   <p>A perfect example of magic promises being useful is the filesystem, so I <em>also</em> published <a href="https://www.npmjs.com/package/fs-array"><code>fs-array</code></a>:</p>
-<pre><code class="language-bash">npm install fs-array</code></pre>
+<pre><code class="language-bash">npm install fs-array
+</code></pre>
 <pre><code class="language-js">const { read, walk } = require(&#39;fs-array&#39;);
 
 // Read all of the readme anywhere inside the current directory or children
@@ -110,7 +120,8 @@ const files = await walk(&#39;demo&#39;)
 // IF fs-array did not use magic-promises internally:
 const all = await walk(&#39;demo&#39;);
 const readmes = all.filter(name =&gt; /\/readme\.md$/.test(name));
-const files = Promise.all(readmes.map(read));</code></pre>
+const files = Promise.all(readmes.map(read));
+</code></pre>
 
     <h2 id="wrap-up">
       Wrap up
