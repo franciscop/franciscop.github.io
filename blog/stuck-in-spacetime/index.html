@@ -53,7 +53,7 @@ vector-graph {
 <p>At that point I was just discovering the basics of mathematics, possibly I learned that the atom was the smallest divisible unit -oh sweet summer child- and was exploring infinity.</p>
 <p>To understand my question, let me fully express it as I remember I understood it back then. If you want to move any distance, first you move half of it and then the other half as you move through space. Sure, sounds simple enough.</p>
 <p>So for 1 meter, first you walk half a meter. Then as you move further you have to walk the next half of the distance left, 1/4th of a meter. And each segment would take an amount of time to be transversed, so it would look something like this:</p>
-<vector-graph width="400" height="400" x="0,1" y="0,1" grid="0.1" axis="m,t">
+<vector-graph width="300" height="300" x="0,1" y="0,1" grid="0.1" axis="m,t">
   <point x="0.3" y="0.5"></point>
   <vector from="0.3,0.5" to="0.7,0.5" label="v"></vector>
   <line color="#90f" from="0,0" to="0.5,0"></line>
@@ -68,7 +68,7 @@ vector-graph {
 </vector-graph>
 
 <p>Since there are of course infinite number of steps, and each takes some time to be traversed, then the vertical axis (time) goes to infinity as you try to reach that 1 meter. So for my teen brain, how can you move an infinite number of steps in a finite time? It just made no sense for as much as I tried to make sense of it. If we smooth it out, it looks like this:</p>
-<vector-graph width="400" height="400" x="0,1" y="0,1" grid="0.1" units axis="m,t">
+<vector-graph width="300" height="300" x="0,1" y="0,1" grid="0.1" units axis="m,t">
   <point x="0.3" y="0.5"></point>
   <vector from="0.3,0.5" to="0.7,0.5" label="v"></vector>
   <line color="#90f" from="0,0" to="0.5,0.1"></line>
@@ -85,7 +85,7 @@ vector-graph {
 <p>Of course with that graph, you could never reach 1 meter! You&#39;d be stuck taking infinite steps trying to reach there, and if that&#39;s true for the arbitrary 1 meter it should be for any other distance! We are stuck in space-time!!</p>
 <p>I went home terrified that day, but somehow I knew I was wrong because we can in fact walk and move through space. A good reminder that mathematics follows reality, and not the other way around. Then that memory faded, locked away as a bad nightmare and somehow never resurfaced even though I studied calculus, derivatives, etc.</p>
 <p>Now in retrospective, the easy solution and what I didn&#39;t realize back then is that the time it&#39;d take for each step would <em>also</em> be half of the previous one. While I imagined the vertical temporal steps in the graph to be constant, in fact they&#39;d be decreasing in size at the same rate the x axis was increasing in distance:</p>
-<vector-graph width="400" height="400" x="0,1" y="0,1" grid="0.1" axis="m,t">
+<vector-graph width="300" height="300" x="0,1" y="0,1" grid="0.1" axis="m,t">
   <point x="0.2" y="0.8"></point>
   <vector from="0.2,0.8" to="0.6,0.8" label="v"></vector>
   <line color="#90f" from="0,0" to="0.5,0"></line>
@@ -100,7 +100,7 @@ vector-graph {
 </vector-graph>
 
 <p>If we smooth it out, we in fact see that it&#39;s just a straight line to reach 1 meter. Something that, now that I know of derivatives, it&#39;s quite logical since I was considering constant velocity:</p>
-<vector-graph width="400" height="400" x="0,1" y="0,1" grid="0.1" axis="m,t">
+<vector-graph width="300" height="300" x="0,1" y="0,1" grid="0.1" axis="m,t">
   <point x="0.2" y="0.8"></point>
   <vector from="0.2,0.8" to="0.6,0.8" label="v"></vector>
   <line color="#70f" from="0,0" to="0.5,0.5"></line>
