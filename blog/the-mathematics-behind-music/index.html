@@ -1,0 +1,222 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8">
+    <link rel="shortcut icon" type="image/png" href="/assets/img/logo.png"/>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <link rel="alternate" type="application/rss+xml" href="/blog/rss.xml" title="RSS feed for My Page">
+
+    <!-- Standard -->
+    <title>The mathematics behind music 🎶 — Francisco Presencia</title>
+    <meta content="Blog, Francisco Presencia, Francisco, Presencia, Software, Programmer, Javascript, Node.js" name="keywords">
+    <meta content="Learning about the Fourier transformation and what it means for music" name="description">
+
+    <!-- Thanks https://moz.com/blog/meta-data-templates-123 -->
+    <!-- Twitter Card data -->
+    <meta name="twitter:card" content="summary_large_image">
+    <meta name="twitter:site" content="@fpresencia">
+    <meta name="twitter:title" content="The mathematics behind music 🎶 — Francisco Presencia" />
+    <meta name="twitter:description" content="Learning about the Fourier transformation and what it means for music" />
+    <meta name="twitter:creator" content="@fpresencia" />
+    <meta name="twitter:image" content="https://francisco.io/blog/the-mathematics-behind-music/header.png" />
+
+    <!-- Open Graph data -->
+    <meta property="og:title" content="The mathematics behind music 🎶 — Francisco Presencia" />
+    <meta property="og:type" content="article" />
+    <meta property="og:url" content="https:///francisco.io/blog/the-mathematics-behind-music/" />
+    <meta property="og:image" content="https://francisco.io/blog/the-mathematics-behind-music/header.png" />
+    <meta property="og:description" content="Learning about the Fourier transformation and what it means for music" />
+    <meta property="og:site_name" content="Blog of Francisco Presencia" />
+
+    <link href="/assets/style.min.css" rel="stylesheet">
+  </head>
+  <body>
+    <main>
+      <h1>The mathematics behind music 🎶</h1>
+        <div class="meta">
+          <a href="https://francisco.io/"><img class="logo" src="/assets/img/logo.png"> Francisco</a>
+          <a href="https://www.paypal.me/franciscopresencia/10"><img class="logo" src="/assets/img/icon_paypal.svg"> Donate</a>
+          <a href="https://github.com/franciscop/franciscop.github.io/edit/master/blog/the-mathematics-behind-music/readme.md/">📝 Edit</a>
+          <a href="https:///francisco.io/blog/the-mathematics-behind-music/">🕑 <time datetime="2014-01-18T00:00+09:00">{loading...}</time></a>
+        </div>
+
+        <style>
+vector-graph {
+  margin: 0 auto;
+  display: block;
+  width: auto;
+}
+</style>
+
+<p>This blog post is a rewrite of an old experiment I made exactly 8 years ago. I love SVGs and how they are mathematical representations in text of geometrical figures, and it&#39;s easy to understand because it&#39;s all visual:</p>
+<vector-graph grid="false" axis="false">
+  <circle x="3" y="3" radius="2"></circle>
+  <line from="3,8" to="8,6"></line>
+  <polygon color="red" points="0,0;10,0;10,10;0,10"></polygon>
+</vector-graph>
+
+<p>The trick <strong>is</strong> that it&#39;s all visual. Sound on the other hand is usually harder for people to understand, since there&#39;s multiple concepts that are a bit more advanced like the Fourier tranformation, inverse squared attenuation, etc.</p>
+<p>So, let&#39;s make sound visual! If you open any song in a music editor, it&#39;ll look something like this:</p>
+<p><img src="/blog/the-mathematics-behind-music/soundwave.png" alt="Soundwave"></p>
+<p>But if you zoom in, first you&#39;ll see an individual wave:</p>
+<p><img src="/blog/the-mathematics-behind-music/wave.png" alt="Single wave"></p>
+<p>And if you keep zooming in, you&#39;ll see what looks like a periodic wave:</p>
+<vector-graph x="-5,5" y="-2,2">
+  <plot fn="Math.tan(x)" color="red" width="1"></plot>
+  <plot fn="Math.sin(x)" color="green"></plot>
+  <plot fn="Math.cos(x)" color="blue"></plot>
+</vector-graph>
+
+<p>This looks really like a periodic wave. We know that any periodic wave, no matter the shape, can be decomposed with a Fourier transformation into a sum of sines:</p>
+<vector-graph x="0,0.1" y="-1,1" width="400">
+  <plot fn="0.4 * Math.sin(440 * x + 1) + 0.2 * Math.sin(880 * x + 2) + 0.2 * Math.sin(1320 * x + 4) + 0.2 * Math.sin(2200 * x + 4)" color="red" width="1"></plot>
+</vector-graph>
+
+
+<p><strong>TODO</strong></p>
+<p>The goal of this experiment is to understand the building blocks of music. This stems from the lack of a .sva for scalar vector audio and the question &quot;How can we create mathematically perfect music?&quot;</p>
+<p>I love promises. It isn&#39;t a secret and I&#39;ve said it <a href="https://medium.com/server-for-node-js/async-await-are-awesome-c0834cc09ab">many</a>, <a href="https://medium.com/server-for-node-js/servers-middleware-promises-41d82a184452">many</a> times. They come in all asynchronous shapes and colors. But I think they could be better, so let&#39;s see some places where they fall short:</p>
+
+    <h3 id="parallel-resolution">
+      Parallel resolution
+    </h3>
+  <p>To run several promises at once you&#39;ll use <code>Promise.all()</code> quite too often:</p>
+<pre><code class="language-js">// Load several websites at once
+const webs = await Promise.all(urls.map(url =&gt; got(url)));
+
+// Load several files at once with `mz/fs`
+const files = await Promise.all(files.map(file =&gt; readFile(file, &#39;utf-8&#39;)));
+</code></pre>
+<p>If we have an array of promises we should be able to just wait at the whole thing instead of having to wrap it once more. This syntax would be much better, wouldn&#39;t it?</p>
+<pre><code class="language-js">// Does NOT work :(
+const webs = await urls.map(url =&gt; got(url));
+const files = await files.map(file =&gt; readFile(file, &#39;utf-8&#39;));
+</code></pre>
+
+    <h3 id="chaining-operations">
+      Chaining operations
+    </h3>
+  <p>The next issue is when you want to perform any operation on the promise value. You have to await for the whole thing to finish with <code>.then()</code> to perform the next operation:</p>
+<pre><code class="language-js">// Get each line from a remote URL
+const lines = await fetch(...).then(res =&gt; res.text()).then(res =&gt; res.split(&#39;\n&#39;));
+</code></pre>
+<p>What if we could call the method straight out of the Promise? The promise would know it has to wait until it&#39;s finished and then execute the method itself:</p>
+<pre><code class="language-js">// Does NOT work :(
+const lines = await fetch(...).text().split(&#39;\n&#39;);
+</code></pre>
+
+    <h3 id="combination">
+      Combination
+    </h3>
+  <p>When we combine those two, we get to ridiculous extremes. For a set of operations:</p>
+<pre><code class="language-js">// Perform two async operations on a list of items
+let value = await Promise.all(data.map(op1));
+value = value.filter(op2);
+value = await Promise.all(value.map(op3));
+</code></pre>
+<p>It would be better if let the promise chain figure out those and worked as expected:</p>
+<pre><code class="language-js">// Does NOT work
+const value = await data.map(op1).filter(op2).map(op3);
+</code></pre>
+
+    <h2 id="magic-promises">
+      Magic Promises
+    </h2>
+  <p>Well now you <em>can</em> with a bit of <code>magic()</code>! I just wrote <a href="https://github.com/franciscop/magic-promises">the library <code>magic-promises</code></a> to allow this:</p>
+<pre><code class="language-bash">npm install magic-promises
+</code></pre>
+<pre><code class="language-js">const value = await magic(data).map(op1).filter(op2).map(op3);
+</code></pre>
+<p>It <em>extends</em> the promise definition so you can use them transparently. But it also adds the perfect syntax sugar for whenever it matters:</p>
+<pre><code class="language-js">// With a bit of `magic()`
+const newMap = await magic(arr1).map(op1);
+const newLines = await magic(fetch(...)).text().split(&#39;\n&#39;);
+
+// Traditional style
+const oldMap = await Promise.all(arr1.map(op1));
+const oldLines = await fetch(...).then(res =&gt; res.text()).then(txt =&gt; txt.split(&#39;\n&#39;));
+</code></pre>
+<p>It will effectively build the internal queue of methods and arguments, and resolve them as each of the steps get resolved. Then you can treat Promises even more transparently.</p>
+
+    <h2 id="file-system">
+      File System
+    </h2>
+  <p>A perfect example of magic promises being useful is the filesystem, so I <em>also</em> published <a href="https://www.npmjs.com/package/fs-array"><code>fs-array</code></a>:</p>
+<pre><code class="language-bash">npm install fs-array
+</code></pre>
+<pre><code class="language-js">const { read, walk } = require(&#39;fs-array&#39;);
+
+// Read all of the readme anywhere inside the current directory or children
+const files = await walk(&#39;demo&#39;)
+  .filter(name =&gt; /\/readme\.md$/.test(name))
+  .map(read);
+
+// IF fs-array did not use magic-promises internally:
+const all = await walk(&#39;demo&#39;);
+const readmes = all.filter(name =&gt; /\/readme\.md$/.test(name));
+const files = Promise.all(readmes.map(read));
+</code></pre>
+
+    <h2 id="wrap-up">
+      Wrap up
+    </h2>
+  <p>My initial experience by creating and using <code>magic-promises</code> has been great. There is still some things to do, like <code>.filter()</code> accepting promises that resolve to booleans, but that&#39;s for the next chapter.</p>
+<script src="/blog/the-mathematics-behind-music/vector-graph.js"></script>
+
+
+
+
+
+
+        <footer>
+          <div class="love">💜 💙 💛 💚</div>
+          <div class="flex one two-600">
+            <form class="subscribe" action="https://francisco.us9.list-manage.com/subscribe/post?u=8f634b4eeb27e1bb51438f11f&amp;id=d740a251b6" method="post" name="mc-embedded-subscribe-form" target="_blank">
+              <h3>Subscribe</h3>
+          	  <input type="email" value="" name="EMAIL" class="email" id="mce-EMAIL" placeholder="Email" required>
+              <input type="submit" value="Subscribe" name="subscribe" id="mc-embedded-subscribe" class="button">
+              <input type="text" name="b_8f634b4eeb27e1bb51438f11f_d740a251b6" tabindex="-1" value="">
+            </form>
+            <div>
+              <h3>Donate</h3>
+              <a class="donate pseudo button" href="https://www.paypal.me/franciscopresencia/10">
+                <img class="logo" src="/assets/img/icon_paypal.svg"> Paypal
+              </a>
+          <div>
+        </footer>
+
+        <comment-box title="" site="https://francisco.io/blog/the-mathematics-behind-music"></comment-box>
+
+        <script src="https://cdn.jsdelivr.net/npm/timeago.js@3/dist/timeago.min.js"></script>
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.15.0/prism.min.js"></script>
+        <script src="https://comments.network/comments.js"></script>
+        <script type="text/javascript">
+          timeago().render(document.querySelectorAll('time'));
+          Prism.hooks.add("after-highlight", function () {
+            document.querySelectorAll('.token').forEach((el, i, all) => {
+              if (el.textContent !== 'get') return;
+              // Fix the get() and const { get }
+              if (all[i + 1] && all[i + 1].textContent === '(') {
+                el.classList.remove('keyword');
+                el.classList.add('function');
+              } else {
+                el.outerHTML = 'get';
+              }
+            });
+          });
+        </script>
+
+      <script>
+        // Google Analytics
+        (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+        (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+        m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+        })(window,document,'script','//www.google-analytics.com/analytics.js','ga');
+
+        ga('create', 'UA-63739359-1', 'auto');
+        ga('send', 'pageview');
+      </script>
+    </main>
+  </body>
+</html>
