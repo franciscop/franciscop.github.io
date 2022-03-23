@@ -60,16 +60,19 @@ h3 {
 }
 
 h1 {
-  border-bottom: 2px solid #333;
+  font-weight: normal;
+  border-bottom: 2px solid #faf;
 }
 
 h2 {
-  padding-top: 0.7em;
+  font-weight: normal;
+  padding-top: 0.6em;
   margin-bottom: 0;
-  border-bottom: 2px dashed #333;
+  border-bottom: 2px dashed #faf;
 }
 
 h3 {
+  font-weight: normal;
   line-height: 1.3em;
   padding: 0.3em 0 0;
   margin: 0;
@@ -84,6 +87,10 @@ ul {
   margin-bottom: 0.5em;
   padding-left: 1em;
   list-style: circle;
+}
+
+[class*="icon-"]::before {
+  opacity: 0.75;
 }
 
 .normal {
@@ -161,7 +168,7 @@ body.front article {
 }
 
 .year {
-  color: #aaaaaa;
+  color: #aaa;
   font-size: 0.7em;
   margin-right: 1em;
   line-height: 27px;
@@ -173,7 +180,8 @@ body.front article {
 
 @media print {
   @page {
-    margin: 1.5cm;
+    // margin: 2cm;
+    margin-bottom: 1cm;
   }
 
   .year {
@@ -187,7 +195,7 @@ body.front article {
   body {
     width: 100%;
     padding: 0;
-    margin: 0 auto;
+    margin: 0 auto -50px;
     box-shadow: none;
   }
 
@@ -196,7 +204,7 @@ body.front article {
   }
 
   a {
-    color: #333;
+    // color: #333;
   }
 
   .links a {
