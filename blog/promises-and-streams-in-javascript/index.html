@@ -1,0 +1,315 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8">
+    <link rel="shortcut icon" type="image/png" href="/assets/img/logo.png"/>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <link rel="alternate" type="application/rss+xml" href="/blog/rss.xml" title="RSS feed for My Page">
+
+    <!-- Standard -->
+    <title>Promises and Streams in Javascript — Francisco Presencia</title>
+    <meta content="Blog, Francisco Presencia, Francisco, Presencia, Software, Programmer, Javascript, Node.js" name="keywords">
+    <meta content="An exploratory article on using Promises, Node.js Streams and Web Streams together in a single function." name="description">
+
+    <!-- Thanks https://moz.com/blog/meta-data-templates-123 -->
+    <!-- Twitter Card data -->
+    <meta name="twitter:card" content="summary_large_image">
+    <meta name="twitter:site" content="@fpresencia">
+    <meta name="twitter:title" content="Promises and Streams in Javascript — Francisco Presencia" />
+    <meta name="twitter:description" content="An exploratory article on using Promises, Node.js Streams and Web Streams together in a single function." />
+    <meta name="twitter:creator" content="@fpresencia" />
+    <meta name="twitter:image" content="https://francisco.io/blog/promises-and-streams-in-javascript/header.png" />
+
+    <!-- Open Graph data -->
+    <meta property="og:title" content="Promises and Streams in Javascript — Francisco Presencia" />
+    <meta property="og:type" content="article" />
+    <meta property="og:url" content="https:///francisco.io/blog/promises-and-streams-in-javascript/" />
+    <meta property="og:image" content="https://francisco.io/blog/promises-and-streams-in-javascript/header.png" />
+    <meta property="og:description" content="An exploratory article on using Promises, Node.js Streams and Web Streams together in a single function." />
+    <meta property="og:site_name" content="Blog of Francisco Presencia" />
+
+    <link href="/assets/style.min.css" rel="stylesheet">
+  </head>
+  <body>
+    <main>
+      <h1>Promises and Streams in Javascript</h1>
+        <div class="meta">
+          <a href="https://francisco.io/"><img class="logo" src="/assets/img/logo.png"> Francisco</a>
+          <a href="https://www.paypal.me/franciscopresencia/10"><img class="logo" src="/assets/img/icon_paypal.svg"> Donate</a>
+          <a href="https://github.com/franciscop/franciscop.github.io/edit/master/blog/promises-and-streams-in-javascript/readme.md/">📝 Edit</a>
+          <a href="https:///francisco.io/blog/promises-and-streams-in-javascript/">🕑 <time datetime="2022-05-20T10:00+09:00">{loading...}</time></a>
+        </div>
+
+        <p>Let&#39;s explore this topic in a practical way! I want to make a function that allows me to <strong>read a file</strong> and another that allows me to <strong>write a new file</strong>. But files can be small or big, text or binary, so we want to allow to read the whole file at once with a promise, or pipe it to another file. Our API should look like this:</p>
+<pre><code class="language-js">// demo.js
+import { read, write } from &quot;./simplefs.js&quot;;
+
+// Works with Promises
+const data = await read(&quot;./readme.md&quot;);
+await write(&quot;./readme2.md&quot;, data);
+
+// Works with traditional pipes
+read(&quot;./readme.md&quot;).pipe(write(&quot;./readme3.md&quot;));
+
+// Works with WebPipes
+read(&quot;./readme.md&quot;).pipeTo(write(&quot;./readme4.md&quot;));
+</code></pre>
+<p>This high level API seems simple and straightforward for our dev users, and it should be! But the internals can get tricky at points, so this article is exploring those internals.</p>
+<p>I am also not sure what to expect here, while I&#39;m very familiar with the inner workings of Promises, I&#39;m only at the user-level familiar with <a href="https://nodejs.org/api/stream.html">Node.js Streams</a>, and totally unfamiliar with <a href="https://nodejs.org/api/webstreams.html">WebStreams</a>, the new Node.js abstraction. But let&#39;s try to make that work anyway!</p>
+
+    <h2 id="it-all-starts-with-a-promise">
+      It all starts with a Promise
+    </h2>
+  <p>Let&#39;s start first with Promises, the one I&#39;m most familiar with and the default one for small files. This should look like a thin wrapper since we have a very similar API in <code>fs/promises</code> already:</p>
+<pre><code class="language-js">import { readFile, writeFile } from &quot;node:fs/promises&quot;;
+
+// simplefs.js
+export const read = (path) =&gt; {
+  return readFile(path, &quot;utf-8&quot;);
+};
+
+export const write = (path, data) =&gt; {
+  // Returning a promise is the same as making the whole file async
+  return writeFile(path, data);
+};
+</code></pre>
+<p>🚂 Let&#39;s test it! We write a minimal <code>package.json</code> and run <code>node demo.js</code>, and we see that our demo.js correctly writes the file <code>readme2.md</code> with the same content as this file!</p>
+<p>But we only want the <code>read()</code> to use promises when calling it with <code>await</code> or <code>.then()</code>, and the <code>write()</code> when it receives some data, so let&#39;s modify our functions to reflect that:</p>
+<blockquote>
+<p>Note: calling <code>await fn()</code> is practically the same as calling <code>fn().then()</code>, with some minor differences that are not relevant for this article.</p>
+</blockquote>
+<pre><code class="language-js">export const read = (path) =&gt; {
+  return {
+    // A promise is abstracted just like this! It&#39;s just a function that
+    // receives a CB and passing the resolution value into it
+    then: async (cb) =&gt; cb(await readFile(path, &quot;utf-8&quot;)),
+  };
+};
+
+export const write = (path, data) =&gt; {
+  // Returning a promise is the same as making the whole file async
+  if (typeof data !== &#39;undefined&#39;) {
+    return writeFile(path, data);
+  }
+};
+</code></pre>
+<p>Now we have the promise behaviour occurring <em>only</em> when we are using promises. An empty file will return <code>&quot;&quot;</code>, and so the file is created even with empty files. So promises to promises condition is fulfilled! 🎉</p>
+<blockquote>
+<p>Note: We are simplifying a bit and this is not fully Promise-compliant, or &quot;Promises A+&quot; as it&#39;s called, we might fix that later on in the article or leave it as an open question.</p>
+</blockquote>
+
+    <h2 id="node-js-streams">
+      Node.js streams
+    </h2>
+  <p>Now let&#39;s try to work with the streams, starting with the traditional Node.js pipes. We want to achieve the ability of doing this, without hampering the previous promises workflow:</p>
+<pre><code class="language-js">// demo.js
+import { read, write } from &quot;./simplefs.js&quot;;
+
+// Works with traditional pipes
+read(&quot;./readme.md&quot;).pipe(write(&quot;./readme3.md&quot;));
+</code></pre>
+<p>For that, we&#39;ll import and use it only when &quot;.pipe()&quot; is called:</p>
+<pre><code class="language-js">// simplefs.js
+import { readFile, writeFile } from &quot;node:fs/promises&quot;;
+import { createReadStream, createWriteStream } from &quot;node:fs&quot;;
+
+export const read = (path) =&gt; {
+  return {
+    then: async (cb) =&gt; cb(await readFile(path, &quot;utf-8&quot;)),
+
+    // Our .pipe(writable) receives the writable stream, so create and pipe it
+    pipe: (writable) =&gt; createReadStream(path).pipe(writable),
+  };
+};
+
+export const write = (path, data) =&gt; {
+  if (typeof data !== &quot;undefined&quot;) {
+    return writeFile(path, data);
+  }
+  // Create the writable stream if there&#39;s no data, assuming it&#39;s going to
+  // receive a pipe
+  return createWriteStream(path);
+};
+</code></pre>
+<p>🚂 Let&#39;s test it again with <code>node demo.js</code> and we see that once more, <code>readme3.md</code> is created with the correct data! Node.js streams seem to work properly 🎉</p>
+<blockquote>
+<p>Note: we are also simplifying A LOT here and this is not fully Node Stream-compliant.</p>
+</blockquote>
+
+    <h2 id="web-streams">
+      Web Streams
+    </h2>
+  <p>This is probably going to be the tricky one, specially in the <code>write()</code> since we don&#39;t have much room there for mistakes, but let&#39;s try anyway! The first thing we do is try to modify our <code>read()</code> to add the <code>pipeTo()</code> characteristic of Web Streams. We&#39;re going to transform the Node.js stream to Web stream and clean the file a bit:</p>
+<pre><code class="language-js">import { Readable, Writable } from &quot;node:stream&quot;;
+
+export const read = (path) =&gt; {
+  // A promise is abstracted just like this! It&#39;s just a function that
+  // receives a CB and passing the resolution value into it
+  const promFn = async (cb) =&gt; cb(await readFile(path, &quot;utf-8&quot;));
+
+  // Our .pipe(writable) receives the writable stream, so create and pipe it
+  const pipe = (writable) =&gt; createReadStream(path).pipe(writable);
+
+  // When pipeTo, it&#39;s a webstream so convert it from Node to Web:
+  const pipeTo = (writable) =&gt; {
+    return Readable.toWeb(createReadStream(path)).pipeTo(writable);
+  };
+
+  return { then: promFn, pipe, pipeTo };
+};
+</code></pre>
+<p>However if we try to run this, it won&#39;t work since that <code>writable</code> is still a Node.js Stream and <code>pipeTo()</code> expects a Writable WebStream. Since we have control over both <code>read()</code> and <code>write()</code>, let&#39;s do a couple of modifications to pick only the right write type depending on the piping method:</p>
+<pre><code class="language-js">export const write = (path, data) =&gt; {
+  ...
+
+  // Depending on whether we are pipe()-ing or pipeTo()-ing, we&#39;ll call one
+  // method or the other. This is not ideal since it doesn&#39;t interact properly
+  // with native streams, but it&#39;s better than nothing
+  return {
+    node: () =&gt; createWriteStream(path),
+    web: () =&gt; Writable.toWeb(createWriteStream(path)),
+  };
+};
+</code></pre>
+<p>While we could do that and then on write differentiate with <code>writeable.node()</code>, then we have a big problem: this is not a stream anymore, it&#39;s a custom API that just happens to have the same name AND uses pipes deep down, but you cannot work with the write() as you would normally work with a pipe in other cases. That&#39;s pretty bad, we want pipes to just be pipes, so let&#39;s try a different way:</p>
+<pre><code class="language-js">export const write = (path, data) =&gt; {
+  // Returning a promise is the same as making the whole file async
+  if (typeof data !== &quot;undefined&quot;) {
+    return writeFile(path, data);
+  }
+
+  // Create the Node.js stream and overload it with the methods of WebStreams
+  const stream = createWriteStream(path);
+  const webStream = Writable.toWeb(createWriteStream(path));
+  return Object.assign(stream, webStream);
+};
+</code></pre>
+<p>What we are doing here is similar to how we fake the promise, but better. We are defining the output as a Node.js stream, and then overloading all of the methods of WebStream. We are not sure whether this will work or not, so let&#39;s try.</p>
+<p>🚂 Let&#39;s remove the duplicate files and run <code>node demo.js</code> and we can see that the files <code>readme2.md</code>, <code>readme3.md</code> and <code>readme4.md</code> are created successfully. This is... surprising, and I&#39;m not sure how I feel about doing it this way since there&#39;s a chance of method collision, but it seems to work so far so kudos! 🎉</p>
+
+    <h2 id="putting-it-all-together">
+      Putting it all together
+    </h2>
+  <p>This is our final file 🎉:</p>
+<pre><code class="language-js">// simplefs.js
+import { readFile, writeFile } from &quot;node:fs/promises&quot;;
+import { createReadStream, createWriteStream } from &quot;node:fs&quot;;
+import { Readable, Writable } from &quot;node:stream&quot;;
+
+export const read = (path) =&gt; {
+  // A promise is abstracted just like this! It&#39;s just a function that
+  // receives a CB and passing the resolution value into it
+  const promFn = async (cb) =&gt; cb(await readFile(path, &quot;utf-8&quot;));
+
+  // Our .pipe(writable) receives the writable stream, so create and pipe it
+  const pipe = (writable) =&gt; createReadStream(path).pipe(writable);
+
+  // When pipeTo, it&#39;s a webstream so convert it from Node to Web:
+  const pipeTo = (writable) =&gt; {
+    return Readable.toWeb(createReadStream(path)).pipeTo(writable);
+  };
+
+  return { then: promFn, pipe, pipeTo };
+};
+
+export const write = (path, data) =&gt; {
+  // Returning a promise is the same as making the whole file async
+  if (typeof data !== &quot;undefined&quot;) {
+    return writeFile(path, data);
+  }
+
+  // Create the Node.js stream and overload it with the methods of WebStreams
+  const stream = createWriteStream(path);
+  const webStream = Writable.toWeb(stream);
+  return Object.assign(stream, webStream);
+};
+</code></pre>
+<p>We purposefully only followed the happy simplified path here. However, there&#39;s a lot of details that we skipped, like:</p>
+<ul>
+<li>Promises also have <code>.catch()</code> and <code>.finally()</code>.</li>
+<li>Node.js Streams have A LOT of other methods, like<code>.close()</code>, <code>.push()</code>, <code>.read()</code>, etc.</li>
+<li>Web Streams ALSO have other methods.</li>
+<li>We are ignoring <em>all</em> of the options that both the promises and streams can accept.</li>
+</ul>
+<p>We would need to make all of those to work properly if we want to call this a Promise or a Node/Web Stream properly. One possible hack/fix, at least on the <code>read()</code> side, is to make it all a ReadableStream that has the promise methods attached, like:</p>
+<pre><code class="language-js">export const read = (path) =&gt; {
+  const stream = createReadStream(path);
+  stream.then = async cb =&gt; cb(await readFile(path, &quot;utf-8&quot;));
+  stream.catch = // ...
+  stream.finally = // ...
+  const webStream = // ...
+  return Object.assign(stream, webStream);
+};
+</code></pre>
+<p>This allows us to make it be a stream by default and not need to worry about those methods and details, and only add the promise interface on top of it. However, I don&#39;t know enough of the internals of createReadStream to know if this would result in a double read, or even in potentially a memory leak, so I won&#39;t set that as &quot;the solution&quot;.</p>
+<p>Maybe a better solution is not to try to overload a single method, but instead to keep it into separated helpers like this:</p>
+<pre><code class="language-js">// demo.js
+import { read, write } from &quot;./simplefs.js&quot;;
+
+const data = await read(&quot;./readme.md&quot;);
+await write(&quot;./readme2.md&quot;, data);
+
+read.nodeStream(&quot;./readme.md&quot;).pipe(write.nodeStream(&quot;./readme3.md&quot;));
+
+read.stream(&quot;./readme.md&quot;).pipeTo(write.stream(&quot;./readme4.md&quot;));
+</code></pre>
+<p>I&#39;m the author of the library <code>files</code> and I&#39;ll continue exploring this topic and adding this functionality to the library itself when I&#39;m confident enough! So make sure to star and watch the library:</p>
+<p><strong><a href="https://github.com/franciscop/files/">github.com/franciscop/files</a></strong></p>
+
+
+
+
+
+
+        <footer>
+          <div class="love">💜 💙 💛 💚</div>
+          <div class="flex one two-600">
+            <form class="subscribe" action="https://francisco.us9.list-manage.com/subscribe/post?u=8f634b4eeb27e1bb51438f11f&amp;id=d740a251b6" method="post" name="mc-embedded-subscribe-form" target="_blank">
+              <h3>Subscribe</h3>
+          	  <input type="email" value="" name="EMAIL" class="email" id="mce-EMAIL" placeholder="Email" required>
+              <input type="submit" value="Subscribe" name="subscribe" id="mc-embedded-subscribe" class="button">
+              <input type="text" name="b_8f634b4eeb27e1bb51438f11f_d740a251b6" tabindex="-1" value="">
+            </form>
+            <div>
+              <h3>Donate</h3>
+              <a class="donate pseudo button" href="https://www.paypal.me/franciscopresencia/10">
+                <img class="logo" src="/assets/img/icon_paypal.svg"> Paypal
+              </a>
+          <div>
+        </footer>
+
+        <comment-box title="" site="https://francisco.io/blog/promises-and-streams-in-javascript"></comment-box>
+
+        <script src="https://cdn.jsdelivr.net/npm/timeago.js@3/dist/timeago.min.js"></script>
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.15.0/prism.min.js"></script>
+        <script src="https://comments.network/comments.js"></script>
+        <script type="text/javascript">
+          timeago().render(document.querySelectorAll('time'));
+          Prism.hooks.add("after-highlight", function () {
+            document.querySelectorAll('.token').forEach((el, i, all) => {
+              if (el.textContent !== 'get') return;
+              // Fix the get() and const { get }
+              if (all[i + 1] && all[i + 1].textContent === '(') {
+                el.classList.remove('keyword');
+                el.classList.add('function');
+              } else {
+                el.outerHTML = 'get';
+              }
+            });
+          });
+        </script>
+
+      <script>
+        // Google Analytics
+        (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+        (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+        m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+        })(window,document,'script','//www.google-analytics.com/analytics.js','ga');
+
+        ga('create', 'UA-63739359-1', 'auto');
+        ga('send', 'pageview');
+      </script>
+    </main>
+  </body>
+</html>
