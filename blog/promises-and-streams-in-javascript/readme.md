@@ -5,7 +5,7 @@ description: An exploratory article on using Promises, Node.js Streams and Web S
 date: 2022-05-19T08:00+09:00
 ---
 
-Let's explore this topic in a practical way! I want a function that **read a file** and another that **writes a file**. But files can be small or big, text or binary, so we want to allow them to read the whole file at once with a promise, or pipe it to another file in chunks. The API should look like:
+Let's explore this topic in a practical way! I want a function that **reads a file** and another that **writes a file**. But files can be small or big, text or binary, so we want to allow them to read the whole file at once with a promise, or pipe it to another file in chunks. The API should look like:
 
 ```js
 // demo.js
