@@ -120,6 +120,8 @@ export const write = (path, data) => {
 
 > Note: we are also simplifying A LOT here and this is not fully Node Stream-compliant.
 
+
+
 ## Web Streams
 
 Finally we want the ability of doing the following:
@@ -132,7 +134,7 @@ import { read, write } from "./simplefs.js";
 read("./readme.md").pipeTo(write("./readme4.md"));
 ```
 
-This is probably going to be the tricky one, specially in the `write()` since we don't have much room there for mistakes, but let's try anyway! The first thing we do is try to modify our `read()` to add the `pipeTo()` characteristic of Web Streams. We're going to transform the Node.js stream to Web stream and clean the file a bit:
+This is probably going to be the tricky one, specially in the `write()` since we don't have much room there for mistakes, but let's try anyway! First thing is to modify `read()` to add the `pipeTo()` characteristic of Web Streams. We're going to transform the Node.js stream to Web stream:
 
 ```js
 import { Readable, Writable } from "node:stream";
@@ -170,7 +172,7 @@ export const write = (path, data) => {
 };
 ```
 
-While we could do that and then on write differentiate with `writeable.node()`, then we have a big problem: this is not a write stream anymore, it's a custom API that just happens to have the same name AND uses pipes deep down, but you cannot work with the write() as you would normally work with a pipe in other cases. That's pretty bad, we want pipes to just be pipes, so let's try a different way:
+While we could do that and then on write differentiate with `writeable.node()`, then we have a big problem: this is not a write stream anymore, it's a custom API that just happens to have the same name AND uses pipes deep down. You cannot work with the `write()` as you would normally work with a pipe in other cases. That's pretty bad, we want pipes to just be pipes, so let's try a different way:
 
 ```js
 export const write = (path, data) => {
