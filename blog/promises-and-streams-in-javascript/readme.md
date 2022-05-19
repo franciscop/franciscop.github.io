@@ -2,10 +2,10 @@
 layout: post.hbs
 title: Promises and Streams in Javascript
 description: An exploratory article on using Promises, Node.js Streams and Web Streams together in a single function.
-date: 2022-05-20T10:00+09:00
+date: 2022-05-19T08:00+09:00
 ---
 
-Let's explore this topic in a practical way! I want to make a function that allows me to **read a file** and another that allows me to **write a new file**. But files can be small or big, text or binary, so we want to allow to read the whole file at once with a promise, or pipe it to another file. Our API should look like this:
+Let's explore this topic in a practical way! I want a function that **read a file** and another that **writes a file**. But files can be small or big, text or binary, so we want to allow them to read the whole file at once with a promise, or pipe it to another file in chunks. The API should look like:
 
 ```js
 // demo.js
@@ -15,20 +15,29 @@ import { read, write } from "./simplefs.js";
 const data = await read("./readme.md");
 await write("./readme2.md", data);
 
-// Works with traditional pipes
+// Works with traditional Node.js Streams
 read("./readme.md").pipe(write("./readme3.md"));
 
-// Works with WebPipes
+// Works with the new Web Streams
 read("./readme.md").pipeTo(write("./readme4.md"));
 ```
-
-This high level API seems simple and straightforward for our dev users, and it should be! But the internals can get tricky at points, so this article is exploring those internals.
 
 I am also not sure what to expect here, while I'm very familiar with the inner workings of Promises, I'm only at the user-level familiar with [Node.js Streams](https://nodejs.org/api/stream.html), and totally unfamiliar with [WebStreams](https://nodejs.org/api/webstreams.html), the new Node.js abstraction. But let's try to make that work anyway!
 
 ## It all starts with a Promise
 
-Let's start first with Promises, the one I'm most familiar with and the default one for small files. This should look like a thin wrapper since we have a very similar API in `fs/promises` already:
+Let's start first with Promises, we want to make an API that allows us to simply do:
+
+```js
+// demo.js
+import { read, write } from "./simplefs.js";
+
+// Works with Promises
+const data = await read("./readme.md");
+await write("./readme2.md", data);
+```
+
+Promises is the one I'm most familiar with and the default one for small files. This should look like a thin wrapper since we have a very similar API in `fs/promises` already:
 
 ```js
 import { readFile, writeFile } from "node:fs/promises";
@@ -69,7 +78,7 @@ export const write = (path, data) => {
 
 Now we have the promise behaviour occurring *only* when we are using promises. An empty file will return `""`, and so the file is created even with empty files. So promises to promises condition is fulfilled! 🎉
 
-> Note: We are simplifying a bit and this is not fully Promise-compliant, or "Promises A+" as it's called, we might fix that later on in the article or leave it as an open question.
+> Note: we are simplifying and this is not Promise-compliant, or "[Promises A+](https://promisesaplus.com/)" as it's called.
 
 ## Node.js streams
 
@@ -90,14 +99,12 @@ For that, we'll import and use it only when ".pipe()" is called:
 import { readFile, writeFile } from "node:fs/promises";
 import { createReadStream, createWriteStream } from "node:fs";
 
-export const read = (path) => {
-  return {
-    then: async (cb) => cb(await readFile(path, "utf-8")),
+export const read = (path) => ({
+  then: async (cb) => cb(await readFile(path, "utf-8")),
 
-    // Our .pipe(writable) receives the writable stream, so create and pipe it
-    pipe: (writable) => createReadStream(path).pipe(writable),
-  };
-};
+  // Our .pipe(writable) receives the writable stream, so create and pipe it
+  pipe: (writable) => createReadStream(path).pipe(writable),
+});
 
 export const write = (path, data) => {
   if (typeof data !== "undefined") {
@@ -115,29 +122,39 @@ export const write = (path, data) => {
 
 ## Web Streams
 
+Finally we want the ability of doing the following:
+
+```js
+// demo.js
+import { read, write } from "./simplefs.js";
+
+// Works with the new Web Streams
+read("./readme.md").pipeTo(write("./readme4.md"));
+```
+
 This is probably going to be the tricky one, specially in the `write()` since we don't have much room there for mistakes, but let's try anyway! The first thing we do is try to modify our `read()` to add the `pipeTo()` characteristic of Web Streams. We're going to transform the Node.js stream to Web stream and clean the file a bit:
 
 ```js
 import { Readable, Writable } from "node:stream";
 
-export const read = (path) => {
+export const read = (path) => ({
   // A promise is abstracted just like this! It's just a function that
   // receives a CB and passing the resolution value into it
-  const promFn = async (cb) => cb(await readFile(path, "utf-8"));
+  then: async (cb) => cb(await readFile(path, "utf-8")),
 
   // Our .pipe(writable) receives the writable stream, so create and pipe it
-  const pipe = (writable) => createReadStream(path).pipe(writable);
+  pipe: (writable) => createReadStream(path).pipe(writable),
 
   // When pipeTo, it's a webstream so convert it from Node to Web:
-  const pipeTo = (writable) => {
+  pipeTo: (writable) => {
     return Readable.toWeb(createReadStream(path)).pipeTo(writable);
-  };
-
-  return { then: promFn, pipe, pipeTo };
-};
+  }
+});
 ```
 
-However if we try to run this, it won't work since that `writable` is still a Node.js Stream and `pipeTo()` expects a Writable WebStream. Since we have control over both `read()` and `write()`, let's do a couple of modifications to pick only the right write type depending on the piping method:
+However if we try to run this, it won't work since that `writable` is still a Node.js Stream and `pipeTo()` expects a Writable WebStream.
+
+Since we have control over both `read()` and `write()`, let's do a couple of modifications to pick only the right write type depending on the piping method:
 
 ```js
 export const write = (path, data) => {
@@ -153,7 +170,7 @@ export const write = (path, data) => {
 };
 ```
 
-While we could do that and then on write differentiate with `writeable.node()`, then we have a big problem: this is not a stream anymore, it's a custom API that just happens to have the same name AND uses pipes deep down, but you cannot work with the write() as you would normally work with a pipe in other cases. That's pretty bad, we want pipes to just be pipes, so let's try a different way:
+While we could do that and then on write differentiate with `writeable.node()`, then we have a big problem: this is not a write stream anymore, it's a custom API that just happens to have the same name AND uses pipes deep down, but you cannot work with the write() as you would normally work with a pipe in other cases. That's pretty bad, we want pipes to just be pipes, so let's try a different way:
 
 ```js
 export const write = (path, data) => {
@@ -185,21 +202,19 @@ import { readFile, writeFile } from "node:fs/promises";
 import { createReadStream, createWriteStream } from "node:fs";
 import { Readable, Writable } from "node:stream";
 
-export const read = (path) => {
+export const read = (path) => ({
   // A promise is abstracted just like this! It's just a function that
   // receives a CB and passing the resolution value into it
-  const promFn = async (cb) => cb(await readFile(path, "utf-8"));
+  then: async (cb) => cb(await readFile(path, "utf-8")),
 
   // Our .pipe(writable) receives the writable stream, so create and pipe it
-  const pipe = (writable) => createReadStream(path).pipe(writable);
+  pipe: (writable) => createReadStream(path).pipe(writable),
 
   // When pipeTo, it's a webstream so convert it from Node to Web:
-  const pipeTo = (writable) => {
+  pipeTo: (writable) => {
     return Readable.toWeb(createReadStream(path)).pipeTo(writable);
-  };
-
-  return { then: promFn, pipe, pipeTo };
-};
+  },
+});
 
 export const write = (path, data) => {
   // Returning a promise is the same as making the whole file async
