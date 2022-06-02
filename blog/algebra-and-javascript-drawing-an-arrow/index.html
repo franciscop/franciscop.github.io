@@ -50,7 +50,7 @@
   <point x="4" y="4" axis="Bx,By" label="B"></point>
 </vector-graph>
 
-<p>Now we want to draw the simplest arrow possible with more line segments, like this:</p>
+<p>We want to draw the simplest arrow possible with more line segments, like this:</p>
 <vector-graph id="plain" x="0,5" y="0,5" width="300" height="300">
   <line from="1,1" to="4,4" color="blue"></line>
   <line from="4,4" to="2.5,3.6" color="red" label="5px"></line>
@@ -88,7 +88,7 @@
     <h2 id="finding-the-point-c">
       Finding the point C
     </h2>
-  <p>Now we have the size, but still need the direction where to apply it, the vector \(\vec{V}_{BC}\). To obtain it, we are going to find the vector \(\vec{V}_{BN}\) first and then the vector \(\vec{V}_{NC}\). Adding them together, we obtain the vector \(\vec{V}_{BC}\). Finally, adding B to that vector we can obtain C:</p>
+  <p>We have all the sizes, but we still need the direction where to apply those 5px, the vector \(\vec{V}_{BC}\). To obtain it, we are going to find the vector \(\vec{V}_{BN}\) first and then the vector \(\vec{V}_{NC}\). Adding them together, we obtain the vector \(\vec{V}_{BC}\). Finally, adding B to that vector we can obtain C:</p>
 <vector-graph id="plain" x="0,5" y="1,5" width="300" height="240" axis="false">
   <vector from="4,4" to="2,2" color="red" label="BN"></vector>
   <vector from="4,4" to="1,3" color="red" label="BC"></vector>
@@ -195,7 +195,7 @@
     <h2 id="finding-the-point-d">
       Finding the point D
     </h2>
-  <p>Great! The hard part is done, now following the same steps with a small change we can obtain the point D. We flip the vector \(\vec{V}_{NC}\) to obtain \(\vec{V}_{ND}\):</p>
+  <p>Great! The hard part is done, following the same steps with a small change we can obtain the point D. We flip the vector \(\vec{V}_{NC}\) to obtain \(\vec{V}_{ND}\):</p>
 <pre><code class="language-js">function findD(A, B) {
   const t_long = 4.33;
   const t_short = 2.5;
