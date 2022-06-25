@@ -68,9 +68,8 @@
               >
             </p>
             <a
-              class="button contact"
-              disabled
-              title="Please wait a couple of seconds"
+              class="button"
+              href="https://superpeer.com/francisco/-/book-a-call"
               >Contact</a
             >
             <a href="/resume/" class="pseudo button resume">Resume</a>
@@ -417,27 +416,14 @@
       <script src="/demo/preload/index.js"></script>
     -->
     <script>
-      // Enable the contact button with my email that includes the domain
-      setTimeout(() => {
-        const button = document.querySelector(".button.contact");
-        button.setAttribute("href", "mailto:" + "public@" + location.hostname);
-        button.removeAttribute("disabled");
-        button.removeAttribute("title");
-        button.disabled = false;
-      }, 2000 * parseInt(Math.random()) + 1000);
-
       // Round the number like "3.5k" https://stackoverflow.com/a/9461657
-      const k = num => (num > 999 ? (num / 1000).toFixed(1) + "k" : num);
+      const k = (num) => (num > 999 ? (num / 1000).toFixed(1) + "k" : num);
 
       // Add the most current star count to the repositories
-      document.querySelectorAll(".repos a").forEach(async link => {
-        const name = link
-          .getAttribute("href")
-          .split("/")
-          .slice(-2)
-          .join("/");
+      document.querySelectorAll(".repos a").forEach(async (link) => {
+        const name = link.getAttribute("href").split("/").slice(-2).join("/");
         const url = "https://api.github.com/repos/" + name;
-        const { stargazers_count } = await fetch(url).then(res => res.json());
+        const { stargazers_count } = await fetch(url).then((res) => res.json());
         if (!stargazers_count) return;
         link.querySelector(".stars").innerText = "⭐ " + k(stargazers_count);
       });
@@ -445,11 +431,11 @@
 
     <script>
       // Google Analytics
-      (function(i, s, o, g, r, a, m) {
+      (function (i, s, o, g, r, a, m) {
         i["GoogleAnalyticsObject"] = r;
         (i[r] =
           i[r] ||
-          function() {
+          function () {
             (i[r].q = i[r].q || []).push(arguments);
           }),
           (i[r].l = 1 * new Date());
