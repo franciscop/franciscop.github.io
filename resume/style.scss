@@ -72,7 +72,7 @@ h2 {
 }
 
 h3 {
-  font-weight: normal;
+  // font-weight: normal;
   line-height: 1.3em;
   padding: 0.3em 0 0;
   margin: 0;
@@ -125,30 +125,6 @@ ul {
   margin-right: 0.3em;
 }
 
-/*body.front [data-year] {
-  position: relative;
-  overflow: visible;
-}
-
-body.front [data-year]:before {
-  content: attr(data-year);
-  text-align: left;
-  position: absolute;
-  width: 4rem;
-  left: -4rem;
-  font-size: .75em;
-  color: #aaa;
-  line-height: 1.8em;
-}*/
-
-/*body.front h2 {
-  border: none;
-  font-size: 1.4em;
-  padding-top: .8em;
-  line-height: 1;
-  padding-bottom: 0;
-}*/
-
 .description {
   margin: 0.6em 0 0.3em;
 }
@@ -180,8 +156,11 @@ body.front article {
 
 @media print {
   @page {
-    // margin: 2cm;
     margin-bottom: 1cm;
+  }
+
+  html {
+    background: #fff;
   }
 
   .year {
@@ -197,18 +176,19 @@ body.front article {
     padding: 0;
     margin: 0 auto -50px;
     box-shadow: none;
+    background: #fff;
   }
 
   .download {
     display: none;
   }
 
-  a {
-    // color: #333;
-  }
-
   .links a {
     padding: 0;
+  }
+
+  .year {
+    font-weight: normal;
   }
 }
 
