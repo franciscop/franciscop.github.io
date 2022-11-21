@@ -1,0 +1,91 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8">
+    <link rel="shortcut icon" type="image/png" href="/assets/img/logo.png"/>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <link rel="alternate" type="application/rss+xml" href="/blog/rss.xml" title="RSS feed for My Page">
+
+    <!-- Standard -->
+    <title>To be named a winner... — Francisco Presencia</title>
+    <meta content="Blog, Francisco Presencia, Francisco, Presencia, Software, Programmer, Javascript, Node.js" name="keywords">
+    <meta content="Some random text inspired by The Little Prince, I wanted to try this written style for a small piece and here it is." name="description">
+
+    <!-- Thanks https://moz.com/blog/meta-data-templates-123 -->
+    <!-- Twitter Card data -->
+    <meta name="twitter:card" content="summary_large_image">
+    <meta name="twitter:site" content="@fpresencia">
+    <meta name="twitter:title" content="To be named a winner... — Francisco Presencia" />
+    <meta name="twitter:description" content="Some random text inspired by The Little Prince, I wanted to try this written style for a small piece and here it is." />
+    <meta name="twitter:creator" content="@fpresencia" />
+    <meta name="twitter:image" content="https://francisco.io/blog/to-be-named-a-winner/header.png" />
+
+    <!-- Open Graph data -->
+    <meta property="og:title" content="To be named a winner... — Francisco Presencia" />
+    <meta property="og:type" content="article" />
+    <meta property="og:url" content="https:///francisco.io/blog/to-be-named-a-winner/" />
+    <meta property="og:image" content="https://francisco.io/blog/to-be-named-a-winner/header.png" />
+    <meta property="og:description" content="Some random text inspired by The Little Prince, I wanted to try this written style for a small piece and here it is." />
+    <meta property="og:site_name" content="Blog of Francisco Presencia" />
+
+    <link href="/assets/style.min.css" rel="stylesheet">
+  </head>
+  <body>
+    <main>
+      <h1>To be named a winner...</h1>
+        <div class="meta">
+          <a href="https://francisco.io/"><img class="logo" src="/assets/img/logo.png"> Francisco</a>
+          <a href="https://www.paypal.me/franciscopresencia/10"><img class="logo" src="/assets/img/icon_paypal.svg"> Donate</a>
+          <a href="https://github.com/franciscop/franciscop.github.io/edit/master/blog/to-be-named-a-winner/readme.md/">📝 Edit</a>
+          <a href="https:///francisco.io/blog/to-be-named-a-winner/">🕑 <time datetime="2022-11-22T00:00+09:00">{loading...}</time></a>
+        </div>
+
+        <p>To be named a winner, normally you have to win. But this is not always true.</p>
+<p>I know someone that was named the winner just for existing. Can you imagine? He did not even need to do anything, just exist and be there. No one knows what happened to the other participants, they could still be trapped in a black hole being spaguettified and that would be tragic.</p>
+<p>Oh and you can also buy a price! Or a prize, I always mix those up, it is the thing that shows that you are a winner. So it seems if you are a grown up you can just go to the shop and buy prices! That also works with cake, but you should not eat too much cake even if you can, it is bad for you.</p>
+<p>Money is funny, because you can also buy a win, and that is different. It is like you pay the other people competing to lose to you, or just the judge to announce to everyone that you won. Can you imagine? Yes, Tommy scored 20 points and Jimmy 12, but Jimmy won. If that happens the judges need to laugh maliciously while stuffing their mouth with candy they bought with the bad money.</p>
+<p>But I have also heard that in class we cannot have one winner. Because everyone is a winner. We would have something called &quot;hierarchies&quot; otherwise, where some people are better than others at something, and we cannot have that. The teacher says that would be bad. But you still need to try your best! It is some strange rule for sure.</p>
+<p>How do you become a winner? I am not sure, you have to exist for sure, that is a requisite. Well except some dead people are also named winners after they died. They can even be named Saints! But they cannot win Nobel Prices, that is only for the living. Probably.</p>
+<p>I consider myself lucky, since I never wanted to be a winner, I just want to be happy. I have heard that is much easier, but I will tell you about it tomorrow.</p>
+
+
+
+
+
+
+        <footer>
+          <div class="love">💜 💙 💛 💚</div>
+        </footer>
+
+        <script src="https://cdn.jsdelivr.net/npm/timeago.js@3/dist/timeago.min.js"></script>
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.15.0/prism.min.js"></script>
+        <script type="text/javascript">
+          timeago().render(document.querySelectorAll('time'));
+          Prism.hooks.add("after-highlight", function () {
+            document.querySelectorAll('.token').forEach((el, i, all) => {
+              if (el.textContent !== 'get') return;
+              // Fix the get() and const { get }
+              if (all[i + 1] && all[i + 1].textContent === '(') {
+                el.classList.remove('keyword');
+                el.classList.add('function');
+              } else {
+                el.outerHTML = 'get';
+              }
+            });
+          });
+        </script>
+
+      <script>
+        // Google Analytics
+        (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+        (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+        m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+        })(window,document,'script','//www.google-analytics.com/analytics.js','ga');
+
+        ga('create', 'UA-63739359-1', 'auto');
+        ga('send', 'pageview');
+      </script>
+    </main>
+  </body>
+</html>
