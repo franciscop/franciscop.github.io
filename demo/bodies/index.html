@@ -1,0 +1,213 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <!--  Essential META Tags -->
+    <meta property="og:title" content="3 Body Problem Simulation" />
+    <meta property="og:type" content="article" />
+    <meta
+      property="og:image"
+      content="https://francisco.io/demo/bodies/preview.png"
+    />
+    <meta property="og:url" content="https://francisco.io/demo/bodies" />
+    <meta name="twitter:card" content="summary_large_image" />
+
+    <!--  Non-Essential, But Recommended -->
+    <meta
+      property="og:description"
+      content="A random simulation of the three body problem straight in your browser."
+    />
+    <meta property="og:site_name" content="3 Body Problem Simulation" />
+    <meta name="twitter:image:alt" content="An image of 3 planets" />
+
+    <title>3 Body Problem</title>
+    <style>
+      html {
+        background: black;
+      }
+      body {
+        margin: 0;
+        padding: 0;
+        min-height: 100vh;
+        background: black;
+        width: 100%;
+        height: 100%;
+        position: absolute;
+        overflow: hidden;
+      }
+
+      section {
+        width: 100%;
+        height: 100%;
+      }
+
+      .body {
+        width: 10px;
+        height: 10px;
+        position: absolute;
+        border-radius: 1000px;
+        transform: translate(-50%, -50%);
+      }
+    </style>
+  </head>
+  <body>
+    <section></section>
+
+    <script>
+      const section = document.querySelector("section");
+      const width = document.body.clientWidth;
+      const height = document.body.clientHeight;
+      const r = (f, t) => f + Math.random() * (t - f);
+
+      class Body {
+        constructor() {
+          this.el = document.createElement("div");
+          this.el.style.background = this.getColor();
+          this.el.className = "body";
+          document.querySelector("section").append(this.el);
+          this.pos = new Proxy(
+            {
+              x: r(100, width - 100),
+              y: r(100, height - 100),
+            },
+            {
+              set: (target, key, value) => {
+                target[key] = value;
+                if (key === "x") {
+                  this.el.style.left = this.pos.x + "px";
+                }
+                if (key === "y") {
+                  this.el.style.top = this.pos.y + "px";
+                }
+              },
+            }
+          );
+          this.speed = {
+            x: r(-10, 10),
+            y: r(-10, 10),
+          };
+          this.mass = r(10, 30);
+          this.el.style.width = this.mass / 2 + "px";
+          this.el.style.height = this.mass / 2 + "px";
+        }
+
+        getColor() {
+          return (
+            "hsla(" +
+            360 * Math.random() +
+            "," +
+            (45 + 50 * Math.random()) +
+            "%," +
+            (90 + 10 * Math.random()) +
+            "%, 80%)"
+          );
+        }
+      }
+
+      const bodies = [new Body(), new Body(), new Body()];
+
+      const getAcc = (body1, rest) => {
+        return rest.reduce(
+          (acc, body2) => {
+            const dist = Math.sqrt(
+              (body1.pos.x - body2.pos.x) ** 2 +
+                (body1.pos.y - body2.pos.y) ** 2
+            );
+            // Had to make up "G" since both the mass and position
+            // use made up units
+            const g = (1 * body2.mass) / (dist / 100) ** 2;
+            const unit = {
+              x: (body2.pos.x - body1.pos.x) / dist,
+              y: (body2.pos.y - body1.pos.y) / dist,
+            };
+            return {
+              x: acc.x + unit.x * g,
+              y: acc.y + unit.y * g,
+            };
+          },
+          {
+            x: 0,
+            y: 0,
+          }
+        );
+      };
+
+      const step = (t) => {
+        bodies.forEach((body) => {
+          // Update acceleration on a tick to match the other bodies
+          /* body.gravitate(bodies.filter(b => b!== body)); */
+          const acc = getAcc(
+            body,
+            bodies.filter((b) => b !== body)
+          );
+          body.speed.x += acc.x * t;
+          body.speed.y += acc.y * t;
+        });
+
+        bodies.forEach((body) => {
+          body.pos.x += body.speed.x * t;
+          body.pos.y += body.speed.y * t;
+        });
+      };
+
+      let prev = 0;
+      const ticker = (ts) => {
+        step((ts - prev) / 1000);
+        prev = ts;
+        requestAnimationFrame(ticker);
+      };
+      ticker(0);
+
+      const total = {
+        x: 0,
+        y: 0,
+        z: 1,
+      };
+      let down = false;
+      window.addEventListener("mousedown", (e) => {
+        down = {
+          x: e.x,
+          y: e.y,
+        };
+      });
+      window.addEventListener("mousemove", (e) => {
+        if (!down) return;
+        const diff = {
+          x: e.x - down.x,
+          y: e.y - down.y,
+        };
+        const pos = {
+          x: total.x + diff.x / total.z,
+          y: total.y + diff.y / total.z,
+        };
+        document.body.style.transform = `translate(${pos.x}px, ${pos.y}px)`;
+        section.style.transformOrigin = `${width / 2 - pos.x}px ${
+          height / 2 - pos.y
+        }px`;
+      });
+      window.addEventListener("mouseup", (e) => {
+        const diff = {
+          x: e.x - down.x,
+          y: e.y - down.y,
+        };
+        total.x += diff.x / total.z;
+        total.y += diff.y / total.z;
+        section.style.transformOrigin = `${width / 2 - total.x}px ${
+          height / 2 - total.y
+        }px`;
+        down = false;
+      });
+      document.addEventListener("wheel", (e) => {
+        e.preventDefault();
+        e.stopPropagation();
+        total.z += e.wheelDeltaY * 0.001;
+        total.z = Math.max(0.1, Math.min(3, total.z));
+        section.style.transformOrigin = `${width / 2 - total.x}px ${
+          height / 2 - total.y
+        }px`;
+        section.style.transform = `scale(${total.z})`;
+      });
+    </script>
+  </body>
+</html>
