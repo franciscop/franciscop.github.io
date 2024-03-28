@@ -59,6 +59,7 @@
       const width = document.body.clientWidth;
       const height = document.body.clientHeight;
       const r = (f, t) => f + Math.random() * (t - f);
+      const margin = width > 400 ? 200 : 100;
 
       class Body {
         constructor() {
@@ -68,8 +69,8 @@
           document.querySelector("section").append(this.el);
           this.pos = new Proxy(
             {
-              x: r(100, width - 100),
-              y: r(100, height - 100),
+              x: r(margin, width - margin),
+              y: r(margin, height - margin),
             },
             {
               set: (target, key, value) => {
