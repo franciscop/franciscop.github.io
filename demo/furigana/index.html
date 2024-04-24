@@ -1,0 +1,102 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Furigana</title>
+    <style>
+      body {
+        background: rgb(238, 238, 238);
+        min-height: 100vh;
+        -moz-osx-font-smoothing: grayscale;
+        font-family: -apple-system, BlinkMacSystemFont, Segoe UI, Roboto, Oxygen,
+          Ubuntu, Cantarell, Fira Sans, Droid Sans, Helvetica Neue, sans-serif;
+      }
+      main {
+        margin: 0px auto;
+        width: 1200px;
+        max-width: calc(100% - 20px);
+      }
+      .container {
+        position: relative;
+        display: flex;
+        justify-content: center;
+        gap: 10px;
+      }
+      button {
+        position: absolute;
+        right: 10px;
+        top: 10px;
+      }
+      textarea,
+      .output {
+        background: white;
+        border-radius: 10px;
+        border: medium;
+        resize: none;
+        width: 50%;
+        height: 80vh;
+        padding: 10px;
+      }
+
+      @media print {
+        body {
+          min-height: 0;
+        }
+        textarea {
+          display: none;
+        }
+        main > h1,
+        main > p {
+          display: none;
+        }
+        .output {
+          width: 100%;
+          margin: 0.5cm;
+          height: auto;
+        }
+      }
+    </style>
+  </head>
+  <body>
+    <div class="sc-bdfCDU iYWaOP">
+      <main class="sc-gsTDqH kUXPWo">
+        <h1>Markdown to Print+Furigana</h1>
+        <p>Convert markdown into Kanji+furigana:</p>
+        <div class="container">
+          <button class="print">Print</button>
+          <textarea>
+# 日本の（生活｜せいかつ）
+
+私はスペイン（人｜じん）です。５（年｜ねん）ぐらい（日本｜にほん）に（住｜すん）んでいます。日本の（文化｜ぶんか）が（大｜だい）（好｜す）きですから、もう５年ここに住んでいたいです。（一番｜いちばん）（食｜た）べ（物｜もの）は（天｜てん）ぷらですけど、なっと（以外｜いがい）の何でもが好きな。</textarea
+          >
+          <div class="output"></div>
+        </div>
+      </main>
+    </div>
+
+    <script src="https://cdn.jsdelivr.net/npm/marked/marked.min.js"></script>
+    <script>
+      const rubify = (text) => {
+        const [down, up] = text.slice(1, -1).split(/[|・｜]/);
+        return `<ruby>${down}<rp>(</rp><rt>${up}</rt><rp>(</rp></ruby>`;
+      };
+
+      const render = () => {
+        const text = document.querySelector("textarea").value;
+        console.log("Changed?", marked.parse(text));
+        document.querySelector(".output").innerHTML = marked
+          .parse(text)
+          .replaceAll(/(\{[^}]*.)/g, rubify)
+          .replaceAll(/(\（[^）]*.)/g, rubify);
+      };
+
+      render();
+      document.querySelector("textarea").addEventListener("input", render);
+
+      document.querySelector("button").addEventListener("click", (e) => {
+        window.print();
+      });
+    </script>
+  </body>
+</html>
