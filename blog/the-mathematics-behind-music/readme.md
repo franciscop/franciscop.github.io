@@ -13,13 +13,9 @@ vector-graph {
 }
 </style>
 
-This blog post is a rewrite of an old experiment I made exactly 8 years ago. I love SVGs and how they are mathematical representations in text of geometrical figures, and it's easy to understand because it's all visual:
+> This blog post is a rewrite of an old experiment I made 10+ years ago.
 
-<vector-graph grid="false" axis="false">
-  <circle x="3" y="3" radius="2"></circle>
-  <line from="3,8" to="8,6"></line>
-  <polygon color="red" points="0,0;10,0;10,10;0,10"></polygon>
-</vector-graph>
+I love SVGs and how they are mathematical representations in text of geometrical figures, and it's easy to understand because it's all visual.
 
 The trick **is** that it's all visual. Sound on the other hand is usually harder for people to understand, since there's multiple concepts that are a bit more advanced like the Fourier tranformation, inverse squared attenuation, etc.
 
@@ -33,17 +29,11 @@ But if you zoom in, first you'll see an individual wave:
 
 And if you keep zooming in, you'll see what looks like a periodic wave:
 
-<vector-graph x="-5,5" y="-2,2">
-  <plot fn="Math.tan(x)" color="red" width="1"></plot>
-  <plot fn="Math.sin(x)" color="green"></plot>
-  <plot fn="Math.cos(x)" color="blue"></plot>
-</vector-graph>
-
-This looks really like a periodic wave. We know that any periodic wave, no matter the shape, can be decomposed with a Fourier transformation into a sum of sines:
-
 <vector-graph x="0,0.1" y="-1,1" width="400">
   <plot fn="0.4 * Math.sin(440 * x + 1) + 0.2 * Math.sin(880 * x + 2) + 0.2 * Math.sin(1320 * x + 4) + 0.2 * Math.sin(2200 * x + 4)" color="red" width="1"></plot>
 </vector-graph>
+
+We know that any periodic wave, no matter the shape, can be decomposed with a Fourier transformation into a sum of sines. So the opposite is also true, to build a periodic wave, you can combine a series of sines.
 
 **TODO**
 
