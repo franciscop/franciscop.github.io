@@ -1,0 +1,5 @@
+{
+  "devDependencies": {
+    "picnic": "^7.1.0"
+  }
+}
